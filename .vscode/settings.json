@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "docker-entrypoint-initdb.d/initdb.sql",
+            "dialect": "MySQL",
+            "isActive": false,
+            "isConnected": false,
+            "name": "web-db",
+            "password": "abc123",
+            "port": 33060,
+            "server": "192.168.99.100",
+            "username": "root"
+        }
+    ]
+}
