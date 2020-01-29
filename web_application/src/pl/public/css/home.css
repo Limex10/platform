@@ -1,0 +1,52 @@
+.my-profile{
+    background: rgb(5,251,0);
+    background: linear-gradient(90deg, rgba(5,251,0,1) 0%, rgba(2,131,0,1) 50%, rgba(152,255,60,1) 100%);
+    
+    color: white;
+    height: 100%;
+    padding: 5%
+}
+.my-profile h2 img {
+    margin-left: 10px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    width: 50px;
+  }
+.col-9{
+    height: 100%;
+    padding: 0px;
+}
+.col{
+    padding:0px;
+    height: 100%;
+}
+
+.row{
+    margin:0;
+}
+
+.browse-content{
+    height: 90%;
+
+}
+#recommended-cards .card{
+    margin-top:10px;
+    margin-left: auto;
+    margin-right:auto ;
+
+}
+#recommended-cards{
+   max-height: 70vh;
+
+}
+#browse-cards{
+    max-height: 70vh;
+    margin:1%;
+    margin-left: 10%;
+}
+#browse-cards .card{
+    margin:2%;
+ 
+}

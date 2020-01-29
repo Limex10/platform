@@ -1,0 +1,260 @@
+<div class="row row-top-height">
+    <div class="col shadow">
+           <a class="text-decoration-none"href="yourProfile">
+            <div class="my-profile">
+                
+                <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
+
+                
+            </div>
+            </a>
+    </div>
+    <div class="col-9 shadow">
+        <h1 class="display-4 text-center">Your journey starts now!</h1>
+    </div>
+
+</div>
+<div class="row browse-content">
+    <div class="col border">
+        <h2 class="text-center ">Recommended</h2>
+        <div id="recommended-cards" class="col overflow-auto">
+            <!--Mark-->
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                    <a href="#" class="btn btn-success">Go somewhere</a>
+                </div>
+            </div>
+            <!--Mark-->
+
+
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
+            <h1>About "name"</h1>
+            <div class="row">
+
+                <div class="col">
+                    <ul class="list-group ">
+                        <h4>Name</h4>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <h4>Last name</h4>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <h4>From</h4>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group ">
+                        <h4>Interests</h4>
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+            <div class="row" id="row-button-mover">
+                <div class="col">
+
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update-profile">Update
+                        profile</button>
+                    <div class=" modal fade" id="update-profile" tabindex="-1" role="dialog"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update profile</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--Mark-->
+                                    <form>
+                                        <!--Mark-->
+                                        <div class="form-row">
+                                            <div class="col-md-3 mb-3">
+                                               <!--Mark--> <label>First name</label><!--Mark-->
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                              <!--Mark-->  <label>Last name</label><!--Mark-->
+                                                <input type="text" class="form-control">
+
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                               <!--Mark--> <label>Country</label><!--Mark-->
+                                                <input type="text" class="form-control">
+
+
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                               <!--Mark--> <label>City</label><!--Mark-->
+                                                <input type="text" class="form-control">
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Interest one</label>
+                                                <select class="form-control">
+                                                    <!--Mark-->
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <!--Mark-->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Interest two</label>
+                                                <select class="form-control">
+                                                    <!--Mark-->
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <!--Mark-->
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Interest three</label>
+                                                <select class="form-control">
+                                                    <!--Mark-->
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <!--Mark-->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Interest four</label>
+                                                <select class="form-control" >
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <!--Mark-->
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <!--Mark-->
+                                </div>
+                                <!--Mark-->
+                                </form>
+                                <!--Mark-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update-account">Update
+                        Account</button>
+
+                    <div class=" modal fade" id="update-account" tabindex="-1" role="dialog"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" >Update account</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--Mark-->
+                                    <form>
+                                        <!--Mark-->
+                                        <div class="form-group">
+                                            <label>Email address</label>
+                                            <input type="email" class="form-control"
+                                                aria-describedby="emailHelp">
+                                            <small id="emailHelp" class="form-text text-muted"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Repeat Password</label>
+                                            <input type="password" class="form-control" >
+                                        </div>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <!--Mark-->
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <!--Mark-->
+                                </div>
+                                <!--Mark-->
+                                </form>
+                                <!--Mark-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#delete">Delete account</button>
+
+                    <div class=" modal fade" id="delete" tabindex="-1" role="dialog" 
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Deleting account</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure that you want to delete your Account?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                                    <!--Mark-->
+                                    <button type="button" class="btn btn-danger">Yes</button>
+                                    <!--Mark-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
