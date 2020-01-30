@@ -37,15 +37,7 @@
     margin-right:auto ;
 
 }
-#recommended-cards{
-   max-height: 70vh;
 
-}
-#browse-cards{
-    max-height: 70vh;
-    margin:1%;
-    margin-left: 10%;
-}
 #browse-cards .card{
     margin:2%;
  
