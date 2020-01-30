@@ -37,8 +37,34 @@
     margin-right:auto ;
 
 }
+#browse-cards{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
 
 #browse-cards .card{
     margin:2%;
+    
+    
  
+}
+
+
+@media screen and (max-width:800px){
+    .display-4{
+        font-size: 1.6em;
+    }
+    .mobile-hidden{
+        display: none;
+    }
+    .my-profile h2{
+        font-size: 1.1em;
+    }
+    .my-profile h2 img{
+        width: 40px;
+    }
+    .col-9{
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
