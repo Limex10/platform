@@ -2,6 +2,8 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 
+const interestRouter = require('./routers/interestRouter')
+
 const app = express()
 
 app.set("views", "src/pl/views")
@@ -12,10 +14,12 @@ app.use(bodyParser.urlencoded({
 
 app.engine("hbs", expressHandlebars({
   defaultLayout: 'main.hbs'
+  
 }))
 
 app.use(express.static(__dirname + '/public'));
 
+app.use('/createProfileInfo', interestRouter)
 
 app.get('/', function(request, response){
   response.render("startScreen.hbs")
@@ -23,9 +27,7 @@ app.get('/', function(request, response){
 app.get('/createAccount', function(request, response){
   response.render("createAccount.hbs")
 })
-app.get('/createProfileInfo', function(request, response){
-  response.render("createProfileInfo.hbs")
-})
+
 app.get('/home', function(request, response){
   response.render("home.hbs")
 })

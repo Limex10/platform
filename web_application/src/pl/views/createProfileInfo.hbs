@@ -1,11 +1,11 @@
 <div class="jumbotron">
     <div class="container-sm">
         <h1 class="display-4 text-center">Personalize your profile!</h1>
-<form>
+<form action="/createProfileInfo" method="POST">
   <div class="form-row">
     <div class="col-md-3 mb-3">
      <label>First name</label>
-      <input type="text" class="form-control" >
+      <input type="text" name="" class="form-control" >
     </div>
     <div class="col-md-3 mb-3">
           <label>Last name</label>
@@ -29,21 +29,26 @@
     <div class="col-md-6 mb-3">
         <label>Interest one</label>
     <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+      {{#if interests.length}}
+      {{#each interests}}
+				
+        <option>{{interest}}</option>
+			{{/each}}
+      
+      {{/if}}
+
     </select>
     </div>
     <div class="col-md-6 mb-3">
           <label>Interest two</label>
       <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+            {{#if interests.length}}
+      {{#each interests}}
+				
+        <option>{{interest}}</option>
+			{{/each}}
+      
+      {{/if}}
     </select>
      
     </div>
@@ -54,21 +59,25 @@
         <div class="col-md-6 mb-3">
           <label>Interest three</label>
       <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+            {{#if interests.length}}
+      {{#each interests}}
+				
+        <option>{{interest}}</option>
+			{{/each}}
+      
+      {{/if}}
     </select>
     </div>
     <div class="col-md-6 mb-3">
           <label>Interest four</label>
       <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+           {{#if interests.length}}
+      {{#each interests}}
+				
+        <option>{{interest}}</option>
+			{{/each}}
+      
+      {{/if}}
     </select>
      
     </div>
@@ -77,7 +86,8 @@
    </div>
   
   <!--<a class="text-decoration-none" href="home"><button type="submit" class="btn btn-success">Submit</button></a>-->
-  <a class="btn btn-success" href="home" role="button" type="submit">Submit</a>
+   <button type="submit" class="btn btn-success"  value="create"></button>
+  {{!-- <a class="btn btn-success" href="home" role="button" type="submit" value="create">Submit</a> --}}
 </form>
 </div>
 </div>
