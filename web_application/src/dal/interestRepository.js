@@ -3,16 +3,15 @@ const db = require("./db")
 
 exports.getAllInterests = function(callback){
 	
-	const query = `SELECT interest FROM myDB.interests`
-	const values = []
+	const query = `SELECT * FROM myDB.interests`
 	
-	db.query(query, values, function(error, interests){
+	db.query(query, function(error, interests){
 		if(error){
-            console.log(error)
+            
 			callback(['databaseError'], null)
 		}else{
-            callback([], interests)
-            console.log(interests)
+            callback(null, interests)
+            
 		}
 	})
 	
@@ -27,7 +26,7 @@ exports.createInterest = function(interest, callback){
         if(error){
             callback(['databaseError'], null)
         }else{
-            callback([], results)
+            callback(null, results)
 
         }
     })

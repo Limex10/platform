@@ -20,20 +20,20 @@ app.engine("hbs", expressHandlebars({
 
 app.use(express.static(__dirname + '/public'));
 //Redirecting to Routers
-app.use('/createProfileInfo', interestRouter)
-app.use('/createProfile', profileRouter )
+app.use('/interest', interestRouter)
+app.use('/profile', profileRouter )
 
 app.get('/', function(request, response){
   response.render("startScreen.hbs")
 })
 
 
-app.get('/home', function(request, response){
+/*app.get('/home', function(request, response){
   response.render("home.hbs")
-})
-app.get('/viewPerson', function(request, response){
+})*/
+/*app.get('/viewPerson', function(request, response){
   response.render("viewPerson.hbs")
-})
+})*/
 app.get('/yourProfile', function(request, response){
   response.render("manageProfile.hbs")
 })
