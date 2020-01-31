@@ -3,6 +3,7 @@ const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 
 const interestRouter = require('./routers/interestRouter')
+const profileRouter = require('./routers/profileRouter')
 
 const app = express()
 
@@ -18,15 +19,14 @@ app.engine("hbs", expressHandlebars({
 }))
 
 app.use(express.static(__dirname + '/public'));
-
+//Redirecting to Routers
 app.use('/createProfileInfo', interestRouter)
+app.use('/createProfile', profileRouter )
 
 app.get('/', function(request, response){
   response.render("startScreen.hbs")
 })
-app.get('/createAccount', function(request, response){
-  response.render("createAccount.hbs")
-})
+
 
 app.get('/home', function(request, response){
   response.render("home.hbs")
