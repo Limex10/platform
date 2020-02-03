@@ -42,7 +42,6 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
 
     const query = "UPDATE myDB.profiles SET city = ?,country = ?,firstname = ?,lastname = ?,id_interest1 = ?,id_interest2 = ?,id_interest3 = ?,id_interest4 = ? WHERE profile_id = ?"
     const values = [city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id]
-    console.log(values)
     db.query(query,values, function(error,results){
         if(error){
             callback(['databaseError'], null)
@@ -51,7 +50,8 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
         else
         {
             console.log("update works")
-            callback(null, results.insertId)
+          
+            callback(null, profile_id)
         }
     })
 }
@@ -64,11 +64,12 @@ exports.getProfileById = function(profile_id,callback){
     db.query(query,values, function(error,profile){
         if(error){
             callback(['databaseError'], null)
-            console.log("geting profil med id funkar inte")
+            console.log("getting profil med id funkar inte")
         }
         else
         {
-            console.log("geting profil med id funkar")
+            // console.log(profile)
+            console.log("getting profil med id funkar")
             callback(null,profile)
 
         }

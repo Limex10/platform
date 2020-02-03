@@ -47,17 +47,31 @@ router.get('/home/:id', function(request,response){
     })
 })
 
-router.get('viewPerson/:id', function(request,response){
+router.get('/home/viewPerson/:id', function(request,response){
 
     const profile_id = request.params.id
 
     profileManager.getProfileById(profile_id, function(errors,profile){
+        if(errors){
 
-        const model = {
-            errors: errors,
-            profile: profile
         }
-        response.render("viewPerson/",model)
+        else{
+            interestManager.getInterestsById(profile[0].id_interest1,profile[0].id_interest2,profile[0].id_interest3,profile[0].id_interest4, function(errors, interests){
+                if(errors){
+
+                }
+                else{
+                    const model = {
+                        errors: errors,
+                        profile: profile,
+                        interests: interests
+                    }
+                    console.log(model)
+                    response.render("viewPerson.hbs",model)
+                }
+            }) 
+        }
+
     })
 
 })
@@ -94,19 +108,12 @@ router.post("/createInfo/:id", function(request,response){
      const interest4 = request.body.interest4
      const profile_id = request.params.id
 
-
-     console.log(interest1)
-     console.log(interest2)
-     console.log(interest3)
-     console.log(interest4)
-     console.log(profile_id)
      profileManager.updateProfileInfo(city, country, firstname, lastname, interest1, interest2, interest3, interest4, profile_id,function(errors, id){
          if(errors){
 
          }
          else
          {
-            console.log(id)
             response.redirect("/profile/home/"+id)
          }
      })

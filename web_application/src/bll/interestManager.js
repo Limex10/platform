@@ -11,3 +11,9 @@ exports.createInterest = function(interest, callback){
 	interestRepository.createInterest(interest, callback)
 	
 }
+
+exports.getInterestsById = function(id_interest1, id_interest2, id_interest3, id_interest4, callback){
+
+	//validate the text
+	interestRepository.getInterestsById(id_interest1, id_interest2, id_interest3, id_interest4, callback)
+}

@@ -1,13 +1,13 @@
 <div class="row row-top-height">
     <div class="col shadow">
-             <a class="text-decoration-none"href="yourProfile">
+        <a class="text-decoration-none" href="yourProfile">
             <div class="my-profile">
-                
+
                 <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
 
-                
+
             </div>
-            </a>
+        </a>
     </div>
     <div class="col-9 shadow">
         <h1 class="display-4 text-center">Your journey starts now!</h1>
@@ -31,39 +31,40 @@
 
         </div>
     </div>
+    {{#if profile.length}}
+    {{#each profile}}
     <div class="col-9">
         <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
-            <h1>About "name"</h1>
-            <div class ="row">
-            
+            <h1>{{firstname}}</h1>
+            <div class="row">
+
                 <div class="col">
                     <ul class="list-group ">
-                    <h4>Name</h4>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                    <h4>Last name</h4>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                    <h4>From</h4>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
-                </div>
-                <div class="col">
-                    <ul class="list-group ">
-                    <h4>Interests</h4>
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                        <h4>Name</h4>
+                        <li class="list-group-item">{{firstname}}</li>
+                        <h4>Last name</h4>
+                        <li class="list-group-item">{{lastname}}</li>
+                        <h4>From</h4>
+                        <li class="list-group-item">{{country}}</li>
+                        <li class="list-group-item">{{city}}</li>
                     </ul>
                 </div>
-
-
-            
-          
-        </div>
+                <div class="col">
+                    <ul class="list-group ">
+                        {{#if ../interests}}
+                        <h4>Interests</h4>
+                        {{#each ../interests}}
+                        <li class="list-group-item">{{interest}}</li>
+                        {{/each}}
+      
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+    {{/each}}
+    {{/if}}
 
 
 </div>
