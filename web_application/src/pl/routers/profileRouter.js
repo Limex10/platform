@@ -37,13 +37,37 @@ router.get('/createInfo/:id', function(request,response){
 router.get('/home/:id', function(request,response){
     const id = request.params.id
     profileManager.getAllProfiles(function(errors,profiles){
-        const model = {
-            errors: errors,
-            profiles: profiles
+        if(errors){
             
         }
+        else{
+            profileManager.getProfileById(id, function(errors,profile){
+                if(errors){
+               }
+               else{
+
+                interestManager.filterInterestsById(profile[0].id_interest1,profile[0].id_interest2,profile[0].id_interest3,profile[0].id_interest4, function(errors, filterInterests){
+                    if(errors){
+
+                    }
+                    else{
+                        const model = {
+                            errors: errors,
+                            profiles: profiles,
+                            filterInterests: filterInterests
+                            
+                        }
+                        response.render("home.hbs", model)
+            
+                    }
+                })
+                   
+               }
+           })
+        }
         
-        response.render("home.hbs", model)
+    
+        
     })
 })
 
