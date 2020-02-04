@@ -21,7 +21,7 @@ router.get('/createInfo/:id', function(request,response){
         else{
        
             interestManager.getAllInterests(function(errors, interests){
-	
+                console.log(interests)
                 const model = {
                     errors: errors,
                     interests: interests,
@@ -61,13 +61,21 @@ router.get('/home/viewPerson/:id', function(request,response){
 
                 }
                 else{
-                    const model = {
-                        errors: errors,
-                        profile: profile,
-                        interests: interests
-                    }
-                    console.log(model)
-                    response.render("viewPerson.hbs",model)
+                    interestManager.filterInterestsById(profile[0].id_interest1,profile[0].id_interest2,profile[0].id_interest3,profile[0].id_interest4, function(errors, filterInterests){
+                        if(errors){
+
+                        }
+                        else{
+                            const model = {
+                                errors: errors,
+                                profile: profile,
+                                interests: interests,
+                                filterInterests: filterInterests
+                            }
+                            console.log(model)
+                            response.render("viewPerson.hbs",model)
+                        }
+                    })
                 }
             }) 
         }

@@ -46,3 +46,20 @@ exports.getInterestsById = function(id_interest1, id_interest2, id_interest3, id
         }
     })
 }
+
+exports.filterInterestsById = function(id_interest1,id_interest2, id_interest3, id_interest4, callback){
+
+    const query = `Select * FROM myDB.profiles p WHERE (id_interest1 = ? and id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest3 = ?) or (id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest4 = ?)`
+    const values =[id_interest1, id_interest2, id_interest3, id_interest4, id_interest1, id_interest2, id_interest3, id_interest2, id_interest3, id_interest4, id_interest1, id_interest3, id_interest4, id_interest1, id_interest2, id_interest4]
+
+    db.query(query,values, function(error, results){
+        if(error){
+            callback(['databaseError'], null)
+        }else{
+            console.log(results)
+            callback(null, results)
+
+        }
+    })
+
+}

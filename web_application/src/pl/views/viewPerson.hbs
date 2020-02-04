@@ -18,16 +18,17 @@
     <div class="col border  mobile-hidden">
         <h2 class="text-center ">Recommended</h2>
         <div id="recommended-cards" class="col overflow-auto">
-
+            {{#if filterInterests}}
+            {{#each filterInterests}}
             <div class="card" style="width: 100%;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    <a href="#" class="btn btn-success">Go somewhere</a>
+                    <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+                    <p class="card-text">You share interest with this person check him/her out!</p>
+                    <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
                 </div>
             </div>
-
+            {{/each}}
+            {{/if}}
 
         </div>
     </div>
