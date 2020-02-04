@@ -40,7 +40,7 @@ exports.getInterestsById = function(id_interest1, id_interest2, id_interest3, id
         if(error){
             callback(['databaseError'], null)
         }else{
-            console.log(results)
+           
             callback(null, results)
 
         }
@@ -56,7 +56,7 @@ exports.filterInterestsById = function(id_interest1,id_interest2, id_interest3, 
         if(error){
             callback(['databaseError'], null)
         }else{
-            console.log(results)
+            
             callback(null, results)
 
         }

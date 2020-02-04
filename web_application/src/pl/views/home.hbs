@@ -1,6 +1,8 @@
 <div class="row row-top-height">
     <div class="col shadow">
-        <a class="text-decoration-none" href="#">
+        {{#each profile}}
+        <a class="text-decoration-none" href="/profile/manageProfile/{{profile_id}}">
+            {{/each}}
             <div class="my-profile">
 
                 <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>

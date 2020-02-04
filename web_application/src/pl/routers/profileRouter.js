@@ -51,9 +51,11 @@ router.get('/home/:id', function(request,response){
 
                     }
                     else{
+                        console.log(profile)
                         const model = {
                             errors: errors,
                             profiles: profiles,
+                            profile: profile,
                             filterInterests: filterInterests
                             
                         }
@@ -149,6 +151,11 @@ router.post("/createInfo/:id", function(request,response){
             response.redirect("/profile/home/"+id)
          }
      })
+})
+
+router.get("/manageProfile/:id", function(request, response){
+
+    response.render("manageProfile.hbs")
 })
 
 
