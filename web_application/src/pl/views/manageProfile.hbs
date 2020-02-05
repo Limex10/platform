@@ -1,6 +1,6 @@
 <div class="row row-top-height">
     <div class="col shadow">
-        <a class="text-decoration-none" href="yourProfile">
+        <a class="text-decoration-none" href="#">
             <div class="my-profile">
 
                 <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
@@ -19,49 +19,51 @@
         <h2 class="text-center ">Recommended</h2>
         <div id="recommended-cards" class="col overflow-auto">
             <!--Mark-->
+            {{#if filterInterests}}
+            {{#each filterInterests}}
             <div class="card" style="width: 100%;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    <a href="#" class="btn btn-success">Go somewhere</a>
+                    <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+                    <p class="card-text">You share interest with this person check him/her out!</p>
+                    <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
                 </div>
             </div>
+            {{/each}}
+            {{/if}}
             <!--Mark-->
 
 
         </div>
     </div>
+    {{#if profile.length}}
+    {{#each profile}}
     <div class="col-9">
         <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
-            <h1>About "name"</h1>
+            <h1>{{firstname}}</h1>
             <div class="row">
 
                 <div class="col">
                     <ul class="list-group ">
                         <h4>Name</h4>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">{{firstname}}</li>
                         <h4>Last name</h4>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">{{lastname}}</li>
                         <h4>From</h4>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">{{country}}</li>
+                        <li class="list-group-item">{{city}}</li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="list-group ">
+                        {{#if ../interests}}
                         <h4>Interests</h4>
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        {{#each ../interests}}
+                        <li class="list-group-item">{{interest}}</li>
+                        {{/each}}
+
+                        {{/if}}
                     </ul>
                 </div>
-
-
-
-
             </div>
             <div class="row" id="row-button-mover">
                 <div class="col">
@@ -80,31 +82,31 @@
                                 </div>
                                 <div class="modal-body">
                                     <!--Mark-->
-                                    <form>
+                                    <form action="/profile/updateInfo/{{profile_id}}" method="POST">
                                         <!--Mark-->
                                         <div class="form-row">
                                             <div class="col-md-3 mb-3">
                                                 <!--Mark--> <label>First name</label>
                                                 <!--Mark-->
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="firstname" class="form-control" value="{{firstname}}">
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <!--Mark--> <label>Last name</label>
                                                 <!--Mark-->
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="lastname" class="form-control" value="{{lastname}}">
 
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <!--Mark--> <label>Country</label>
                                                 <!--Mark-->
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="country" class="form-control" value="{{country}}">
 
 
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <!--Mark--> <label>City</label>
                                                 <!--Mark-->
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="city" class="form-control" value="{{city}}">
 
 
                                             </div>
@@ -114,11 +116,13 @@
                                                 <label>Interest one</label>
                                                 <select class="form-control">
                                                     <!--Mark-->
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    {{#if ../allInterests.length}}
+                                                    {{#each ../allInterests}}
+
+                                                    <option value="{{interests_id}}">{{interest}}</option>
+                                                    {{/each}}
+
+                                                    {{/if}}
                                                     <!--Mark-->
                                                 </select>
                                             </div>
@@ -126,11 +130,13 @@
                                                 <label>Interest two</label>
                                                 <select class="form-control">
                                                     <!--Mark-->
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    {{#if ../allInterests.length}}
+                                                    {{#each ../allInterests}}
+
+                                                    <option value="{{interests_id}}">{{interest}}</option>
+
+                                                    {{/each}}
+                                                    {{/if}}
                                                     <!--Mark-->
                                                 </select>
 
@@ -143,22 +149,26 @@
                                                 <label>Interest three</label>
                                                 <select class="form-control">
                                                     <!--Mark-->
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    {{#if ../allInterests.length}}
+                                                    {{#each ../allInterests}}
+
+                                                    <option value="{{interests_id}}">{{interest}}</option>
+
+                                                    {{/each}}
+                                                    {{/if}}
                                                     <!--Mark-->
                                                 </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Interest four</label>
                                                 <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    {{#if ../allInterests.length}}
+                                                    {{#each ../allInterests}}
+
+                                                    <option value="{{interests_id}}">{{interest}}</option>
+
+                                                    {{/each}}
+                                                    {{/if}}
                                                 </select>
 
                                             </div>
@@ -169,7 +179,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <!--Mark-->
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                     <!--Mark-->
                                 </div>
                                 <!--Mark-->
@@ -198,8 +208,7 @@
                                         <!--Mark-->
                                         <div class="form-group">
                                             <label>Email address</label>
-                                            <input type="email" class="form-control" aria-describedby="emailHelp">
-                                            <small id="emailHelp" class="form-text text-muted"></small>
+                                            <input type="email" class="form-control" aria-describedby="emailHelp" value="{{email}}">
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
@@ -237,18 +246,18 @@
                                 </div>
                                 <div class="modal-body">
                                     <!--Mark-->
-                                    <form>
+                                    <form method="POST" action="/profile/createMessage/{{profile_id}}">
                                         <!--Mark-->
                                         <div class="form-group">
                                             <label>Message</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="message">
                                         </div>
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <!--Mark-->
-                                    <button type="button" class="btn btn-primary">Save message</button>
+                                    <button type="submit" class="btn btn-primary">Save message</button>
                                     <!--Mark-->
                                 </div>
                                 <!--Mark-->
@@ -291,10 +300,13 @@
             <div class="row" id="row-button-mover">
                 <p>hej</p>
             </div>
-     
+
         </div>
-               
+
     </div>
+    {{/each}}
+    {{/if}}
+
 
 
 </div>

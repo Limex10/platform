@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 const interestRouter = require('./routers/interestRouter')
 const profileRouter = require('./routers/profileRouter')
+const messageRouter = require('./routers/messageRouter')
 
 const app = express()
 
@@ -21,7 +22,9 @@ app.engine("hbs", expressHandlebars({
 app.use(express.static(__dirname + '/public'));
 //Redirecting to Routers
 app.use('/interest', interestRouter)
-app.use('/profile', profileRouter )
+app.use('/message', messageRouter)
+app.use('/profile', profileRouter)
+
 
 app.get('/', function(request, response){
   response.render("startScreen.hbs")
@@ -34,9 +37,9 @@ app.get('/', function(request, response){
 /*app.get('/viewPerson', function(request, response){
   response.render("viewPerson.hbs")
 })*/
-app.get('/yourProfile', function(request, response){
-  response.render("manageProfile.hbs")
-})
+// app.get('/yourProfile', function(request, response){
+//   response.render("manageProfile.hbs")
+// })
 
 app.listen(8080, function(){
   console.log("Web application listening on port 8080.")

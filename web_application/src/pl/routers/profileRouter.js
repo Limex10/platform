@@ -1,6 +1,7 @@
 const express = require('express')
 const profileManager = require('../../bll/profileManager')
 const interestManager = require('../../bll/interestManager')
+const messageManager = require('../../bll/messageManager')
 
 const router = express.Router()
 
@@ -153,10 +154,65 @@ router.post("/createInfo/:id", function(request,response){
      })
 })
 
-router.get("/manageProfile/:id", function(request, response){
+router.get("/manageProfile/:id", function(request, response) {
+    const profile_id = request.params.id
 
-    response.render("manageProfile.hbs")
+    profileManager.getProfileById(profile_id, function(errors,profile) {
+        if(errors){
+
+        }
+        else{
+            interestManager.getInterestsById(profile[0].id_interest1,profile[0].id_interest2,profile[0].id_interest3,profile[0].id_interest4, function(errors, interests){
+                if(errors) {
+
+                }
+                else{
+                    interestManager.filterInterestsById(profile[0].id_interest1,profile[0].id_interest2,profile[0].id_interest3,profile[0].id_interest4, function(errors, filterInterests){
+                        if(errors) {
+
+                        }
+                        else {
+                            interestManager.getAllInterests(function(errors, allInterests){
+                                if(errors) {
+
+                                }
+                                else {
+                                    const model = {
+                                        errors: errors,
+                                        profile: profile,
+                                        interests: interests,
+                                        filterInterests: filterInterests,
+                                        allInterests: allInterests
+                                    }
+                                    console.log(model)
+                                    response.render("manageProfile.hbs",model)
+                                }
+                            })
+                            
+                        }
+                    })
+                }
+            }) 
+        }
+
+    })
 })
+
+router.post("/createMessage/:id", function(request, response){
+    
+    const profile_id = request.params.id
+    const message = request.body.message
+
+    messageManager.createMessage(message, profile_id, function(errors, result){
+        if(errors){
+
+        }
+        else {
+            response.redirect("/profile/manageProfile/"+profile_id)
+        }
+    })
+})
+
 
 
 
