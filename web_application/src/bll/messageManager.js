@@ -6,3 +6,11 @@ exports.createMessage = function(message, profile_id, callback){
     messageRepository.createMessage(message, profile_id, callback)
 
 }
+
+exports.getAllMessagesByProfileId = function(profile_id, callback){
+
+    //validate
+
+    messageRepository.getAllMessagesByProfileId(profile_id, callback)
+
+}

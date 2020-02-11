@@ -114,7 +114,7 @@
                                         <div class="form-row">
                                             <div class="col-md-6 mb-3">
                                                 <label>Interest one</label>
-                                                <select class="form-control">
+                                                <select name="interest1" class="form-control">
                                                     <!--Mark-->
                                                     {{#if ../allInterests.length}}
                                                     {{#each ../allInterests}}
@@ -128,7 +128,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Interest two</label>
-                                                <select class="form-control">
+                                                <select name="interest2" class="form-control">
                                                     <!--Mark-->
                                                     {{#if ../allInterests.length}}
                                                     {{#each ../allInterests}}
@@ -147,7 +147,7 @@
                                         <div class="form-row">
                                             <div class="col-md-6 mb-3">
                                                 <label>Interest three</label>
-                                                <select class="form-control">
+                                                <select name="interest3" class="form-control">
                                                     <!--Mark-->
                                                     {{#if ../allInterests.length}}
                                                     {{#each ../allInterests}}
@@ -161,7 +161,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Interest four</label>
-                                                <select class="form-control">
+                                                <select name="interest4" class="form-control">
                                                     {{#if ../allInterests.length}}
                                                     {{#each ../allInterests}}
 
@@ -170,10 +170,7 @@
                                                     {{/each}}
                                                     {{/if}}
                                                 </select>
-
                                             </div>
-
-
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -297,10 +294,11 @@
                 </div>
 
             </div>
+            {{#each ../messages}}
             <div class="row" id="row-button-mover">
-                <p>hej</p>
+                <p>{{message}}</p>
             </div>
-
+            {{/each}}
         </div>
 
     </div>

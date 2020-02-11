@@ -177,15 +177,24 @@ router.get("/manageProfile/:id", function(request, response) {
 
                                 }
                                 else {
-                                    const model = {
-                                        errors: errors,
-                                        profile: profile,
-                                        interests: interests,
-                                        filterInterests: filterInterests,
-                                        allInterests: allInterests
-                                    }
-                                    console.log(model)
-                                    response.render("manageProfile.hbs",model)
+                                    messageManager.getAllMessagesByProfileId(profile_id, function(errors, messages){
+                                        if(errors) {
+
+                                        }
+                                        else {
+                                            const model = {
+                                                errors: errors,
+                                                profile: profile,
+                                                interests: interests,
+                                                filterInterests: filterInterests,
+                                                allInterests: allInterests,
+                                                messages: messages
+                                            }
+                                            console.log(model)
+                                            response.render("manageProfile.hbs",model)
+
+                                        }
+                                    })
                                 }
                             })
                             
@@ -213,6 +222,28 @@ router.post("/createMessage/:id", function(request, response){
     })
 })
 
+router.post("/updateInfo/:id", function(request,response){
+
+    const city = request.body.city
+    const country = request.body.country
+    const firstname = request.body.firstname
+    const lastname = request.body.lastname
+    const interest1 = request.body.interest1
+    const interest2 = request.body.interest2
+    const interest3 = request.body.interest3
+    const interest4 = request.body.interest4
+    const profile_id = request.params.id
+
+    profileManager.updateProfileInfo(city, country, firstname, lastname, interest1, interest2, interest3, interest4, profile_id,function(errors, id){
+        if(errors){
+
+        }
+        else
+        {
+           response.redirect("/profile/manageProfile/"+profile_id)
+        }
+    })
+})
 
 
 

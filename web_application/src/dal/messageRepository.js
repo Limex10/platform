@@ -14,3 +14,18 @@ exports.createMessage = function(message,profile_id, callback){
         }
     })
 }
+
+exports.getAllMessagesByProfileId = function(profile_id, callback){
+
+    const query = `SELECT message FROM myDB.profilemessages WHERE profile_id = ?`
+    const value = profile_id
+
+    db.query(query, value, function(error, result){
+        if(error){
+            callback(['databaseError'], null)
+        }
+        else {
+            callback(null, result)
+        }
+    })    
+}
