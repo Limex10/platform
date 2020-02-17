@@ -19,7 +19,6 @@
 
 <body class="bg-light">
   <div class="screen-height">
-
     <nav class="navbar shadow-sm navbar-expand-lg navbar-light bg-light">
       <img src="/logo.png" width="50" height="50" alt="">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -51,45 +50,12 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        {{#if isLoggedIn}}
+        <a href="/logout" class="btn btn-danger">Logout</a>
+        {{else}}       
+        <a href="/login" class="btn btn-success">Login</a>
+        {{/if}}
 
-        <button id="main-login-button" class="btn btn-outline-success" data-toggle="modal"
-          data-target="#login">Login</button>
-
-        <div class="modal fade" id="login" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label>Username</label>
-                    <input type="username" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control">
-                  </div>
-
-          
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" type="submit">Login</button>
-              </div>
-              </form>
-            </div>
-          </div>
-        </div>
 
       </div>
     </nav>

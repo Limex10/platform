@@ -7,11 +7,17 @@
 <div class="container">
 <form action="/profile/create" method="POST">
   <div class="form-group">
+    {{#if errors}}
+    <p class="text-danger">{{errors.emailError}}</p>
+    {{/if}}
     <label >Email address</label>
-    <input type="email" name="email" class="form-control"  aria-describedby="emailHelp">
+    <input value="{{email}}"type="email" name="email" class="form-control"  aria-describedby="emailHelp">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
+    {{#if errors}}
+    <p class="text-danger">{{errors.passwordError}}</p>
+    {{/if}}
     <label >Password</label>
     <input type="password" name="password" class="form-control" >
   </div>
@@ -23,4 +29,5 @@
   <button type="submit" name="createProfileButton" class="btn btn-success">Submit</button>
 </form>
 </div>
+
 </div>

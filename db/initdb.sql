@@ -12,7 +12,7 @@ Create TABLE `interests`(
 CREATE TABLE `profiles`(
     `profile_id` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(50) NOT NULL UNIQUE,
-    `password` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
     `city` VARCHAR(50),
     `country` VARCHAR(50),
     `firstname` VARCHAR(50),

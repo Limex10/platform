@@ -1,11 +1,29 @@
 const profileRepository = require('../dal/profileRepository')
+const validationManager = require('../bll/validationManager')
+const bcrypt = require('bcrypt')
 
 exports.createProfile = function(email,password,repeatedPassword,callback){
 
 
-    //validate the thext for emial and password
+    const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
 
-    profileRepository.createProfile(email,password,callback)
+    
+    if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
+        const saltRounds = 10;
+
+        bcrypt.hash(password, saltRounds, function (errors, hash) {
+            if(errors){
+                console.log(errors)
+                
+            }
+            else{
+            profileRepository.createProfile(email,hash,callback)
+            }
+        })
+    }
+    else{
+        callback(validationErrors) 
+    }
 }
 
 exports.getAllProfiles = function(callback){
@@ -16,7 +34,17 @@ exports.getAllProfiles = function(callback){
 
 exports.updateProfileInfo = function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
 
-    profileRepository.updateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback)
+    const validationErrors = validationManager.validateUpdateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4)
+
+    if(validationErrors.cityError == undefined && validationErrors.countryError == undefined && validationErrors.firstnameError == undefined &&
+         validationErrors.lastnameError == undefined && validationErrors.interestError == undefined){
+            
+            profileRepository.updateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback)     
+    }
+    else{
+        
+        callback(validationErrors,profile_id)
+    }
 }
 
 exports.getProfileById = function(profile_id,callback){

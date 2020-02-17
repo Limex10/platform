@@ -1,7 +1,5 @@
 const db = require("./db")
 
-
-
 exports.createProfile = function(email,password, callback){
 
     const query = 'INSERT INTO myDB.profiles (email, password, id_interest1, id_interest2, id_interest3, id_interest4) VALUES (?,?,1,2,3,4)'

@@ -1,8 +1,9 @@
 <div class="jumbotron">
   <div class="container-sm">
     <h1 class="display-4 text-center">Personalize your profile!</h1>
-    {{#if id}}
-    <form action="/profile/createInfo/{{id}}" method="POST">
+    {{#if profile.length}}
+    {{#each profile}}
+    <form action="/profile/updateInfo/{{profile_id}}" method="POST">
       <div class="form-row">
         <div class="col-md-3 mb-3">
           {{#if errors}}
@@ -46,8 +47,8 @@
         <div class="col-md-6 mb-3">
           <label>Interest one</label>
           <select name="interest1" class="form-control">
-            {{#if interests.length}}
-            {{#each interests}}
+            {{#if ../interests.length}}
+            {{#each ../interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
             {{/each}}
@@ -59,8 +60,8 @@
         <div class="col-md-6 mb-3">
           <label>Interest two</label>
           <select name="interest2" class="form-control">
-            {{#if interests.length}}
-            {{#each interests}}
+            {{#if ../interests.length}}
+            {{#each ../interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
             {{/each}}
@@ -76,8 +77,8 @@
         <div class="col-md-6 mb-3">
           <label>Interest three</label>
           <select name="interest3" class="form-control">
-            {{#if interests.length}}
-            {{#each interests}}
+            {{#if ../interests.length}}
+            {{#each ../interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
             {{/each}}
@@ -88,8 +89,8 @@
         <div class="col-md-6 mb-3">
           <label>Interest four</label>
           <select name="interest4" class="form-control">
-            {{#if interests.length}}
-            {{#each interests}}
+            {{#if ../interests.length}}
+            {{#each ../interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
             {{/each}}
@@ -106,6 +107,9 @@
       <button type="submit" class="btn btn-success" name="updateProfileInfoButton">Submit</button>
       {{!-- <a class="btn btn-success" href="home" role="button" type="submit" value="create">Submit</a> --}}
     </form>
+
+    {{/each}}
+
     {{/if}}
   </div>
 </div>
