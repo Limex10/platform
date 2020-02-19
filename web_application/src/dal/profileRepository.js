@@ -89,7 +89,7 @@ exports.updateAccountInfo = function(email,password, profile_id, callback){
 
     db.query(query,values, function(error){
         if(error){
-            callback(['databaseError'])
+            callback(['Email already exists!'])
         }
         else
         {
