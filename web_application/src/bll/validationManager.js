@@ -37,16 +37,28 @@ exports.validateUpdateProfileInfo = function(city, country, firstname, lastname,
     var interestError
     if(city.length == empty){
         cityError = "Field can not be empty"
+    }else if(city.length > 20){
+        cityError = "To long, maximum 20 characters"
+
     }
     if(country.length == empty){
         countryError = "Field can not be empty"
+    }else if(country.length > 20){
+        countryError = "To long, maximum 20 characters"
     }
     if(firstname.length == empty){
         firstnameError = "Field can not be empty"
+    }else if(firstname.length > 20){
+        firstnameError = "To long, maximum 20 characters"
+
     }
     if(lastname.length == empty){
         lastnameError = "Field can not be empty"
+    }else if(lastname.length > 20){
+        lastnameError = "To long, maximum 20 characters"
+
     }
+
 
 
     if(interest1 == interest2 || interest1 == interest3 || interest1 == interest4 || interest2 == interest3 || interest2 == interest4 || interest3 == interest4 ){

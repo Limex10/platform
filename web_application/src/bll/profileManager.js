@@ -9,7 +9,7 @@ exports.createProfile = function(email,password,repeatedPassword,callback){
 
     
     if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
-        const saltRounds = 10;
+        const saltRounds = 10
 
         bcrypt.hash(password, saltRounds, function (errors, hash) {
             if(errors){
@@ -55,5 +55,25 @@ exports.getProfileById = function(profile_id,callback){
 
 exports.updateAccountInfo = function(email,password,repeatedPassword, profile_id, callback){
     
-    profileRepository.updateAccountInfo(email,password,repeatedPassword, callback)
+    const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
+
+    if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
+        const saltRounds = 10
+
+        bcrypt.hash(password,saltRounds,function(errors,hash){
+            if(errors){
+                console.log(errors)
+            }
+            else{
+                
+                profileRepository.updateAccountInfo(email,hash,profile_id, callback)
+            }
+        })
+    }
+    else{
+        
+        callback(validationErrors) 
+    }
+
+    
 }

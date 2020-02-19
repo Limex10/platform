@@ -6,23 +6,23 @@
     <form action="/profile/updateInfo/{{profile_id}}" method="POST">
       <div class="form-row">
         <div class="col-md-3 mb-3">
-          {{#if errors}}
-          <p class="text-danger">{{errors.firstnameError}}</p>
+          {{#if ../errors}}
+          <p class="text-danger">{{../errors.firstnameError}}</p>
           {{/if}}
           <label>First name</label>
           <input value="{{firstname}}" type="text" name="firstname" class="form-control">
         </div>
         <div class="col-md-3 mb-3">
-          {{#if errors}}
-          <p class="text-danger">{{errors.lastnameError}}</p>
+          {{#if ../errors}}
+          <p class="text-danger">{{../errors.lastnameError}}</p>
           {{/if}}
           <label>Last name</label>
           <input value="{{lastname}}" type="text" name="lastname" class="form-control">
 
         </div>
         <div class="col-md-3 mb-3">
-          {{#if errors}}
-          <p class="text-danger">{{errors.countryError}}</p>
+          {{#if ../errors}}
+          <p class="text-danger">{{../errors.countryError}}</p>
           {{/if}}
           <label>Country</label>
           <input value="{{country}}" type="text" name="country" class="form-control">
@@ -30,8 +30,8 @@
 
         </div>
         <div class="col-md-3 mb-3">
-          {{#if errors}}
-          <p class="text-danger">{{errors.cityError}}</p>
+          {{#if ../errors}}
+          <p class="text-danger">{{../errors.cityError}}</p>
           {{/if}}
           <label>City</label>
           <input value="{{city}}" type="text" name="city" class="form-control">
@@ -39,8 +39,8 @@
 
         </div>
       </div>
-      {{#if errors}}
-      <p class="text-danger">{{errors.interestError}}</p>
+      {{#if ../errors}}
+      <p class="text-danger">{{../errors.interestError}}</p>
       {{/if}}
       <div class="form-row">
 

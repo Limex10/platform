@@ -12,7 +12,6 @@ exports.createProfile = function(email,password, callback){
         }
         else
         {
-            
             callback(null, results.insertId)
 
         }
@@ -30,8 +29,12 @@ exports.getAllProfiles = function(callback){
         }
         else
         {
-           
-            callback(null, profiles)
+            if(profiles.length == 0){
+                callback(["Something went wrong"], null)
+            }
+            else{
+                callback(null, profiles)
+            }
         }
     })
 }
@@ -40,7 +43,7 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
 
     const query = "UPDATE myDB.profiles SET city = ?,country = ?,firstname = ?,lastname = ?,id_interest1 = ?,id_interest2 = ?,id_interest3 = ?,id_interest4 = ? WHERE profile_id = ?"
     const values = [city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id]
-    db.query(query,values, function(error,results){
+    db.query(query,values, function(error){
         if(error){
             callback(['databaseError'], null)
         }
@@ -60,13 +63,16 @@ exports.getProfileById = function(profile_id,callback){
     db.query(query,values, function(error,profile){
         if(error){
             callback(['databaseError'], null)
-            console.log("getting profil med id funkar inte")
         }
         else
         {
-            // console.log(profile)
-            console.log("getting profil med id funkar")
-            callback(null,profile)
+            if(profile.length == 0){
+                callback(["Something went wrong"], null)
+            }
+            else{
+                callback(null,profile)
+            }
+            
 
         }
     })
@@ -75,18 +81,20 @@ exports.getProfileById = function(profile_id,callback){
 
 exports.updateAccountInfo = function(email,password, profile_id, callback){
 
+   
     const query = 'UPDATE myDB.profiles SET email = ?, password = ? WHERE profile_id = ?'
     const values = [email, password, profile_id]
 
+   
 
-    db.query(query,values, function(error, results){
+    db.query(query,values, function(error){
         if(error){
-            callback(['databaseError'], null)
+            callback(['databaseError'])
         }
         else
         {
             
-            callback(null, results)
+            callback(null)
 
         }
     })
