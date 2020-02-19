@@ -25,39 +25,47 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
+      {{#if isLoggedIn}}
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/profile/home/:{{id}}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link text-success" href="/profile/home/{{#if userId}}{{userId}}{{/if}}">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+          <li class="nav-item active">
+            <a class="nav-link text-success" href="/profile/manageProfile/{{#if userId}}{{userId}}{{/if}}">Profile</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <li class="nav-item active">
+            <a class="nav-link text-success" href="#">Disabled</a>
           </li>
         </ul>
-        {{#if isLoggedIn}}
-        <a href="/logout" class="btn btn-danger">Logout</a>
-        {{else}}       
-        <a href="/login" class="btn btn-success">Login</a>
-        {{/if}}
+        
+        {{else}}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Home <span
+                  class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+
+          {{/if}}
+          {{#if isLoggedIn}}
+          <form action="/logout" method="POST">
+            <!--<input type="hidden" name="_csrf" value="{{csrfToken}}">-->
+            <button type="submit" class="btn btn-danger">Logout</button>
+          </form>
+          {{else}}
+          <a href="/login" class="btn btn-success">Login</a>
+          {{/if}}
 
 
-      </div>
+        </div>
     </nav>
     <main>
       {{{body}}}
