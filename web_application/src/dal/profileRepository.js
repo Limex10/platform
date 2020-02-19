@@ -43,11 +43,9 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
     db.query(query,values, function(error,results){
         if(error){
             callback(['databaseError'], null)
-            console.log("update wroooong")
         }
         else
         {
-            console.log("update works")
           
             callback(null, profile_id)
         }
@@ -74,6 +72,27 @@ exports.getProfileById = function(profile_id,callback){
     })
 
 }
+
+exports.updateAccountInfo = function(email,password, profile_id, callback){
+
+    const query = 'UPDATE myDB.profiles SET email = ?, password = ? WHERE profile_id = ?'
+    const values = [email, password, profile_id]
+
+
+    db.query(query,values, function(error, results){
+        if(error){
+            callback(['databaseError'], null)
+        }
+        else
+        {
+            
+            callback(null, results)
+
+        }
+    })
+}
+
+
 
 
 

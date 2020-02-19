@@ -52,3 +52,8 @@ exports.getProfileById = function(profile_id,callback){
     profileRepository.getProfileById(profile_id, callback)
 
 }
+
+exports.updateAccountInfo = function(email,password,repeatedPassword, profile_id, callback){
+    
+    profileRepository.updateAccountInfo(email,password,repeatedPassword, callback)
+}

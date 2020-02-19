@@ -1,5 +1,4 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
 
 const profileManager = require('../../bll/profileManager')
 const interestManager = require('../../bll/interestManager')
@@ -186,27 +185,47 @@ router.post("/createInfo/:id", function (request, response) {
     const interest3 = request.body.interest3
     const interest4 = request.body.interest4
     const profile_id = request.params.id
-
+    
+    if (profile_id == request.session.userId) {
     profileManager.updateProfileInfo(city, country, firstname, lastname, interest1, interest2, interest3, interest4, profile_id, function (errors, id) {
         if (errors) {
-
             interestManager.getAllInterests(function (interestErrors, interests) {
+                if(interestErrors){
+                    const model = {
+                        errors:errors,
+                        id: id,
+                        interestsErrors: interestErrors
+                    }
+    
+                    response.render("createProfileInfo.hbs", model)
 
-                const model = {
-                    errors,
+                }else{
+                    const model = {
+                        errors:errors,
+                        id,
+                        interests
+                    }
+    
+                    response.render("createProfileInfo.hbs", model)
 
-                    id,
-                    interests
                 }
-
-                response.render("createProfileInfo.hbs", model)
+       
             })
 
         }
         else {
-            response.redirect("/profile/home/" + id)
+            response.redirect("/profile/home/" + request.session.userId)
         }
     })
+}
+else{
+    const model = {
+        errorStatus: "401",
+        errorMessage: "You are unauthorized to view this page"
+
+    }
+    response.render("error.hbs", model)
+}
 })
 
 router.get("/manageProfile/:id", function (request, response) {
@@ -369,6 +388,26 @@ router.get("/updateAccount/:id", function (request, response) {
                 response.render("updateAccount.hbs", model)
             }
         })
+
+    }
+    else {
+        const model = {
+            errorStatus: "401",
+            errorMessage: "You are unauthorized to view this page"
+
+        }
+        response.render("error.hbs", model)
+    }
+
+})
+
+router.post("/updateAccount/:id", function (request, response) {
+    const id = request.params.id
+    if (id == request.session.userId) {
+
+        const email = request.body.email
+        const password = request.body.password
+        const repeatedPassword = request.body.repeatedPassword
 
     }
     else {

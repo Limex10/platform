@@ -2,6 +2,9 @@
     <div class ="text-center">
             <h1 class="display-4">Login!</h1>
   <p class="lead">Enter your information down below.</p>
+  {{#if errorMessage}}
+  <p class="lead text-danger">{{errorMessage}}</p>
+  {{/if}}
     </div>
 
 <div class="container">

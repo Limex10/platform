@@ -13,38 +13,29 @@ router.get("/", function (request, response) {
 router.post("/", function (request, response) {
     const email = request.body.email
     const password = request.body.password
-    const validationErrors = []
 
-    loginManager.getPasswordByEmail(email, function (errors, hashedPassword) {
+    loginManager.getAccountInfoByEmail(email, password, function (errors, result) {
         if (errors) {
+            const model = {
+                errorMessage: errors
+            }
+            response.render("login.hbs", model)
 
         }
         else {
-            loginManager.getIdByEmail(email, function(errors, id){
-                if(errors){
 
-                }
-                else {
-                    bcrypt.compare(password, hashedPassword[0].password, function (err, isMatch) {
-                        if (isMatch) {
-                            console.log(request.session.isLoggedIn)
-                            request.session.isLoggedIn = true
-                            request.session.userId = id[0].profile_id
-                            console.log(request.session.userId)
-                           
-                            response.redirect("/profile/home/"+ request.session.userId)
-                        } else {
-                            isMatch = false
-                            validationErrors.push("wrong password")
-                        }
-                    })
-                }
+            request.session.isLoggedIn = true
+            request.session.userId = result
 
-            })
-     
-        
+            response.redirect("/profile/home/" + request.session.userId)
+
         }
+
     })
+
+
+
+
 
 })
 

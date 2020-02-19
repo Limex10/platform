@@ -50,7 +50,7 @@ exports.validateUpdateProfileInfo = function(city, country, firstname, lastname,
 
 
     if(interest1 == interest2 || interest1 == interest3 || interest1 == interest4 || interest2 == interest3 || interest2 == interest4 || interest3 == interest4 ){
-            interestError = "Can't pick same interest twice"
+            interestError = "Can't pick same interest more than once!"
     }
 
     const validationErrors = {

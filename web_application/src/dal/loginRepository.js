@@ -1,7 +1,7 @@
 const db = require("./db")
 
-exports.getPasswordByEmail = function (email, callback) {
-    const query = `SELECT password FROM myDB.profiles WHERE email = ?`
+exports.getAccountInfoByEmail = function (email, callback) {
+    const query = `SELECT password, email, profile_id FROM myDB.profiles WHERE email = ?`
     const values = email
 
     db.query(query, values, function (error, results) {
@@ -9,14 +9,16 @@ exports.getPasswordByEmail = function (email, callback) {
             callback(['databaseError'], null)
         }
         else {
-
-            callback(null, results)
-
+            if(results.length == 0){
+                callback(["Email does not exists!"], null)
+            }else{
+                callback(null, results)
+            }
         }
     })
 
 }
-
+/*
 exports.getIdByEmail = function (email, callback) {
     const query = `SELECT profile_id FROM myDB.profiles WHERE email = ?`
     const values = email
@@ -32,4 +34,4 @@ exports.getIdByEmail = function (email, callback) {
         }
     })
 
-}
+}*/
