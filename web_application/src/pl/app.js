@@ -56,6 +56,14 @@ app.get('/', function(request, response, next){
 
 })
 
+app.post("/logout", function (request, response) {
+  request.session.isLoggedIn = false
+  request.session.userId = null
+
+  response.redirect("/")
+})
+
+
 
 /*app.get('/home', function(request, response){
   response.render("home.hbs")

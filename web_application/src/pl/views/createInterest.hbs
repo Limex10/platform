@@ -1,0 +1,19 @@
+<div class="jumbotron">
+    <div class="text-center">
+        <h1 class="display-4">Create your own interest!</h1>
+        <p class="lead">We cant create all interest so help us!</p>
+        {{#if errorMessage}}
+        <p class="lead text-danger">{{errorMessage}}</p>
+        {{/if}}
+    </div>
+
+    <div class="container">
+        <form action="/interest/createInterest/{{userId}}" method="POST">
+            <div class="form-group">
+                <label>Name</label>
+                <input name="interest" class="form-control">
+            </div>
+            <button type="submit" name="createProfileButton" class="btn btn-success">Create</button>
+        </form>
+    </div>
+</div>
