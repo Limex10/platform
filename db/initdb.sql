@@ -2,7 +2,7 @@ USE `myDB`;
 
 Create TABLE `interests`(
     `interests_id` INT NOT NULL AUTO_INCREMENT,
-    `interest` VARCHAR(50),
+    `interest` VARCHAR(50) UNIQUE,
     PRIMARY KEY (`interests_id`)
     
 );
@@ -36,7 +36,7 @@ CREATE TABLE `profiles`(
 CREATE TABLE `profilemessages`(
     `profilemessages_id` INT NOT NULL AUTO_INCREMENT,
     `message` VARCHAR(50),
-    `profile_id` INT NOT NULL UNIQUE,
+    `profile_id` INT NOT NULL,
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)
     ON DELETE CASCADE,

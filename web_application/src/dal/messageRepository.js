@@ -5,16 +5,14 @@ exports.createMessage = function (message, profile_id, callback) {
     const query = `insert into myDB.profilemessages(message, profile_id) values(?,?)`
     const values = [message, profile_id]
 
-    db.query(query, values, function (error, result) {
+    db.query(query, values, function (error) {
         if (error) {
-            callback(['databaseError'], null)
+            callback(['Something went wrong.'])
         }
         else {
-            if (result.length == 0) {
-                callback(["Something went wrong"], null)
-            } else {
-                callback(null, result)
-            }
+            
+                callback(null)
+            
         }
     })
 }

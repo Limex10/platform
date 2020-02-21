@@ -103,9 +103,9 @@
 
       </div>
 
-      <!--<a class="text-decoration-none" href="home"><button type="submit" class="btn btn-success">Submit</button></a>-->
+      <input type="hidden" name="_csrf" value="{{../csrfToken}}">
       <button type="submit" class="btn btn-success" name="updateProfileInfoButton">Submit</button>
-      {{!-- <a class="btn btn-success" href="home" role="button" type="submit" value="create">Submit</a> --}}
+     
     </form>
 
     {{/each}}

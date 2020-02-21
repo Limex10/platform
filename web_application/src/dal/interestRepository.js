@@ -10,7 +10,7 @@ exports.getAllInterests = function (callback) {
             callback(['databaseError'], null)
         } else {
             if (interests.length == 0) {
-                callback(["Something went wrong"], null)
+                callback(["Something went wrong."], null)
             } else {
                 callback(null, interests)
             }
@@ -27,7 +27,7 @@ exports.createInterest = function (interest, callback) {
 
     db.query(query, values, function (error) {
         if (error) {
-            callback(['databaseError'])
+            callback(['Interest already exists.'])
         } else {
 
             callback(null)

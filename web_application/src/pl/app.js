@@ -2,11 +2,14 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')
+const csrf = require('csurf')
+const cookieParser = require('cookie-parser')
 
 const interestRouter = require('./routers/interestRouter')
 const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
+
 
 const app = express()
 
@@ -18,10 +21,19 @@ app.use(bodyParser.urlencoded({
 
 app.engine("hbs", expressHandlebars({
   defaultLayout: 'main.hbs'
-  
+
 }))
 
 app.use(express.static(__dirname + '/public'));
+
+app.use(cookieParser())
+
+app.use(csrf({
+
+  cookie: true
+
+}))
+
 
 app.use(expressSession({
   secret: "lksjdlaaaaaaaaaaskdfj",
@@ -44,15 +56,18 @@ app.use(function (request, response, next) {
 
 //Redirecting to Routers
 app.use('/interest', interestRouter)
-app.use('/message', messageRouter)
+app.use('/createMessage', messageRouter)
 app.use('/profile', profileRouter)
 app.use('/login', loginRouter)
 
 
 
-app.get('/', function(request, response, next){
-  response.render("startScreen.hbs")
-
+app.get('/', function (request, response, next) {
+  if (request.session.isLoggedIn) {
+    response.redirect("/profile/home/" + request.session.userId)
+  } else {
+    response.render("startScreen.hbs")
+  }
 
 })
 
@@ -75,6 +90,6 @@ app.post("/logout", function (request, response) {
 //   response.render("manageProfile.hbs")
 // })
 
-app.listen(8080, function(){
+app.listen(8080, function () {
   console.log("Web application listening on port 8080.")
 })

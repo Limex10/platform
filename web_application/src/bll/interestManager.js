@@ -1,4 +1,5 @@
 const interestRepository = require('../dal/interestRepository')
+const validationManager = require('../bll/validationManager')
 
 exports.getAllInterests = function(callback){
 	interestRepository.getAllInterests(callback)
@@ -7,8 +8,14 @@ exports.getAllInterests = function(callback){
 
 exports.createInterest = function(interest, callback){
 	
-	// Validate the text of interests !!!.
-	interestRepository.createInterest(interest, callback)
+	const validationErrors = validationManager.validateInterest(interest)
+	if(validationErrors.interestError == undefined){
+		interestRepository.createInterest(interest, callback)
+	}
+	else{
+		callback(validationErrors)
+	}	
+	
 	
 }
 

@@ -1,21 +1,24 @@
 <div class="jumbotron">
     <div class ="text-center">
-            <h1 class="display-4">Login!</h1>
-  <p class="lead">Enter your information down below.</p>
+            <h1 class="display-4">Create message!</h1>
+  <p class="lead">Enter your message down below.</p>
     </div>
 
 <div class="container">
-<form action="/login" method="POST">
+<form action="/createMessage/{{userId}}" method="POST">
+ 
   <div class="form-group">
-    <label >Email address</label>
-    <input type="email" name="email" class="form-control"  aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label >Message</label>
+    {{#if errorMessage}}
+       <p class= "text-danger">{{errorMessage.messageError}}</p>
+    {{/if}}
+    {{#if errorMessage}}
+       <p class="text-danger">{{errorMessage.[0]}}</p>
+    {{/if}}
+    <input value ="{{message}}"name="message" class="form-control" >
   </div>
-  <div class="form-group">
-    <label >Password</label>
-    <input type="password" name="password" class="form-control" >
-  </div>
-  <button type="submit" name="createProfileButton" class="btn btn-success">Login</button>
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+  <button type="submit" class="btn btn-success">Create message</button>
 </form>
 </div>
 </div>

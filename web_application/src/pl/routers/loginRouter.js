@@ -7,7 +7,11 @@ const router = express.Router()
 
 router.get("/", function (request, response) {
 
-    response.render("login.hbs")
+    const model = {
+        csrfToken: request.csrfToken()
+    }
+    response.render("login.hbs",model)
+    
 })
 
 router.post("/", function (request, response) {
@@ -17,7 +21,8 @@ router.post("/", function (request, response) {
     loginManager.getAccountInfoByEmail(email, password, function (errors, result) {
         if (errors) {
             const model = {
-                errorMessage: errors
+                errorMessage: errors,
+                csrfToken: request.csrfToken()
             }
             response.render("login.hbs", model)
 

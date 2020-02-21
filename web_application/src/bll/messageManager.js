@@ -1,9 +1,17 @@
 const messageRepository = require('../dal/messageRepository')
+const validationManager = require('../bll/validationManager')
 
 exports.createMessage = function(message, profile_id, callback){
-    //validate
+   
+    const validationErrors = validationManager.validateMessage(message)
 
-    messageRepository.createMessage(message, profile_id, callback)
+    if(validationErrors.messageError == undefined){
+        messageRepository.createMessage(message, profile_id, callback)
+    }
+    else{
+        callback(validationErrors)
+    }
+    
 
 }
 

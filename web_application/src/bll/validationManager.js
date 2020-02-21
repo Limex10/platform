@@ -77,3 +77,40 @@ exports.validateUpdateProfileInfo = function(city, country, firstname, lastname,
 
 
 }
+
+exports.validateMessage = function(message){
+
+    const empty = 0
+    var messageError
+    if(message.length == empty ){
+        messageError = "Field can not be empty."
+    }
+    else if(message.length > 45){
+        messageError = "To long, maximum 45 characters"
+    }
+    const validationErrors = {
+        messageError
+    }
+
+    return validationErrors
+
+}
+
+exports.validateInterest = function(interest){
+
+    const empty = 0
+    var interestError
+
+    if(interest.length == empty ){
+        interestError = "Field can not be empty."
+    }
+    else if(interest.length > 20){
+        interestError = "To long, maximum 20 characters"
+    }
+    const validationErrors = {
+        interestError
+    }
+
+    return validationErrors
+
+}
