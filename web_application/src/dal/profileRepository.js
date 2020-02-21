@@ -18,17 +18,19 @@ exports.createProfile = function(email,password, callback){
     })
 }
 
-exports.getAllProfiles = function(callback){
+exports.getAllProfiles = function(profile_id,callback){
 
-    const query = 'SELECT * FROM myDB.profiles;'
-
-    db.query(query, function(error, profiles){
+    const query = 'SELECT * FROM myDB.profiles p WHERE p.profile_id <> ?;'
+    const values = [profile_id]
+    console.log(profile_id)
+    db.query(query,values, function(error, profiles){
         if(error){
            
             callback(['databaseError'], null)
         }
         else
         {
+            console.log(profiles.length)
             if(profiles.length == 0){
                 callback(["Something went wrong"], null)
             }

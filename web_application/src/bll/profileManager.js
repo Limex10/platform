@@ -26,10 +26,10 @@ exports.createProfile = function(email,password,repeatedPassword,callback){
     }
 }
 
-exports.getAllProfiles = function(callback){
+exports.getAllProfiles = function(profile_id,callback){
 
     //validate
-    profileRepository.getAllProfiles(callback)
+    profileRepository.getAllProfiles(profile_id,callback)
 }
 
 exports.updateProfileInfo = function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){

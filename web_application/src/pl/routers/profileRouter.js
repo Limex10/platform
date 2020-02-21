@@ -76,7 +76,7 @@ router.get('/home/:id', function (request, response) {
   const profile_id = request.params.id
 
   if (profile_id == request.session.userId) {
-    profileManager.getAllProfiles(function (errors, profiles) {
+    profileManager.getAllProfiles(request.session.userId,function (errors, profiles) {
       if (errors) {
 
         const model = {
