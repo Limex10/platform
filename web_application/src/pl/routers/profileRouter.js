@@ -219,13 +219,7 @@ router.get('/home/viewPerson/:id', function (request, response) {
         })
 
       }
-
-
-
     })
-
-
-
   }
 })
 router.post("/create", function (request, response) {

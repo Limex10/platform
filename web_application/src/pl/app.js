@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const expressSession = require('express-session')
 const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
+const redis = require('redis')
 
 const interestRouter = require('./routers/interestRouter')
 const profileRouter = require('./routers/profileRouter')
@@ -12,6 +13,11 @@ const loginRouter = require('./routers/loginRouter')
 
 
 const app = express()
+
+let RedisStore = require('connect-redis')(expressSession)
+let redisClient = redis.createClient({
+  host: "session"
+})
 
 app.set("views", "src/pl/views")
 
@@ -36,6 +42,7 @@ app.use(csrf({
 
 
 app.use(expressSession({
+  store: new RedisStore({ client: redisClient }),
   secret: "lksjdlaaaaaaaaaaskdfj",
   saveUninitialized: false,
   isLoggedIn: false,
