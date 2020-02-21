@@ -8,7 +8,7 @@ exports.createProfile = function(email,password, callback){
 
     db.query(query,values, function(error, results){
         if(error){
-            callback(['databaseError'], null)
+            callback(['Account already exists.'], null)
         }
         else
         {
@@ -99,7 +99,22 @@ exports.updateAccountInfo = function(email,password, profile_id, callback){
         }
     })
 }
+exports.deleteAccountById = function(id,callback){
 
+    const query = 'DELETE FROM myDB.profiles WHERE profile_id = ?'
+    const values = [id]
+
+    db.query(query,values,function(error){
+        if(error){
+            callback(['Could not delete account.'])
+        }
+        else{
+            callback(null)
+        }
+    })
+    
+    
+}
 
 
 

@@ -77,3 +77,8 @@ exports.updateAccountInfo = function(email,password,repeatedPassword, profile_id
 
     
 }
+
+exports.deleteAccountById = function(id,callback){
+
+    profileRepository.deleteAccountById(id,callback)
+}

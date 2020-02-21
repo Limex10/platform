@@ -73,9 +73,9 @@ router.get('/createInfo/:id', function (request, response) {
 })
 
 router.get('/home/:id', function (request, response) {
-  const id = request.params.id
+  const profile_id = request.params.id
 
-  if (id == request.session.userId) {
+  if (profile_id == request.session.userId) {
     profileManager.getAllProfiles(function (errors, profiles) {
       if (errors) {
 
@@ -89,7 +89,7 @@ router.get('/home/:id', function (request, response) {
 
       }
       else {
-        profileManager.getProfileById(id, function (errors, profile) {
+        profileManager.getProfileById(profile_id, function (errors, profile) {
           if (errors) {
 
             const model = {
@@ -102,7 +102,7 @@ router.get('/home/:id', function (request, response) {
           }
           else {
 
-            interestManager.filterInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, function (errors, filterInterests) {
+            interestManager.filterInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, request.session.userId, function (errors, filterInterests) {
               if (errors) {
 
                 const model = {
@@ -115,7 +115,7 @@ router.get('/home/:id', function (request, response) {
 
               }
               else {
-              
+
                 const model = {
                   profiles: profiles,
                   profile: profile,
@@ -149,8 +149,7 @@ router.get('/home/viewPerson/:id', function (request, response) {
   if (request.session.isLoggedIn) {
     const profile_id = request.params.id
 
-
-    profileManager.getProfileById(profile_id, function (errors, profile) {
+    profileManager.getProfileById(request.session.userId, function (errors, userProfile) {
       if (errors) {
 
         const model = {
@@ -163,7 +162,8 @@ router.get('/home/viewPerson/:id', function (request, response) {
 
       }
       else {
-        interestManager.getInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, function (errors, interests) {
+
+        profileManager.getProfileById(profile_id, function (errors, profile) {
           if (errors) {
 
             const model = {
@@ -176,7 +176,7 @@ router.get('/home/viewPerson/:id', function (request, response) {
 
           }
           else {
-            interestManager.filterInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, function (errors, filterInterests) {
+            interestManager.getInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, function (errors, interests) {
               if (errors) {
 
                 const model = {
@@ -189,26 +189,44 @@ router.get('/home/viewPerson/:id', function (request, response) {
 
               }
               else {
-                const model = {
-                  profile: profile,
-                  interests: interests,
-                  filterInterests: filterInterests,
-                  csrfToken: request.csrfToken()
-                }
+                interestManager.filterInterestsById(userProfile[0].id_interest1, userProfile[0].id_interest2, userProfile[0].id_interest3, userProfile[0].id_interest4, request.session.userId, function (errors, filterInterests) {
+                  if (errors) {
 
-                response.render("viewPerson.hbs", model)
+                    const model = {
+                      errorStatus: "500",
+                      errorMessage: errors,
+                      csrfToken: request.csrfToken()
+
+                    }
+                    response.render("error.hbs", model)
+
+                  }
+                  else {
+                    const model = {
+                      profile: profile,
+                      interests: interests,
+                      filterInterests: filterInterests,
+                      csrfToken: request.csrfToken()
+                    }
+
+                    response.render("viewPerson.hbs", model)
+                  }
+                })
               }
             })
           }
+
         })
+
       }
+
+
 
     })
 
+
+
   }
-
-
-
 })
 router.post("/create", function (request, response) {
 
@@ -278,7 +296,7 @@ router.post("/createInfo/:id", function (request, response) {
               csrfToken: request.csrfToken()
 
             }
-            request.session.isLoggedIn = true
+
             response.render("createProfileInfo.hbs", model)
 
           }
@@ -287,6 +305,7 @@ router.post("/createInfo/:id", function (request, response) {
 
       }
       else {
+        request.session.isLoggedIn = true
         response.redirect("/profile/home/" + request.session.userId)
       }
     })
@@ -332,7 +351,7 @@ router.get("/manageProfile/:id", function (request, response) {
 
           }
           else {
-            interestManager.filterInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, function (errors, filterInterests) {
+            interestManager.filterInterestsById(profile[0].id_interest1, profile[0].id_interest2, profile[0].id_interest3, profile[0].id_interest4, request.session.userId, function (errors, filterInterests) {
               if (errors) {
 
                 const model = {
@@ -656,6 +675,67 @@ router.post("/updateAccount/:id", function (request, response) {
     }
     response.render("error.hbs", model)
   }
+
+})
+
+router.get("/deleteAccount/:id", function (request, response) {
+
+  const profile_id = request.params.id
+
+  if (profile_id == request.session.userId) {
+
+    const model = {
+      csrfToken: request.csrfToken()
+    }
+    response.render("deleteAccount.hbs", model)
+  }
+  else {
+    const model = {
+      errorStatus: "401",
+      errorMessage: "You are unauthorized to view this page",
+      csrfToken: request.csrfToken()
+
+    }
+    response.render("error.hbs", model)
+
+  }
+
+})
+
+router.post("/deleteAccount/:id", function (request, response) {
+
+  const profile_id = request.params.id
+  const userId = request.body.deleteAccountButton
+  if (profile_id == request.session.userId && userId == profile_id) {
+
+
+    profileManager.deleteAccountById(profile_id, function (error) {
+      if (error) {
+        const model = {
+          errorMessage: error,
+          csrfToken: request.csrfToken()
+        }
+        response.render("deleteAccount.hbs", model)
+
+      } else {
+        response.redirect("/../")
+        request.session.userId = null
+        request.session.isLoggedIn = false
+
+      }
+    })
+  }
+  else {
+    const model = {
+      errorStatus: "401",
+      errorMessage: "You are unauthorized to view this page",
+      csrfToken: request.csrfToken()
+
+    }
+    response.render("error.hbs", model)
+
+  }
+
 
 })
 
