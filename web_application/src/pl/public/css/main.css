@@ -23,3 +23,8 @@ main{height: 92%;}
 #main-login-button{
     margin-left: 2%;
 }
+#auth{
+    position: absolute;
+    left: 88%;
+    margin: auto 0 auto 0;
+}

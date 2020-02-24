@@ -19,54 +19,46 @@
 
 <body class="bg-light">
   <div class="screen-height">
-    <nav class="navbar shadow-sm navbar-expand-lg navbar-light bg-light">
-      <img src="/logo.png" width="50" height="50" alt="">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+       <ul class="nav">
+      <img class="nav-item" src="/logo.png" width="50" height="50" alt="">
+      
       {{#if isLoggedIn}}
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+     
+       
+          <li class="nav-item active"></li>
             <a class="nav-link text-success" href="/profile/home/{{#if userId}}{{userId}}{{/if}}">Home</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link text-success" href="/profile/manageProfile/{{#if userId}}{{userId}}{{/if}}">Profile</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link text-success" href="#">Disabled</a>
-          </li>
-        </ul>
+        
         
         {{else}}
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+     
             <li class="nav-item">
               <a class="nav-link disabled" aria-disabled="true">Home <span
                   class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Link</a>
+              <a class="nav-link disabled" aria-disabled="true">Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
+          
 
           {{/if}}
+          <div id="auth">
           {{#if isLoggedIn}}
+          
           <form action="/logout" method="POST">
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
-            <button type="submit" class="btn btn-danger">Logout</button>
+            <button  type="submit" class="btn btn-danger align-middle nav-item">Logout</button>
           </form>
           {{else}}
-          <a href="/login" class="btn btn-success">Login</a>
+          <a href="/login" class="btn btn-success align-middle nav-item">Login</a>
           {{/if}}
+          </div>
 
-
-        </div>
-    </nav>
+     </ul>
+    
     <main>
       {{{body}}}
     </main>

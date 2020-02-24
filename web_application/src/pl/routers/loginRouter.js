@@ -24,7 +24,8 @@ router.post("/", function (request, response) {
         if (errors) {
             const model = {
                 errorMessage: errors,
-                csrfToken: request.csrfToken()
+                csrfToken: request.csrfToken(),
+                email
             }
             response.render("login.hbs", model)
 

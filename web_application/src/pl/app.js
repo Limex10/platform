@@ -53,9 +53,6 @@ const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
 const theInterestRouter = container.resolve("interestRouter")
 
-
-
-
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient({
   host: "session"

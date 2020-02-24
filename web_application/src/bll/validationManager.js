@@ -2,7 +2,7 @@
 module.exports = function({}){
 
     return{
-validateCreateProfile: function(email,password,repeatedpassword){
+validateProfile: function(email,password,repeatedpassword){
 
     var passwordError
     var emailError
@@ -18,7 +18,11 @@ validateCreateProfile: function(email,password,repeatedpassword){
         passwordError = "Password to short, minimum 8 characters."
                       
     }
-    if(email.length == empty){
+    
+    if(!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+        emailError = "Invalid characters for email."
+    }
+    else if(email.length == empty){
         emailError = "Must enter email"
         
     }
@@ -86,6 +90,7 @@ validateMessage: function(message){
 
     const empty = 0
     var messageError
+    
     if(message.length == empty ){
         messageError = "Field can not be empty."
     }

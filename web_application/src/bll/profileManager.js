@@ -13,7 +13,7 @@ module.exports = function({profileRepository,validationManager}){
 createProfile: function(email,password,repeatedPassword,callback){
 
 
-    const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
+    const validationErrors = validationManager.validateProfile(email,password,repeatedPassword)
 
     
     if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
@@ -63,7 +63,7 @@ getProfileById: function(profile_id,callback){
 ,
 updateAccountInfo: function(email,password,repeatedPassword, profile_id, callback){
     
-    const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
+    const validationErrors = validationManager.validateProfile(email,password,repeatedPassword)
 
     if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
         const saltRounds = 10
