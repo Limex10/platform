@@ -1,6 +1,11 @@
-const db = require("./db")
+//const db = require("./db")
 
-exports.createProfile = function(email,password, callback){
+
+module.exports = function({db}){
+
+    return{
+
+createProfile: function(email,password, callback){
 
     const query = 'INSERT INTO myDB.profiles (email, password, id_interest1, id_interest2, id_interest3, id_interest4) VALUES (?,?,1,2,3,4)'
     const values = [email, password]
@@ -17,8 +22,8 @@ exports.createProfile = function(email,password, callback){
         }
     })
 }
-
-exports.getAllProfiles = function(profile_id,callback){
+,
+getAllProfiles: function(profile_id,callback){
 
     const query = 'SELECT * FROM myDB.profiles p WHERE p.profile_id <> ?;'
     const values = [profile_id]
@@ -32,7 +37,7 @@ exports.getAllProfiles = function(profile_id,callback){
         {
             console.log(profiles.length)
             if(profiles.length == 0){
-                callback(["Something went wrong"], null)
+                callback(["There are no profiles"], null)
             }
             else{
                 callback(null, profiles)
@@ -40,8 +45,8 @@ exports.getAllProfiles = function(profile_id,callback){
         }
     })
 }
-
-exports.updateProfileInfo = function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
+,
+updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
 
     const query = "UPDATE myDB.profiles SET city = ?,country = ?,firstname = ?,lastname = ?,id_interest1 = ?,id_interest2 = ?,id_interest3 = ?,id_interest4 = ? WHERE profile_id = ?"
     const values = [city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id]
@@ -56,8 +61,8 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
         }
     })
 }
-
-exports.getProfileById = function(profile_id,callback){
+,
+getProfileById: function(profile_id,callback){
 
     const query = 'select * FROM myDB.profiles p WHERE p.profile_id = ?'
     const values = profile_id
@@ -80,8 +85,8 @@ exports.getProfileById = function(profile_id,callback){
     })
 
 }
-
-exports.updateAccountInfo = function(email,password, profile_id, callback){
+,
+updateAccountInfo: function(email,password, profile_id, callback){
 
    
     const query = 'UPDATE myDB.profiles SET email = ?, password = ? WHERE profile_id = ?'
@@ -101,7 +106,8 @@ exports.updateAccountInfo = function(email,password, profile_id, callback){
         }
     })
 }
-exports.deleteAccountById = function(id,callback){
+,
+deleteAccountById: function(id,callback){
 
     const query = 'DELETE FROM myDB.profiles WHERE profile_id = ?'
     const values = [id]
@@ -117,7 +123,8 @@ exports.deleteAccountById = function(id,callback){
     
     
 }
-
+}
+}
 
 
 

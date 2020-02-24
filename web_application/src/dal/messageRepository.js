@@ -1,6 +1,10 @@
-const db = require("./db")
+//const db = require("./db")
 
-exports.createMessage = function (message, profile_id, callback) {
+module.exports = function({db}){
+    return{
+
+    
+createMessage: function (message, profile_id, callback) {
 
     const query = `insert into myDB.profilemessages(message, profile_id) values(?,?)`
     const values = [message, profile_id]
@@ -16,8 +20,8 @@ exports.createMessage = function (message, profile_id, callback) {
         }
     })
 }
-
-exports.getAllMessagesByProfileId = function (profile_id, callback) {
+,
+getAllMessagesByProfileId: function (profile_id, callback) {
 
     const query = `SELECT message FROM myDB.profilemessages WHERE profile_id = ?`
     const value = profile_id
@@ -32,4 +36,6 @@ exports.getAllMessagesByProfileId = function (profile_id, callback) {
 
         }
     })
+}
+}
 }

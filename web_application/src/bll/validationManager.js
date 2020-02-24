@@ -1,4 +1,8 @@
-exports.validateCreateProfile = function(email,password,repeatedpassword){
+
+module.exports = function({}){
+
+    return{
+validateCreateProfile: function(email,password,repeatedpassword){
 
     var passwordError
     var emailError
@@ -26,8 +30,8 @@ exports.validateCreateProfile = function(email,password,repeatedpassword){
      return validationErrors
     
 }
-
-exports.validateUpdateProfileInfo = function(city, country, firstname, lastname, interest1, interest2, interest3, interest4){
+,
+validateUpdateProfileInfo: function(city, country, firstname, lastname, interest1, interest2, interest3, interest4){
     
     const empty = 0
     var cityError
@@ -77,8 +81,8 @@ exports.validateUpdateProfileInfo = function(city, country, firstname, lastname,
 
 
 }
-
-exports.validateMessage = function(message){
+,
+validateMessage: function(message){
 
     const empty = 0
     var messageError
@@ -95,8 +99,8 @@ exports.validateMessage = function(message){
     return validationErrors
 
 }
-
-exports.validateInterest = function(interest){
+,
+validateInterest: function(interest){
 
     const empty = 0
     var interestError
@@ -113,4 +117,6 @@ exports.validateInterest = function(interest){
 
     return validationErrors
 
+}
+}
 }

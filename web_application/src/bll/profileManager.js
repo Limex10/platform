@@ -1,8 +1,16 @@
-const profileRepository = require('../dal/profileRepository')
-const validationManager = require('../bll/validationManager')
+//const profileRepository = require('../dal/profileRepository')
+//const validationManager = require('../bll/validationManager')
 const bcrypt = require('bcrypt')
 
-exports.createProfile = function(email,password,repeatedPassword,callback){
+
+
+module.exports = function({profileRepository,validationManager}){
+
+
+    return{
+
+    
+createProfile: function(email,password,repeatedPassword,callback){
 
 
     const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
@@ -25,14 +33,14 @@ exports.createProfile = function(email,password,repeatedPassword,callback){
         callback(validationErrors) 
     }
 }
-
-exports.getAllProfiles = function(profile_id,callback){
+,
+getAllProfiles: function(profile_id,callback){
 
     //validate
     profileRepository.getAllProfiles(profile_id,callback)
 }
-
-exports.updateProfileInfo = function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
+,
+updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
 
     const validationErrors = validationManager.validateUpdateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4)
 
@@ -46,14 +54,14 @@ exports.updateProfileInfo = function(city, country, firstname, lastname, id_inte
         callback(validationErrors,profile_id)
     }
 }
-
-exports.getProfileById = function(profile_id,callback){
+,
+getProfileById: function(profile_id,callback){
 
     profileRepository.getProfileById(profile_id, callback)
 
 }
-
-exports.updateAccountInfo = function(email,password,repeatedPassword, profile_id, callback){
+,
+updateAccountInfo: function(email,password,repeatedPassword, profile_id, callback){
     
     const validationErrors = validationManager.validateCreateProfile(email,password,repeatedPassword)
 
@@ -77,8 +85,11 @@ exports.updateAccountInfo = function(email,password,repeatedPassword, profile_id
 
     
 }
-
-exports.deleteAccountById = function(id,callback){
+,
+deleteAccountById: function(id,callback){
 
     profileRepository.deleteAccountById(id,callback)
+}
+
+}
 }

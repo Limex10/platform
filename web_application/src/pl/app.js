@@ -6,13 +6,55 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
+const app = express()
+
+const awilix = require("awilix")
+
+const profileRepository = require("../dal/profileRepository")
+const messageRepository = require("../dal/messageRepository")
+const loginRepository = require("../dal/loginRepository")
+const interestRepository = require("../dal/interestRepository")
+
+const validationManager = require("../bll/validationManager")
+const profileManager = require("../bll/profileManager")
+const messageManager = require("../bll/messageManager")
+const loginManager = require("../bll/loginManager")
+const interestManager = require("../bll/interestManager")
+
 const interestRouter = require('./routers/interestRouter')
 const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
 
+const db = require("../dal/db")
 
-const app = express()
+const container = awilix.createContainer()
+
+container.register("profileRepository",awilix.asFunction(profileRepository))
+container.register("messageRepository",awilix.asFunction(messageRepository))
+container.register("loginRepository",awilix.asFunction(loginRepository))
+container.register("interestRepository",awilix.asFunction(interestRepository))
+
+container.register("validationManager",awilix.asFunction(validationManager))
+container.register("profileManager",awilix.asFunction(profileManager))
+container.register("messageManager",awilix.asFunction(messageManager))
+container.register("loginManager",awilix.asFunction(loginManager))
+container.register("interestManager",awilix.asFunction(interestManager))
+
+container.register("interestRouter",awilix.asFunction(interestRouter))
+container.register("profileRouter",awilix.asFunction(profileRouter))
+container.register("messageRouter",awilix.asFunction(messageRouter))
+container.register("loginRouter",awilix.asFunction(loginRouter))
+
+container.register("db",awilix.asFunction(db))
+
+const theLoginRouter = container.resolve("loginRouter")
+const theMessageRouter = container.resolve("messageRouter")
+const theProfileRouter = container.resolve("profileRouter")
+const theInterestRouter = container.resolve("interestRouter")
+
+
+
 
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient({
@@ -62,10 +104,10 @@ app.use(function (request, response, next) {
 
 
 //Redirecting to Routers
-app.use('/interest', interestRouter)
-app.use('/createMessage', messageRouter)
-app.use('/profile', profileRouter)
-app.use('/login', loginRouter)
+app.use('/interest', theInterestRouter)
+app.use('/createMessage', theMessageRouter)
+app.use('/profile', theProfileRouter)
+app.use('/login', theLoginRouter)
 
 
 
@@ -86,16 +128,6 @@ app.post("/logout", function (request, response) {
 })
 
 
-
-/*app.get('/home', function(request, response){
-  response.render("home.hbs")
-})*/
-/*app.get('/viewPerson', function(request, response){
-  response.render("viewPerson.hbs")
-})*/
-// app.get('/yourProfile', function(request, response){
-//   response.render("manageProfile.hbs")
-// })
 
 app.listen(8080, function () {
   console.log("Web application listening on port 8080.")

@@ -18,9 +18,9 @@
 </div>
 <div class="row browse-content">
     <div class="col border">
-        <h2 class="text-center ">Recommended</h2>
+        <h2 class="text-center ">Recommended</h2>   
         <div id="recommended-cards" class="col overflow-auto">
-
+     
              {{#if filterInterests}}
             {{#each filterInterests}}
             <div class="card" style="width: 100%;">
@@ -39,6 +39,9 @@
     </div>
     <div class="col-9 overflow-auto">
          <div id="browse-cards">
+                    {{#if errorMessage}}
+            <h3>{{errorMessage}}</h3>
+            {{/if}}
         {{#if profiles.length}}
             {{#each profiles}}
        

@@ -1,9 +1,10 @@
 const express = require('express')
-
+/*
 const profileManager = require('../../bll/profileManager')
 const interestManager = require('../../bll/interestManager')
 const messageManager = require('../../bll/messageManager')
-
+*/
+module.exports = function({profileManager,interestManager,messageManager}){
 const router = express.Router()
 
 router.get('/create', function (request, response) {
@@ -80,12 +81,11 @@ router.get('/home/:id', function (request, response) {
       if (errors) {
 
         const model = {
-          errorStatus: "500",
           errorMessage: errors,
           csrfToken: request.csrfToken()
 
         }
-        response.render("error.hbs", model)
+        response.render("home.hbs", model)
 
       }
       else {
@@ -712,9 +712,11 @@ router.post("/deleteAccount/:id", function (request, response) {
         response.render("deleteAccount.hbs", model)
 
       } else {
-        response.redirect("/../")
+        
         request.session.userId = null
         request.session.isLoggedIn = false
+        response.redirect("/../")
+
 
       }
     })
@@ -733,6 +735,6 @@ router.post("/deleteAccount/:id", function (request, response) {
 
 })
 
-
-
-module.exports = router
+return router
+}
+//module.exports = router

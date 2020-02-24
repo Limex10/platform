@@ -1,7 +1,9 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 
-const loginManager = require('../../bll/loginManager')
+//const loginManager = require('../../bll/loginManager')
+
+module.exports = function({loginManager}){
 
 const router = express.Router()
 
@@ -40,4 +42,6 @@ router.post("/", function (request, response) {
 
 })
 
-module.exports = router
+    return router
+}
+//module.exports = router

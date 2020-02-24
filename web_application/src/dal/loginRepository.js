@@ -1,6 +1,10 @@
-const db = require("./db")
+//const db = require("./db")
 
-exports.getAccountInfoByEmail = function (email, callback) {
+module.exports = function({db}){
+
+    return{
+        
+getAccountInfoByEmail: function (email, callback) {
     const query = `SELECT password, email, profile_id FROM myDB.profiles WHERE email = ?`
     const values = email
 
@@ -17,6 +21,8 @@ exports.getAccountInfoByEmail = function (email, callback) {
         }
     })
 
+}
+}
 }
 /*
 exports.getIdByEmail = function (email, callback) {

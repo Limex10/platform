@@ -1,7 +1,10 @@
-const messageRepository = require('../dal/messageRepository')
-const validationManager = require('../bll/validationManager')
+//const messageRepository = require('../dal/messageRepository')
+//const validationManager = require('../bll/validationManager')
 
-exports.createMessage = function(message, profile_id, callback){
+module.exports = function({messageRepository,validationManager}){
+
+    return {
+    createMessage: function(message, profile_id, callback){
    
     const validationErrors = validationManager.validateMessage(message)
 
@@ -14,11 +17,13 @@ exports.createMessage = function(message, profile_id, callback){
     
 
 }
-
-exports.getAllMessagesByProfileId = function(profile_id, callback){
+,
+getAllMessagesByProfileId: function(profile_id, callback){
 
     //validate
 
     messageRepository.getAllMessagesByProfileId(profile_id, callback)
 
+}
+}
 }

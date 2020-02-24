@@ -1,5 +1,8 @@
 const express = require('express')
-const messageManager = require('../../bll/messageManager')
+//const messageManager = require('../../bll/messageManager')
+
+
+module.exports = function({messageManager}){
 
 const router = express.Router()
 
@@ -25,10 +28,6 @@ else {
 })
 
 router.post("/:id", function(request, response){
-    
-
-    
-
     
     const profile_id = request.params.id
     if(request.session.isLoggedIn && request.session.userId == profile_id){
@@ -58,5 +57,6 @@ router.post("/:id", function(request, response){
       }
       
 })
-
-module.exports = router
+    return router
+}
+//module.exports = router

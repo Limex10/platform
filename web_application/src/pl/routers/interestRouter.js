@@ -1,5 +1,7 @@
 const express = require('express')
-const interestManager = require('../../bll/interestManager')
+//const interestManager = require('../../bll/interestManager')
+
+module.exports = function({interestManager}){
 
 const router = express.Router()
 
@@ -56,4 +58,7 @@ router.post("/createInterest/:id", function(request,response){
    
 
 })
-module.exports = router
+
+return router
+//module.exports = router
+}

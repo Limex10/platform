@@ -1,6 +1,12 @@
-const loginRepository = require('../dal/loginRepository')
+//const loginRepository = require('../dal/loginRepository')
 const bcrypt = require('bcrypt')
-exports.getAccountInfoByEmail = function (email, password, callback) {
+
+module.exports = function({loginRepository}){
+
+    return{
+
+    
+getAccountInfoByEmail: function (email, password, callback) {
     //validate
     loginRepository.getAccountInfoByEmail(email, function (errors, result) {
         if (errors) {
@@ -26,7 +32,8 @@ exports.getAccountInfoByEmail = function (email, password, callback) {
         }
     })
 }
-
+}
+}
 /*
 exports.getIdByEmail = function(email, callback){
     //validate

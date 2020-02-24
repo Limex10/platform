@@ -1,7 +1,11 @@
-const db = require("./db")
+//const db = require("./db")
 
 
-exports.getAllInterests = function (callback) {
+module.exports = function({db}){
+
+    return{
+
+getAllInterests: function (callback) {
 
     const query = `SELECT * FROM myDB.interests`
 
@@ -19,8 +23,8 @@ exports.getAllInterests = function (callback) {
     })
 
 }
-
-exports.createInterest = function (interest, callback) {
+,
+createInterest: function (interest, callback) {
 
     const query = `INSERT INTO myDB.interests(interest) VALUES (?)`
     const values = interest
@@ -36,8 +40,8 @@ exports.createInterest = function (interest, callback) {
         }
     })
 }
-
-exports.getInterestsById = function (id_interest1, id_interest2, id_interest3, id_interest4, callback) {
+,
+getInterestsById: function (id_interest1, id_interest2, id_interest3, id_interest4, callback) {
     const query = `select interest FROM myDB.interests i WHERE i.interests_id IN (?, ?, ?, ?)`
     const values = [id_interest1, id_interest2, id_interest3, id_interest4]
 
@@ -53,8 +57,8 @@ exports.getInterestsById = function (id_interest1, id_interest2, id_interest3, i
         }
     })
 }
-
-exports.filterInterestsById = function (id_interest1, id_interest2, id_interest3, id_interest4,profile_id, callback) {
+,
+filterInterestsById: function (id_interest1, id_interest2, id_interest3, id_interest4,profile_id, callback) {
     console.log(profile_id)
     const query = `Select * FROM myDB.profiles p WHERE profile_id <> ? and ((id_interest1 = ? and id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest3 = ?) or (id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest4 = ?))`
     const values = [profile_id, id_interest1, id_interest2, id_interest3, id_interest4, id_interest1, id_interest2, id_interest3, id_interest2, id_interest3, id_interest4, id_interest1, id_interest3, id_interest4, id_interest1, id_interest2, id_interest4]
@@ -70,4 +74,6 @@ exports.filterInterestsById = function (id_interest1, id_interest2, id_interest3
         }
     })
 
+}
+}
 }
