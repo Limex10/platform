@@ -6,14 +6,35 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
+const checker = false
+
 const app = express()
 
 const awilix = require("awilix")
 
-const profileRepository = require("../dal/profileRepository")
-const messageRepository = require("../dal/messageRepository")
-const loginRepository = require("../dal/loginRepository")
-const interestRepository = require("../dal/interestRepository")
+let profileRepository
+let messageRepository
+let loginRepository
+let interestRepository
+let db
+
+if (checker) {
+  profileRepository = require("../dal/profileRepository")
+  messageRepository = require("../dal/messageRepository")
+  loginRepository = require("../dal/loginRepository")
+  interestRepository = require("../dal/interestRepository")
+  db = require("../dal/db")
+  
+
+}
+else {
+  
+  profileRepository = require("../dal2/profileRepository")
+  messageRepository = require("../dal2/messageRepository")
+  loginRepository = require("../dal2/loginRepository")
+  interestRepository = require("../dal2/interestRepository")
+  db = require("../dal2/db2")
+}
 
 const validationManager = require("../bll/validationManager")
 const profileManager = require("../bll/profileManager")
@@ -26,27 +47,25 @@ const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
 
-const db = require("../dal/db")
-
 const container = awilix.createContainer()
 
-container.register("profileRepository",awilix.asFunction(profileRepository))
-container.register("messageRepository",awilix.asFunction(messageRepository))
-container.register("loginRepository",awilix.asFunction(loginRepository))
-container.register("interestRepository",awilix.asFunction(interestRepository))
+container.register("profileRepository", awilix.asFunction(profileRepository))
+container.register("messageRepository", awilix.asFunction(messageRepository))
+container.register("loginRepository", awilix.asFunction(loginRepository))
+container.register("interestRepository", awilix.asFunction(interestRepository))
 
-container.register("validationManager",awilix.asFunction(validationManager))
-container.register("profileManager",awilix.asFunction(profileManager))
-container.register("messageManager",awilix.asFunction(messageManager))
-container.register("loginManager",awilix.asFunction(loginManager))
-container.register("interestManager",awilix.asFunction(interestManager))
+container.register("validationManager", awilix.asFunction(validationManager))
+container.register("profileManager", awilix.asFunction(profileManager))
+container.register("messageManager", awilix.asFunction(messageManager))
+container.register("loginManager", awilix.asFunction(loginManager))
+container.register("interestManager", awilix.asFunction(interestManager))
 
-container.register("interestRouter",awilix.asFunction(interestRouter))
-container.register("profileRouter",awilix.asFunction(profileRouter))
-container.register("messageRouter",awilix.asFunction(messageRouter))
-container.register("loginRouter",awilix.asFunction(loginRouter))
+container.register("interestRouter", awilix.asFunction(interestRouter))
+container.register("profileRouter", awilix.asFunction(profileRouter))
+container.register("messageRouter", awilix.asFunction(messageRouter))
+container.register("loginRouter", awilix.asFunction(loginRouter))
 
-container.register("db",awilix.asFunction(db))
+container.register("db", awilix.asFunction(db))
 
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")

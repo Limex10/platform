@@ -90,6 +90,7 @@ router.get('/home/:id', function (request, response) {
       }
       else {
         profileManager.getProfileById(profile_id, function (errors, profile) {
+          
           if (errors) {
 
             const model = {
@@ -115,7 +116,7 @@ router.get('/home/:id', function (request, response) {
 
               }
               else {
-
+                console.log(profiles)
                 const model = {
                   profiles: profiles,
                   profile: profile,
@@ -242,6 +243,7 @@ router.post("/create", function (request, response) {
 
     }
     else {
+      console.log(id)
       request.session.userId = id
       response.redirect("/profile/createInfo/" + request.session.userId)
 

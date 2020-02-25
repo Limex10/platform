@@ -9,13 +9,24 @@ services:
       - "./web_application/src:/web-application/src"
     depends_on: 
       - "db"
+      - "db2"
   db:
     build: ./db
     ports: 
       - "3306:3306"
-    environment: 
-      - "MYSQL_ROOT_PASSWORD=abc123"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=YEETUS"
+      - "MYSQL_PASSWORD=abc123"
       - "MYSQL_DATABASE=myDB"
+      - "MYSQL_USER=lundgrens"
+  db2:
+    build: ./db2
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_PASSWORD=abc123"
+      - "POSTGRES_USER=lundgrens"
+      - "POSTGRES_DB=myDB2"     
   session:
     build: ./session
     ports:
