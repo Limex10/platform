@@ -1,4 +1,4 @@
-//const db = require("./db")
+const Sequelize = require('sequelize')
 
 
 module.exports = function({db}){
@@ -7,6 +7,21 @@ module.exports = function({db}){
 
 createProfile: function(email,password, callback){
 
+    
+    db.model("profiles").create({
+        email: email,
+        password: password
+
+    }).then(function(results){
+
+        
+        callback(null, results.profile_id)
+
+    }).catch(function(error){
+
+        callback(['Account already exists.'], null)
+    })
+/*
     const query = 'INSERT INTO profiles(email, password, id_interest1, id_interest2, id_interest3, id_interest4) VALUES ($1, $2, 1, 2, 3, 4) RETURNING profile_id'
     const values = [email, password]
 
@@ -21,10 +36,34 @@ createProfile: function(email,password, callback){
 
         }
     })
+    */
 }
 ,
 getAllProfiles: function(profile_id,callback){
 
+
+    db.model("profiles").findAll({
+        raw: true,
+        where: {
+            profile_id: {
+                [Sequelize.Op.not]: profile_id}
+        }
+
+    })
+    .then(function(profiles){
+
+        if(profiles.length == 0){
+            callback(["There are no profiles"], null)
+        }
+        else{
+            callback(null, profiles)
+        }
+
+    }).catch(function(error){
+
+        callback(['databaseError'], null)
+    })
+/*
     const query = 'SELECT * FROM profiles WHERE profile_id <> $1;'
     const values = [profile_id]
     db.query(query,values, function(error, profiles){
@@ -40,11 +79,34 @@ getAllProfiles: function(profile_id,callback){
                 callback(null, profiles.rows)
             }
         }
-    })
+    })*/
 }
 ,
 updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
 
+    
+    db.model("profiles").update({
+        city: city,
+        country: country,
+        firstname: firstname,
+        lastname: lastname,
+        id_interest1: id_interest1,
+        id_interest2: id_interest2,
+        id_interest3: id_interest3,
+        id_interest4: id_interest4
+        
+        },{
+        where:{
+        profile_id: profile_id
+        }
+        }).then(function(){
+
+            callback(null, profile_id)
+
+        }).catch(function(error){
+            callback(['databaseError'], null)
+        })
+        /*
     const query = "UPDATE profiles SET city = $1,country = $2,firstname = $3,lastname = $4,id_interest1 = $5,id_interest2 = $6,id_interest3 = $7,id_interest4 = $8 WHERE profile_id = $9"
     const values = [city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id]
     db.query(query,values, function(error){
@@ -56,11 +118,31 @@ updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id
           
             callback(null, profile_id)
         }
-    })
+    })*/
 }
 ,
 getProfileById: function(profile_id,callback){
 
+    db.model("profiles").findAll({
+        raw: true,
+        where: {
+            profile_id: profile_id
+        }
+    }).then(function(profile){
+
+        if(profile.length == 0){
+            callback(["Something went wrong"], null)
+        }
+        else{
+            callback(null,profile)
+        }
+
+    }).catch(function(errors){
+
+        callback(['databaseError'], null)
+
+    })
+/*
     const query = 'select * FROM profiles WHERE profile_id = $1'
     const values = [profile_id]
 
@@ -81,12 +163,32 @@ getProfileById: function(profile_id,callback){
 
         }
     })
-
+*/
 }
 ,
 updateAccountInfo: function(email,password, profile_id, callback){
 
-   
+   db.model("profiles").update({
+    email: email,
+    password: password},
+    {
+        where:{
+            profile_id: profile_id
+        }
+    }
+
+   ).then(function(){
+
+    callback(null)
+
+   }).catch(function(error){
+
+    callback(['Email already exists!'])
+
+   })
+
+
+/*
     const query = 'UPDATE myDB.profiles SET email = ?, password = ? WHERE profile_id = ?'
     const values = [email, password, profile_id]
 
@@ -102,11 +204,23 @@ updateAccountInfo: function(email,password, profile_id, callback){
             callback(null)
 
         }
-    })
+    })*/
 }
 ,
 deleteAccountById: function(id,callback){
 
+    db.model("profiles").destroy({
+        raw: true,
+        where: {
+            profile_id: id
+        }
+
+    }).then(function(){
+        callback(null)
+    }).catch(function(error){
+        callback(['Could not delete account.'])
+    })
+/*
     const query = 'DELETE FROM myDB.profiles WHERE profile_id = ?'
     const values = [id]
 
@@ -118,7 +232,7 @@ deleteAccountById: function(id,callback){
             callback(null)
         }
     })
-    
+    */
     
 }
 }

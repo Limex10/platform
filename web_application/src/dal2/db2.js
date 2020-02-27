@@ -22,7 +22,7 @@ module.exports = function ({ }) {
 		
 	})
 
-	return sequelize
+		sequelize
 		.authenticate()
 		.then(() => {
 
@@ -89,7 +89,9 @@ module.exports = function ({ }) {
 				}
 			})
 
-			profilemessages.belongsTo(profiles)
+			profilemessages.belongsTo(profiles,{
+				foreignKey: "profile_id"
+			})
 
 			profiles.belongsTo(interests, {
 				foreignKey: 'id_interest1'
@@ -144,18 +146,12 @@ module.exports = function ({ }) {
 
 
 
-			const model = {
-				sequelize,
-				profiles,
-				interest,
-				profilemessages
-
-			}
+			
 
 
 			console.log('Connection has been established successfully.');
 
-			return () => model
+			return sequelize
 
 		})
 		.catch(err => {
@@ -163,6 +159,7 @@ module.exports = function ({ }) {
 			return sequelize
 		});
 
+		return sequelize
 		
 }
 

@@ -5,6 +5,25 @@ module.exports = function({db}){
     return{
         
 getAccountInfoByEmail: function (email, callback) {
+
+
+    db.model("profiles").findAll({
+        raw: true,
+        where: {
+            email: email
+        }
+    }).then(function(results){
+
+        if(results.length == 0){
+            callback(["Email does not exists!"], null)
+        }else{
+            callback(null, results)
+        }
+
+    }).catch(function(errors){
+        callback(['databaseError'], null)
+    })
+/*
     const query = `SELECT password, email, profile_id FROM myDB.profiles WHERE email = ?`
     const values = email
 
@@ -20,6 +39,7 @@ getAccountInfoByEmail: function (email, callback) {
             }
         }
     })
+    */
 
 }
 }

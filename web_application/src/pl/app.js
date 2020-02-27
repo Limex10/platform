@@ -49,6 +49,8 @@ const loginRouter = require('./routers/loginRouter')
 
 const container = awilix.createContainer()
 
+container.register("db", awilix.asFunction(db))
+
 container.register("profileRepository", awilix.asFunction(profileRepository))
 container.register("messageRepository", awilix.asFunction(messageRepository))
 container.register("loginRepository", awilix.asFunction(loginRepository))
@@ -65,7 +67,7 @@ container.register("profileRouter", awilix.asFunction(profileRouter))
 container.register("messageRouter", awilix.asFunction(messageRouter))
 container.register("loginRouter", awilix.asFunction(loginRouter))
 
-container.register("db", awilix.asFunction(db))
+
 
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")
