@@ -70,6 +70,7 @@ container.register("db", awilix.asFunction(db))
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
+
 const theInterestRouter = container.resolve("interestRouter")
 
 let RedisStore = require('connect-redis')(expressSession)
@@ -121,6 +122,7 @@ app.use(function (request, response, next) {
 
 //Redirecting to Routers
 app.use('/interest', theInterestRouter)
+
 app.use('/createMessage', theMessageRouter)
 app.use('/profile', theProfileRouter)
 app.use('/login', theLoginRouter)
