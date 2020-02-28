@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
-const checker = false
+const checker = true
 
 const app = express()
 
@@ -47,6 +47,8 @@ const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
 
+const restApiRouter = require('../pl2/restApi')
+
 const container = awilix.createContainer()
 
 container.register("db", awilix.asFunction(db))
@@ -66,7 +68,6 @@ container.register("interestRouter", awilix.asFunction(interestRouter))
 container.register("profileRouter", awilix.asFunction(profileRouter))
 container.register("messageRouter", awilix.asFunction(messageRouter))
 container.register("loginRouter", awilix.asFunction(loginRouter))
-
 
 
 const theLoginRouter = container.resolve("loginRouter")
@@ -124,10 +125,10 @@ app.use(function (request, response, next) {
 
 //Redirecting to Routers
 app.use('/interest', theInterestRouter)
-
 app.use('/createMessage', theMessageRouter)
 app.use('/profile', theProfileRouter)
 app.use('/login', theLoginRouter)
+app.use('/api', restApiRouter) // ??
 
 
 
