@@ -21,21 +21,37 @@ createMessage: function (message, profile_id, callback) {
     })
 }
 ,
-getAllMessagesByProfileId: function (profile_id, callback) {
+getMessageByProfileId: function (profile_id, callback) {
 
     const query = `SELECT message FROM myDB.profilemessages WHERE profile_id = ?`
     const value = profile_id
 
-    db.query(query, value, function (error, result) {
+    db.query(query, value, function (error, message) {
         if (error) {
             callback(['databaseError'], null)
         }
         else {
 
-            callback(null, result)
+            callback(null, message)
 
         }
     })
+},
+deleteAccountById: function(id,callback){
+
+    const query = 'DELETE FROM myDB.profilemessages WHERE profile_id = ?'
+    const values = [id]
+
+    db.query(query,values,function(error){
+        if(error){
+            callback(['Could not delete Message.'])
+        }
+        else{
+            callback(null)
+        }
+    })
+    
+    
 }
 }
 }

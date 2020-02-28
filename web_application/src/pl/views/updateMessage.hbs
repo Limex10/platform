@@ -1,0 +1,24 @@
+<div class="jumbotron">
+    <div class ="text-center">
+            <h1 class="display-4">Update message!</h1>
+  <p class="lead">Change your message down below.</p>
+    </div>
+
+<div class="container">
+<form action="/createMessage/update/{{userId}}" method="POST">
+ 
+  <div class="form-group">
+    <label >Message</label>
+    {{#if errorMessage}}
+       <p class= "text-danger">{{errorMessage.messageError}}</p>
+    {{/if}}
+    {{#if errorMessage}}
+       <p class="text-danger">{{errorMessage.[0]}}</p>
+    {{/if}}
+    <input value ="{{message}}"name="message" class="form-control" >
+  </div>
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+  <button type="submit" class="btn btn-success">Update message</button>
+</form>
+</div>
+</div>

@@ -12,10 +12,10 @@ createProfile: function(email,password, callback){
         email: email,
         password: password
 
-    }).then(function(results){
+    }).then(function(id){
 
         
-        callback(null, results.profile_id)
+        callback(null, id.profile_id)
 
     }).catch(function(error){
 
@@ -210,7 +210,6 @@ updateAccountInfo: function(email,password, profile_id, callback){
 deleteAccountById: function(id,callback){
 
     db.model("profiles").destroy({
-        raw: true,
         where: {
             profile_id: id
         }
@@ -218,7 +217,7 @@ deleteAccountById: function(id,callback){
     }).then(function(){
         callback(null)
     }).catch(function(error){
-        callback(['Could not delete account.'])
+        callback(['Could not delete account!'])
     })
 /*
     const query = 'DELETE FROM myDB.profiles WHERE profile_id = ?'

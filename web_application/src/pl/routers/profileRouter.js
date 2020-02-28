@@ -375,7 +375,7 @@ module.exports = function ({ profileManager, interestManager, messageManager }) 
 
                     }
                     else {
-                      messageManager.getAllMessagesByProfileId(profile_id, function (errors, messages) {
+                      messageManager.getMessageByProfileId(profile_id, function (errors, messages) {
                         if (errors) {
 
                           const model = {
@@ -430,7 +430,7 @@ module.exports = function ({ profileManager, interestManager, messageManager }) 
     const profile_id = request.params.id
     const message = request.body.message
 
-    messageManager.createMessage(message, profile_id, function (errors, result) {
+    messageManager.createMessage(message, profile_id, function (errors) {
       if (errors) {
         const model = {
           errorMessage: errors,

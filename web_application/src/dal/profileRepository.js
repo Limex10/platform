@@ -11,13 +11,13 @@ createProfile: function(email,password, callback){
     const values = [email, password]
 
 
-    db.query(query,values, function(error, results){
+    db.query(query,values, function(error, id){
         if(error){
             callback(['Account already exists.'], null)
         }
         else
         {
-            callback(null, results.insertId)
+            callback(null, id.insertId)
 
         }
     })

@@ -12,12 +12,13 @@ getAccountInfoByEmail: function (email, callback) {
         where: {
             email: email
         }
-    }).then(function(results){
+    }).then(function(account){
 
-        if(results.length == 0){
+        if(account.length == 0){
             callback(["Email does not exists!"], null)
         }else{
-            callback(null, results)
+            console.log(account)
+            callback(null, account)
         }
 
     }).catch(function(errors){

@@ -8,19 +8,19 @@ module.exports = function({loginRepository}){
     
 getAccountInfoByEmail: function (email, password, callback) {
     //validate
-    loginRepository.getAccountInfoByEmail(email, function (errors, result) {
+    loginRepository.getAccountInfoByEmail(email, function (errors, account) {
         if (errors) {
             callback(errors, null)
         }
         else {
             
-            bcrypt.compare(password, result[0].password, function (err, isMatch) {
+            bcrypt.compare(password, account[0].password, function (err, isMatch) {
                 if (err) {
                     callback(["Something went wrong!"], null)
                 }
                 else {
                     if (isMatch) {
-                        callback(null, result[0].profile_id)
+                        callback(null, account[0].profile_id)
 
                     } else {
                         isMatch = false

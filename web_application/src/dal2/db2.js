@@ -90,7 +90,8 @@ module.exports = function ({ }) {
 			})
 
 			profilemessages.belongsTo(profiles,{
-				foreignKey: "profile_id"
+				foreignKey: "profile_id",
+				unique: true
 			})
 
 			profiles.belongsTo(interests, {

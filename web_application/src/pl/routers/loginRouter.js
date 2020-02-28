@@ -20,7 +20,7 @@ router.post("/", function (request, response) {
     const email = request.body.email
     const password = request.body.password
 
-    loginManager.getAccountInfoByEmail(email, password, function (errors, result) {
+    loginManager.getAccountInfoByEmail(email, password, function (errors, accountId) {
         if (errors) {
             const model = {
                 errorMessage: errors,
@@ -33,7 +33,8 @@ router.post("/", function (request, response) {
         else {
 
             request.session.isLoggedIn = true
-            request.session.userId = result
+            request.session.userId = accountId
+            console.log(accountId)
 
             response.redirect("/profile/home/" + request.session.userId)
 

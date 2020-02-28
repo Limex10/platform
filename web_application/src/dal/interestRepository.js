@@ -45,14 +45,14 @@ getInterestsById: function (id_interest1, id_interest2, id_interest3, id_interes
     const query = `select interest FROM myDB.interests i WHERE i.interests_id IN (?, ?, ?, ?)`
     const values = [id_interest1, id_interest2, id_interest3, id_interest4]
 
-    db.query(query, values, function (error, results) {
+    db.query(query, values, function (error, interest) {
         if (error) {
             callback(['databaseError'], null)
         } else {
-            if (results.length == 0) {
+            if (interest.length == 0) {
                 callback(["Something went wrong"], null)
             } else {
-                callback(null, results)
+                callback(null, interest)
             }
         }
     })
@@ -63,13 +63,13 @@ filterInterestsById: function (id_interest1, id_interest2, id_interest3, id_inte
     const query = `Select * FROM myDB.profiles p WHERE profile_id <> ? and ((id_interest1 = ? and id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest3 = ?) or (id_interest2 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest3 = ? and id_interest4 = ?) or (id_interest1 = ? and id_interest2 = ? and id_interest4 = ?))`
     const values = [profile_id, id_interest1, id_interest2, id_interest3, id_interest4, id_interest1, id_interest2, id_interest3, id_interest2, id_interest3, id_interest4, id_interest1, id_interest3, id_interest4, id_interest1, id_interest2, id_interest4]
 
-    db.query(query, values, function (error, results) {
-        console.log(results)
+    db.query(query, values, function (error, filteredInterest) {
+        console.log(filteredInterest)
         if (error) {
             callback(['databaseError'], null)
         } else {
 
-            callback(null, results)
+            callback(null, filteredInterest)
 
         }
     })

@@ -1,0 +1,20 @@
+<div class="jumbotron">
+    <div class="text-center">
+        <h1 class="display-4">Delete Message?</h1>
+        <p class="lead">Are you really sure that you want to delete your message and let people miss the opportunity to find out what you wrote?!</p>
+      
+    </div>
+
+    <div class="container">
+        <form action="/createMessage/delete/{{userId}}" method="POST">
+            <div class="form-group">
+                  {{#if errorMessage}}
+                    <p class="lead text-danger">{{errorMessage.[0]}}</p>
+                {{/if}}
+                
+            </div>
+             <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <button type="submit" name="deleteAccountButton" value="{{userId}}" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div>
