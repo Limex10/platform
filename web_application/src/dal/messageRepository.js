@@ -8,13 +8,16 @@ createMessage: function (message, profile_id, callback) {
 
     const query = `insert into myDB.profilemessages(message, profile_id) values(?,?)`
     const values = [message, profile_id]
-
+    
     db.query(query, values, function (error) {
+       
         if (error) {
-            callback(['Something went wrong.'])
+           
+            callback(['You have already created a message. If you want to change message go to update message.'])
+            
         }
         else {
-            
+              
                 callback(null)
             
         }
@@ -31,13 +34,17 @@ getMessageByProfileId: function (profile_id, callback) {
             callback(['databaseError'], null)
         }
         else {
-
-            callback(null, message)
+            if(message.length == 0){
+                callback(null,null)
+            }else{
+                callback(null, message[0].message)
+            }
+            
 
         }
     })
 },
-deleteAccountById: function(id,callback){
+deleteMessageByProfileId: function(id,callback){
 
     const query = 'DELETE FROM myDB.profilemessages WHERE profile_id = ?'
     const values = [id]
@@ -52,6 +59,22 @@ deleteAccountById: function(id,callback){
     })
     
     
+},
+
+updateMessageByProfileId: function(message, profile_id, callback){
+
+    const query = 'UPDATE myDB.profilemessages SET message = ? WHERE profile_id = ?'
+    const values = [message, profile_id]
+
+    db.query(query,values,function(error){
+        if(error){
+            callback(['Could not update message.'])
+        }else{
+            callback(null)
+        }
+    })
+
+
 }
 }
 }

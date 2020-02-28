@@ -31,7 +31,8 @@ module.exports = function ({ }) {
 					type: Sequelize.INTEGER,
 					autoIncrement: true,
 					primaryKey: true,
-					allowNull: false
+					allowNull: false,
+					unique: true
 				},
 				email: {
 					type: Sequelize.STRING,
@@ -82,7 +83,8 @@ module.exports = function ({ }) {
 					type: Sequelize.INTEGER,
 					primaryKey: true,
 					autoIncrement: true,
-					allowNull: false
+					allowNull: false,
+					unique: 'profilemessages_id'
 				},
 				message: {
 					type: Sequelize.STRING
@@ -91,7 +93,8 @@ module.exports = function ({ }) {
 
 			profilemessages.belongsTo(profiles,{
 				foreignKey: "profile_id",
-				unique: true
+				unique: 'profile_id'
+			
 			})
 
 			profiles.belongsTo(interests, {

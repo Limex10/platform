@@ -137,6 +137,7 @@ module.exports = function ({ messageManager }) {
                         csrfToken: request.csrfToken(),
                         message: message
                     }
+                    console.log(message)
                     response.render("updateMessage.hbs", model)
                 }
             })

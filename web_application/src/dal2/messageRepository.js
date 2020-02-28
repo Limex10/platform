@@ -13,7 +13,7 @@ module.exports = function ({ db }) {
             }).then(function () {
                 callback(null)
             }).catch(function (error) {
-                callback(['Something went wrong.'])
+                callback(['You have already created a message. If you want to change message go to update message.'])
             })
             /*
             const query = `insert into myDB.profilemessages(message, profile_id) values(?,?)`

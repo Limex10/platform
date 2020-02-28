@@ -319,14 +319,15 @@
                 </div>
 
             </div> --}}
-            {{#each ../messages}}
+             {{#if ../messages}}
             <div class="row" id="row-button-mover">
-                <p class="col">{{message}}</p>
+               
+                <p class="col">{{../messages}}</p>
                 <div><a href="/createMessage/update/{{profile_id}}" class="btn btn-warning">Update
                         message</a>
                     <a href="/createMessage/delete/{{profile_id}}" class="btn btn-danger">Delete message</a></div>
             </div>
-            {{/each}}
+           {{/if}}
         </div>
 
     </div>

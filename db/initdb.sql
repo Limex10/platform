@@ -36,7 +36,7 @@ CREATE TABLE `profiles`(
 CREATE TABLE `profilemessages`(
     `profilemessages_id` INT NOT NULL AUTO_INCREMENT,
     `message` VARCHAR(50),
-    `profile_id` INT NOT NULL,
+    `profile_id` INT NOT NULL UNIQUE,
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)
     ON DELETE CASCADE,

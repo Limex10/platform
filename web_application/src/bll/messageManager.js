@@ -6,6 +6,7 @@ module.exports = function ({ messageRepository, validationManager }) {
     return {
         createMessage: function (message, profile_id, callback) {
 
+           
             const validationErrors = validationManager.validateMessage(message)
 
             if (validationErrors.messageError == undefined) {
