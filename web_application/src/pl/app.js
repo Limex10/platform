@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
-const checker = true
+const checker = false
 
 const app = express()
 
@@ -51,6 +51,8 @@ const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
 
+const restApiRouter = require('../pl2/restApi') // ??
+
 const container = awilix.createContainer()
 
 
@@ -79,7 +81,7 @@ container.register("interestRouter", awilix.asFunction(interestRouter))
 container.register("profileRouter", awilix.asFunction(profileRouter))
 container.register("messageRouter", awilix.asFunction(messageRouter))
 container.register("loginRouter", awilix.asFunction(loginRouter))
-
+container.register("restApiRouter", awilix.asFunction(restApiRouter))
 
 
 const theLoginRouter = container.resolve("loginRouter")
@@ -87,7 +89,7 @@ const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
 
 const theInterestRouter = container.resolve("interestRouter")
-
+const theRestApiRouter = container.resolve("restApiRouter")
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient({
   host: "session"
@@ -108,11 +110,9 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(cookieParser())
 
-app.use(csrf({
 
-  cookie: true
+app.use(bodyParser.json())
 
-}))
 
 
 app.use(expressSession({
@@ -128,7 +128,7 @@ app.use(function (request, response, next) {
 
   response.locals.isLoggedIn = request.session.isLoggedIn
   response.locals.userId = request.session.userId
-
+  console.log("heeeeej")
   next()
 
 })
@@ -136,11 +136,13 @@ app.use(function (request, response, next) {
 
 
 //Redirecting to Routers
-app.use('/interest', theInterestRouter)
+app.use('/interest',csrf({cookie: true }), theInterestRouter)
 
-app.use('/message', theMessageRouter)
-app.use('/profile', theProfileRouter)
-app.use('/login', theLoginRouter)
+app.use('/message',csrf({cookie: true }), theMessageRouter)
+app.use('/profile',csrf({cookie: true }), theProfileRouter)
+app.use('/login',csrf({cookie: true }), theLoginRouter)
+
+app.use('/api', theRestApiRouter) // ??
 
 
 
