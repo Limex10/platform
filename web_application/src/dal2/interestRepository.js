@@ -7,11 +7,11 @@ module.exports = function({db}){
 
 getAllInterests: function (callback) {
 
-    db.model("interests").findAll({
+    db.models.interests.findAll({
         raw:true
     })
     .then(function(interests){
-        
+        console.log(interests.length)
         if (interests.length == 0) {
             callback(["Something went wrong."], null)
         } else {
@@ -45,7 +45,7 @@ getAllInterests: function (callback) {
 ,
 createInterest: function (interest, callback) {
 
-    db.model("interests").create({
+    db.models.interests.create({
         interest: interest
     }).then(function(){
         callback(null)

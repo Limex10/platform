@@ -7,7 +7,7 @@ module.exports = function({db}){
 getAccountInfoByEmail: function (email, callback) {
 
 
-    db.model("profiles").findAll({
+    db.models.profiles.findAll({
         raw: true,
         where: {
             email: email

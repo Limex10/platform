@@ -7,8 +7,8 @@ module.exports = function({db}){
 
 createProfile: function(email,password, callback){
 
-    
-    db.model("profiles").create({
+   
+    db.models.profiles.create({
         email: email,
         password: password
 
@@ -42,7 +42,7 @@ createProfile: function(email,password, callback){
 getAllProfiles: function(profile_id,callback){
 
 
-    db.model("profiles").findAll({
+    db.models.profiles.findAll({
         raw: true,
         where: {
             profile_id: {
@@ -85,7 +85,7 @@ getAllProfiles: function(profile_id,callback){
 updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
 
     
-    db.model("profiles").update({
+    db.models.profiles.update({
         city: city,
         country: country,
         firstname: firstname,
@@ -123,7 +123,7 @@ updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id
 ,
 getProfileById: function(profile_id,callback){
 
-    db.model("profiles").findAll({
+    db.models.profiles.findAll({
         raw: true,
         where: {
             profile_id: profile_id
@@ -168,7 +168,7 @@ getProfileById: function(profile_id,callback){
 ,
 updateAccountInfo: function(email,password, profile_id, callback){
 
-   db.model("profiles").update({
+   db.models.profiles.update({
     email: email,
     password: password},
     {
@@ -209,7 +209,7 @@ updateAccountInfo: function(email,password, profile_id, callback){
 ,
 deleteAccountById: function(id,callback){
 
-    db.model("profiles").destroy({
+    db.models.profiles.destroy({
         raw: true,
         where: {
             profile_id: id

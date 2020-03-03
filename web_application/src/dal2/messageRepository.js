@@ -6,7 +6,7 @@ module.exports = function({db}){
     
 createMessage: function (message, profile_id, callback) {
 
-    db.model("profilemessages").create({
+    db.models.profilemessages.create({
         message: message,
         profile_id: profile_id
         
@@ -33,7 +33,7 @@ createMessage: function (message, profile_id, callback) {
 ,
 getAllMessagesByProfileId: function (profile_id, callback) {
 
-    db.model("profilemessages").findAll({
+    db.models.profilemessages.findAll({
         raw: true,
         where: {
             profile_id: profile_id

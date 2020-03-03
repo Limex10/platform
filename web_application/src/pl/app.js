@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
-const checker = true
+const checker = false
 
 const app = express()
 
@@ -51,7 +51,8 @@ const restApiRouter = require('../pl2/restApi')
 
 const container = awilix.createContainer()
 
-container.register("db", awilix.asFunction(db))
+//container.register("db", awilix.asFunction(db))
+container.register("db", awilix.asValue(db))
 
 container.register("profileRepository", awilix.asFunction(profileRepository))
 container.register("messageRepository", awilix.asFunction(messageRepository))
@@ -70,11 +71,15 @@ container.register("messageRouter", awilix.asFunction(messageRouter))
 container.register("loginRouter", awilix.asFunction(loginRouter))
 
 
+
+
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
 
 const theInterestRouter = container.resolve("interestRouter")
+
+
 
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient({
@@ -120,6 +125,7 @@ app.use(function (request, response, next) {
   next()
 
 })
+
 
 
 
