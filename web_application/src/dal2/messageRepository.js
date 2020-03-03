@@ -6,7 +6,7 @@ module.exports = function ({ db }) {
 
         createMessage: function (message, profile_id, callback) {
 
-            db.model("profilemessages").create({
+            db.models.profilemessages.create({
                 message: message,
                 profile_id: profile_id
 
@@ -15,25 +15,12 @@ module.exports = function ({ db }) {
             }).catch(function (error) {
                 callback(['You have already created a message. If you want to change message go to update message.'])
             })
-            /*
-            const query = `insert into myDB.profilemessages(message, profile_id) values(?,?)`
-            const values = [message, profile_id]
-        
-            db.query(query, values, function (error) {
-                if (error) {
-                    callback(['Something went wrong.'])
-                }
-                else {
-                    
-                        callback(null)
-                    
-                }
-            })*/
+            
         }
         ,
    
         getMessageByProfileId: function(profile_id, callback){
-            db.model("profilemessages").findAll({
+            db.models.profilemessages.findAll({
                 raw: true,
                 where: {
                     profile_id: profile_id
@@ -49,7 +36,7 @@ module.exports = function ({ db }) {
         }
         ,
         updateMessageByProfileId: function (message, profile_id, callback) {
-            db.model("profilemessages").update({
+            db.models.profilemessages.update({
                 message: message
             }, {
                 where: {
@@ -62,7 +49,7 @@ module.exports = function ({ db }) {
             })
         },
         deleteMessageByProfileId: function(profile_id, callback){
-            db.model("profilemessages").destroy({
+            db.models.profilemessages.destroy({
                 where:{
                     profile_id: profile_id
                 }

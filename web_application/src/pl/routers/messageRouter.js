@@ -6,7 +6,7 @@ module.exports = function ({ messageManager }) {
 
     const router = express.Router()
 
-    router.get("/:id", function (request, response) {
+    router.get("/createMessage/:id", function (request, response) {
         const profile_id = request.params.id
         if (request.session.isLoggedIn && request.session.userId == profile_id) {
             const model = {
@@ -27,7 +27,7 @@ module.exports = function ({ messageManager }) {
 
     })
 
-    router.post("/:id", function (request, response) {
+    router.post("/createMessage/:id", function (request, response) {
 
         const profile_id = request.params.id
         if (request.session.isLoggedIn && request.session.userId == profile_id) {

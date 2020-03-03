@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
 
-const checker = false
+const checker = true
 
 const app = express()
 
@@ -26,6 +26,8 @@ if (checker) {
   db = require("../dal/db")
   
 
+  
+
 }
 else {
   
@@ -34,6 +36,8 @@ else {
   loginRepository = require("../dal2/loginRepository")
   interestRepository = require("../dal2/interestRepository")
   db = require("../dal2/db2")
+ 
+
 }
 
 const validationManager = require("../bll/validationManager")
@@ -49,7 +53,16 @@ const loginRouter = require('./routers/loginRouter')
 
 const container = awilix.createContainer()
 
-container.register("db", awilix.asFunction(db))
+
+if(checker){
+  container.register("db", awilix.asFunction(db))
+}else{
+  container.register("db", awilix.asValue(db))
+}
+
+
+
+
 
 container.register("profileRepository", awilix.asFunction(profileRepository))
 container.register("messageRepository", awilix.asFunction(messageRepository))
@@ -125,7 +138,7 @@ app.use(function (request, response, next) {
 //Redirecting to Routers
 app.use('/interest', theInterestRouter)
 
-app.use('/createMessage', theMessageRouter)
+app.use('/message', theMessageRouter)
 app.use('/profile', theProfileRouter)
 app.use('/login', theLoginRouter)
 

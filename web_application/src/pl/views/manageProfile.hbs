@@ -72,7 +72,7 @@
                     <a href="/profile/updateInfo/{{profile_id}}" class="btn btn-warning">Update profile</a>
 
                     <a href="/profile/updateAccount/{{profile_id}}" class="btn btn-warning">Update account</a>
-                    <a href="/createMessage/{{profile_id}}" class="btn btn-success">Create message</a>
+                    <a href="/message/createMessage/{{profile_id}}" class="btn btn-success">Create message</a>
 
                     <a href="/profile/deleteAccount/{{profile_id}}" class="btn btn-danger">Delete Account</a>
                 </div>
@@ -323,9 +323,9 @@
             <div class="row" id="row-button-mover">
                
                 <p class="col">{{../messages}}</p>
-                <div><a href="/createMessage/update/{{profile_id}}" class="btn btn-warning">Update
+                <div><a href="/message/update/{{profile_id}}" class="btn btn-warning">Update
                         message</a>
-                    <a href="/createMessage/delete/{{profile_id}}" class="btn btn-danger">Delete message</a></div>
+                    <a href="/message/delete/{{profile_id}}" class="btn btn-danger">Delete message</a></div>
             </div>
            {{/if}}
         </div>
