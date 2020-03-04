@@ -116,6 +116,7 @@ app.use(bodyParser.json())
 
 
 app.use(expressSession({
+
   store: new RedisStore({ client: redisClient }),
   secret: "lksjdlaaaaaaaaaaskdfj",
   saveUninitialized: false,
@@ -128,7 +129,7 @@ app.use(function (request, response, next) {
 
   response.locals.isLoggedIn = request.session.isLoggedIn
   response.locals.userId = request.session.userId
-  console.log("heeeeej")
+
   next()
 
 })

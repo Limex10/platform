@@ -64,6 +64,7 @@ router.post("/login",function(request,response){
             const payload = {id: profile_id}
 
             const accessToken = jwt.sign(payload, serverSecret)
+            request.auth = accessToken
             /*
             const idToken = jwt.sign(
                 {sub: profile_id, email: email },
@@ -86,16 +87,10 @@ router.post("/login",function(request,response){
 
 router.post("/message",verifyToken, function(request,response){
 
-    const thing = request.tokenInfo
-
-    console.log(thing)
-    
+    const profile_id = request.tokenInfo.id
     const message = request.body.message
 
-
-    console.log(message)
-    console.log(profile_id)
-
+    
     messageManager.createMessage(message, profile_id, function (errors){
 
         if(errors.includes("You have already created a message. If you want to change message go to update message.")){
@@ -103,31 +98,52 @@ router.post("/message",verifyToken, function(request,response){
             response.status(500).end()
 
         }else if(0 < errors.length){
-            console.log("got error back")
+           
             response.status(400).json(errors)
 
         }
         else{
-            console.log("didn't work ")
-            response.setHeader("location", "/manageProfile")
+           
+            response.setHeader("location", "/message/"+profile_id)
              response.status(201).end() 
         }
     })
 
 })
 
-router.get("/message/:id", function(request,response){
+router.post("/messageUpdate/:id",verifyToken, function(request,response){
+
 
     const profile_id = request.params.id
+    const message = request.body.message
+    console.log({profile_id,message})
 
-    const authorizationHeader = request.get('authorization')
-    const accessToken = authorizationHeader.substr("Bearer".length)
-    try{
-        const payload = jwt.verify(accessToken,serverSecret)
-    }catch(error){
-        response.status(401).end()
-        return
-    }
+    messageManager.updateMessageByProfileId(message, profile_id, function(error){
+        
+        console.log(error)
+        
+        if(error.includes('databaseError')){
+            response.sendStatus(500)
+
+        }else if(0 <error.length){
+            response.sendStatus(404).json(error)
+
+        }else{
+            console.log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet")
+            response.sendStatus(200)
+            
+        }
+
+
+    }) 
+    
+
+})
+
+router.get("/message/:id",verifyToken, function(request,response){
+
+    const profile_id = request.params.id
+    console.table(profile_id)
 
 
     messageManager.getMessageByProfileId(profile_id,function(errors, message){
@@ -153,23 +169,35 @@ router.get("/message/:id", function(request,response){
 
 function verifyToken(request,response,next){
 
-    const authorizationHeader = request.get('Authorization')
-    const accessToken = authorizationHeader.substr("Bearer".length)
-    
-    console.log(accessToken)
-    console.log(serverSecret)
-    
-    jwt.verify(accessToken, serverSecret).then(tokenId =>{
+    const bearerHeader = request.get('Authorization')
+    const accessToken = bearerHeader.substr("Bearer".length)
 
-        console.log(tokenId)
-        request.tokenInfo = tokenId
-        next()
-    }).catch(error =>{
+    /*
+    if(typeof bearerHeader !== 'undefined'){
+        const bearer = accessToken
+        const bearerToken = bearer
+       
 
-        response.status(401).end()
-
+        request.tokenInfo = bearerToken
+        
+    } else {
+        response.sendStatus(403)
+    }*/
     
+    jwt.verify(accessToken, serverSecret, function(error,token){
+        if(error){
+            console.log(error)
+            response.sendStatus(404).json(error)
+        }else{
+            request.tokenInfo = token
+            
+            next()
+
+        }
     })
+   
+    
+    
 
 }
 
