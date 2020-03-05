@@ -51,7 +51,9 @@ const profileRouter = require('./routers/profileRouter')
 const messageRouter = require('./routers/messageRouter')
 const loginRouter = require('./routers/loginRouter')
 
-const restApiRouter = require('../pl2/restApi') // ??
+const loginApiRouter = require('../pl2/loginApi') // ??
+const profileApiRouter = require('../pl2/profileApi')
+const messageApiRouter = require('../pl2/messageApi')
 
 const container = awilix.createContainer()
 
@@ -81,15 +83,20 @@ container.register("interestRouter", awilix.asFunction(interestRouter))
 container.register("profileRouter", awilix.asFunction(profileRouter))
 container.register("messageRouter", awilix.asFunction(messageRouter))
 container.register("loginRouter", awilix.asFunction(loginRouter))
-container.register("restApiRouter", awilix.asFunction(restApiRouter))
+container.register("loginApiRouter", awilix.asFunction(loginApiRouter))
+container.register("profileApiRouter", awilix.asFunction(profileApiRouter))
+container.register("messageApiRouter", awilix.asFunction(messageApiRouter))
 
 
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
-
 const theInterestRouter = container.resolve("interestRouter")
-const theRestApiRouter = container.resolve("restApiRouter")
+
+const theLoginApiRouter = container.resolve("loginApiRouter")
+const theProfileApiRouter = container.resolve("profileApiRouter")
+const theMessageApiRouter = container.resolve("messageApiRouter")
+
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient({
   host: "session"
@@ -134,17 +141,26 @@ app.use(function (request, response, next) {
 
 })
 
+/*
+app.use(function(request, response, next){
+
+	response.setHeader("Access-Control-Allow-Origin", "*")
+	response.setHeader("Access-Control-Allow-Methods", "*")
+	response.setHeader("Access-Control-Allow-Headers", "*")
+	response.setHeader("Access-Control-Expose-Headers", "*")
+	next()
+})*/
 
 
-//Redirecting to Routers
+
 app.use('/interest',csrf({cookie: true }), theInterestRouter)
-
 app.use('/message',csrf({cookie: true }), theMessageRouter)
 app.use('/profile',csrf({cookie: true }), theProfileRouter)
 app.use('/login',csrf({cookie: true }), theLoginRouter)
 
-app.use('/api', theRestApiRouter) // ??
-
+app.use('/api/login', theLoginApiRouter) 
+app.use('/api/profile', theProfileApiRouter ) 
+app.use('/api/message', theMessageApiRouter) 
 
 
 app.get('/', function (request, response, next) {

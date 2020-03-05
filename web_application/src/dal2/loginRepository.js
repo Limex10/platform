@@ -17,7 +17,7 @@ module.exports = function ({ db }) {
                 if (account.length == 0) {
                     callback(["Email does not exists!"], null)
                 } else {
-                    console.log(account)
+                    
                     callback(null, account)
                 }
 
