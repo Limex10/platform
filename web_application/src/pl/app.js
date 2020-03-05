@@ -134,6 +134,7 @@ app.use(expressSession({
 
 app.use(function (request, response, next) {
 
+ 
   response.locals.isLoggedIn = request.session.isLoggedIn
   response.locals.userId = request.session.userId
 
@@ -141,15 +142,13 @@ app.use(function (request, response, next) {
 
 })
 
-/*
 app.use(function(request, response, next){
-
-	response.setHeader("Access-Control-Allow-Origin", "*")
-	response.setHeader("Access-Control-Allow-Methods", "*")
-	response.setHeader("Access-Control-Allow-Headers", "*")
-	response.setHeader("Access-Control-Expose-Headers", "*")
-	next()
-})*/
+  response.setHeader("Access-Control-Allow-Origin", "*")
+ response.setHeader("Access-Control-Allow-Methods", "*")
+ response.setHeader("Access-Control-Allow-Headers", "*")
+ response.setHeader("Access-Control-Expose-Headers", "*")
+ next()
+})
 
 
 
@@ -157,6 +156,8 @@ app.use('/interest',csrf({cookie: true }), theInterestRouter)
 app.use('/message',csrf({cookie: true }), theMessageRouter)
 app.use('/profile',csrf({cookie: true }), theProfileRouter)
 app.use('/login',csrf({cookie: true }), theLoginRouter)
+
+
 
 app.use('/api/login', theLoginApiRouter) 
 app.use('/api/profile', theProfileApiRouter ) 

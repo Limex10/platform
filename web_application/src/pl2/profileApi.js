@@ -12,6 +12,8 @@ module.exports = function({profileManager}){
         const password = request.body.password
         const repeatedPassword = request.body.repeatedPassword
         const email = request.body.email
+
+        console.log({password,repeatedPassword,email})
     
         profileManager.createProfile(email, password, repeatedPassword, function (error, id) {
             if (error && error.includes('Account already exists.')) {

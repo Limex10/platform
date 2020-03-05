@@ -31,4 +31,10 @@ services:
     build: ./session
     ports:
       - "6379:6379"
+  sp_application:
+    build: ./sp_application
+    ports:
+      - "8000:80"
+    volumes:
+      - "./sp_application/static_files:/usr/local/apache2/htdocs/"  
   
