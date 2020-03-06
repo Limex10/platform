@@ -97,9 +97,11 @@ validateMessage: function(message){
     else if(message.length > 45){
         messageError = "To long, maximum 45 characters"
     }
-    const validationErrors = {
-        messageError
-    }
+    const validationErrors = 
+        [
+            messageError
+        ]
+    
 
     return validationErrors
 

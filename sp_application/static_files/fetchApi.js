@@ -12,9 +12,9 @@ function createAccount(user){
         }
     ).then(function(response){
 
-        console.log(response)
+  
     }).catch(function(error){
-        console.log(error)
+     
     })
 
    return
@@ -38,11 +38,10 @@ function profileLogin(email,password){
     }).then(function(body){
 
         login(body.access_token)
-        console.log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeett")
-        console.log(body.access_token.id)
+   
 
     }).catch(function(error){
-        console.log(error)
+   
     })
     return
   
@@ -61,12 +60,18 @@ function createMessage(message){
         }
     ).then(function(response){
 
-        
+        return response.json()
 
-    }).catch(function(error){
+    }).then(function(errorMessage){
+
+        let p = document.querySelector("#create-message-page .jumbotron .error")
+ 
+         p.innerText = errorMessage
+ 
+     }).catch(function(error){
        
     })
-    return
+    
   
 }
 
@@ -87,10 +92,9 @@ function updateMessage(message){
         return response.json()
 
     }).then(function(errorMessage){
+       let p = document.querySelector("#update-message-page .jumbotron .error")
 
-        let h1 = document.querySelector("#update-message-page .jumbotron .error")
-
-        h1.innerText = errorMessage
+        p.innerText = errorMessage
 
     }).catch(function(error){
         
@@ -112,13 +116,21 @@ function deleteMessage(){
             
         }
     ).then(function(response){
-        console.log(response)
+     
         let h1 = document.querySelector("#message-page .jumbotron h1")
 
         h1.innerText = "There is no message!"
 
+        return response.json()
+
+    }).then(function(errorMessage){
+        console.log(errorMessage)
+        let p = document.querySelector("#delete-message-page .jumbotron .text-center .error")
+
+        p.innerText = errorMessage
+
     }).catch(function(error){
-        console.log(error)
+     
     })
 }
 
@@ -136,7 +148,7 @@ function getMessage(){
         }
     ).then(function(response){
         
-        console.log(response)
+
         return response.json()
 
     }).then(function(message){
@@ -144,9 +156,7 @@ function getMessage(){
         if(h1.innerText == "There is no message!"){
             h1.innerText = message
         }
-        
-
     }).catch(function(error){
-        console.log(error)
+
     })
 }

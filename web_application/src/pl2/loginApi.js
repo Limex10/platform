@@ -21,7 +21,7 @@ router.post("/",function(request,response){
 
     loginManager.getAccountInfoByEmail(email, password, function (errors, profile_id){
         if(errors){
-            response.sendStatus(500)
+            response.sendStatus(500).json(errors)
         }
         else{
 

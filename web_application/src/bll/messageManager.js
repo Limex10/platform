@@ -9,7 +9,7 @@ module.exports = function ({ messageRepository, validationManager }) {
            
             const validationErrors = validationManager.validateMessage(message)
 
-            if (validationErrors.messageError == undefined) {
+            if (validationErrors[0] == undefined) {
                 messageRepository.createMessage(message, profile_id, callback)
             }
             else {
@@ -23,7 +23,7 @@ module.exports = function ({ messageRepository, validationManager }) {
 
             const validationErrors = validationManager.validateMessage(message)
 
-            if (validationErrors.messageError == undefined) {
+            if (validationErrors[0] == undefined) {
                 messageRepository.updateMessageByProfileId(message, profile_id, callback)
             }
             else {
