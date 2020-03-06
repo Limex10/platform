@@ -25,7 +25,7 @@ module.exports = function({profileManager}){
             }
             else {
     
-                response.sendStatus(200)
+                response.sendStatus(201)
     
             }
       

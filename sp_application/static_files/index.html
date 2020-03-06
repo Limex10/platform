@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Cover Template for Bootstrap</title>
+    <title>Messages</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
 
@@ -26,26 +26,38 @@
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
-                <h3 class="masthead-brand">Cover</h3>
+                <h1 class="display-4">Messages!</h1>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/">Home</a>
-                    <a class="nav-link showIfLoggedOut" href="/login">Login</a>
-                    <a class="nav-link showIfLoggedOut" href="/profile">Create Account</a>
-                    <a class="nav-link showIfLoggedIn" href="/view/message">View message</a>
-                    <a class="nav-link showIfLoggedIn" href="/create/message">Create message</a>
-                    <a class="nav-link showIfLoggedIn" href="/update/message">Update message</a>
-                    <a class="nav-link showIfLoggedIn" href="/delete/message">Delete message</a>
+                    <a class="nav-link active text-success" href="/">Home</a>
+                    <a class="nav-link showIfLoggedOut text-success" href="/login">Login</a>
+                    <a class="nav-link showIfLoggedIn text-danger" href="/logout">Logout</a>
+                    <a class="nav-link showIfLoggedOut text-success" href="/profile">Create Account</a>
+                    <a class="nav-link showIfLoggedIn text-success" href="/view/message">View message</a>
+                    <a class="nav-link showIfLoggedIn text-success" href="/create/message">Create message</a>
+                    <a class="nav-link showIfLoggedIn text-success" href="/update/message">Update message</a>
+                    <a class="nav-link showIfLoggedIn text-success" href="/delete/message">Delete message</a>
                 </nav>
             </div>
         </header>
         <main>
             <div id="home-page">
-                <h1>Home</h1>
-            </div>
+                <div class="jumbotron align-middle">
+                    <h1 class="display-4">Welcome to messages!</h1>
+                    <p class="lead">This is a website for messaging yourself with the same or different message that you
+                        have.</p>
 
-            <div id="message-page">
-                <h1>message</h1>
+                </div>
+
             </div>
+            <!-- message -->
+            <div id="message-page">
+
+                <div class="jumbotron align-middle">
+                    <h1 class="display-1">There is no message!</h1>
+                </div>
+
+            </div>
+            <!-- create account -->
             <div id="create-account-page">
                 <form action="/api/profile" method="POST">
                     <div>
@@ -60,7 +72,7 @@
                     <input type="submit" value="Create">
                 </form>
             </div>
-
+            <!-- login -->
             <div id="login-page">
                 <form action="/api/login" method="POST">
                     <div>
@@ -72,35 +84,69 @@
                     <input type="submit" value="Login">
                 </form>
             </div>
-
+            <!-- create message -->
             <div id="create-message-page">
-                <h1>create message</h1>
-                <form action="POST">
-                    <div>
-                        Message: <input type="text" class="message">
+                <div class="jumbotron">
+                    <div class="text-center">
+                        <h1 class="display-4">Create message!</h1>
+                        <p class="lead">Enter your message down below.</p>
                     </div>
-                    <input type="submit" value="Create">
-                </form>
-            </div>
 
+                    <div class="container">
+                        <form action="/api/message" method="POST">
+
+                            <div class="form-group">
+                                <label>Message</label>
+                                <input name="message" class="form-control message">
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Create message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- update message -->
             <div id="update-message-page">
-                <h1>update message</h1>
-                <form action="PUT">
-                    <div>
-                        Message: <input type="text" class="message">
+                <div class="jumbotron">
+                    <div class="text-center">
+                        <h1 class="display-4">Update message!</h1>
+                        <p class="lead">Change your message down below.</p>
+                        <p class="error text-danger"></p>
                     </div>
-                    <input type="submit" value="Update">
-                </form>
-            </div>
 
+                    <div class="container">
+                        <form action="/api/message" method="PUT">
+
+                            <div class="form-group">
+                                <label>Message</label>
+                                <input class="form-control message">
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Update message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- delete message -->
             <div id="delete-message-page">
-                <h1>delete message</h1>
 
-                <form action="DELETE">
-                    <button type="submit" value="" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="jumbotron">
+                    <div class="text-center">
+                        <h1 class="display-4">Delete Message?</h1>
+                        <p class="lead">Are you really sure that you want to delete your message and let people miss the opportunity to find out what you wrote?!</p>
+                      
+                    </div>
+                
+                    <div class="container">
+                        <form method="DELETE">
+                            <div class="form-group">     
+                            </div>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-
+            <!-- ERROR -->
             <div id="error-page">
                 <h1>Error</h1>
                 <p>Oups, something went wrong ^^'</p>
@@ -108,7 +154,7 @@
 
         </main>
     </div>
-    
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

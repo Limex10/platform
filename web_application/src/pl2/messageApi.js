@@ -7,9 +7,9 @@ module.exports = function({messageManager}){
 
     const router = express.Router()
 
-    router.get("/:id",verifyToken, function(request,response){
+    router.get("/",verifyToken, function(request,response){
 
-        const profile_id = request.params.id
+        const profile_id = request.tokenInfo.id
         
         messageManager.getMessageByProfileId(profile_id,function(errors, message){
             if(errors){
@@ -31,12 +31,13 @@ module.exports = function({messageManager}){
 
         const profile_id = request.tokenInfo.id
         const message = request.body.message
-    
-        console.log({profile_id})
+ 
         messageManager.createMessage(message, profile_id, function (error){
-    
+            
+
+            
             if(error && error.includes("You have already created a message. If you want to change message go to update message.")){
-    
+                
                 response.sendStatus(500)
     
             }else if(error && 0 < errors.length){
@@ -46,28 +47,27 @@ module.exports = function({messageManager}){
             }
             else{
                
-                response.setHeader("location", "/message/"+profile_id)
+                //response.setHeader("location", "/message/"+profile_id) //?? ha kvar?
                 response.sendStatus(201) 
             }
         })
     
     })
 
-    router.put("/:id",verifyToken, function(request,response){
+    router.put("/",verifyToken, function(request,response){
 
 
-        const profile_id = request.params.id
+        const profile_id = request.tokenInfo.id
         const message = request.body.message
         
         messageManager.updateMessageByProfileId(message, profile_id, function(error){
+            
+            if(error.includes("databaseError")){
                 
-            if(error && error.includes('databaseError')){
                 response.sendStatus(500)
     
-            } else if(error && 0 <error.length){
-                response.status(404).json(error) //Ska vi skicka med validationfelen=?
-    
-            } else{
+            }
+            else{
 
                 response.sendStatus(201)
                 
@@ -78,9 +78,9 @@ module.exports = function({messageManager}){
     
     })
 
-    router.delete("/:id",verifyToken,function(request,response){
+    router.delete("/",verifyToken,function(request,response){
 
-        const profile_id = request.params.id
+        const profile_id = request.tokenInfo.id
     
         messageManager.deleteMessageByProfileId(profile_id, function (error){
             

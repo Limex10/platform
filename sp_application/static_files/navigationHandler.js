@@ -56,10 +56,26 @@ document.querySelector("#create-message-page form").addEventListener("submit", f
 
     const message = document.querySelector("#create-message-page .message").value
     
-    
-    
-    
     createMessage(message)
+
+  
+})
+
+document.querySelector("#update-message-page form").addEventListener("submit", function(event){
+    event.preventDefault()
+
+    const message = document.querySelector("#update-message-page .message").value
+    
+    updateMessage(message)
+
+  
+})
+
+document.querySelector("#delete-message-page form").addEventListener("submit", function(event){
+    event.preventDefault()
+
+   
+    deleteMessage()
 
   
 })
@@ -92,21 +108,26 @@ function changeToPage(url){
 	}else if(url == "/profile"){
         document.getElementById("create-account-page").classList.add("current-page")
         
-	}else if(url == "/login"){
+    }else if(url == "/logout"){
+        logout()
+        document.getElementById("home-page").classList.add("current-page")	
+    
+	}
+    else if(url == "/login"){
 		document.getElementById("login-page").classList.add("current-page")
 		
 	}else if(url == "/create/message"){
         document.getElementById("create-message-page").classList.add("current-page")
-    }else if(new RegExp("^/view/message/[0-9]+$").test(url)){
+    }else if(url == "/view/message"){
 
 		document.getElementById("message-page").classList.add("current-page")
-        const id = url.split("/")[2]
+       getMessage()
         
 		
-	}else if(new RegExp("^/update/message/[0-9]+$").test(url) ){
+	}else if(url == "/update/message" ){
         document.getElementById("update-message-page").classList.add("current-page")
         
-	}else if(new RegExp("^/delete/message/[0-9]+$").test(url)){
+	}else if(url == "/delete/message"){
 
         document.getElementById("delete-message-page").classList.add("current-page")
         

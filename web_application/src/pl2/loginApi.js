@@ -27,10 +27,12 @@ router.post("/",function(request,response){
 
             const payload = {id: profile_id}
             const accessToken = jwt.sign(payload, serverSecret)
+           
             
         
             response.status(200).json({
-                access_token: accessToken   
+                access_token: accessToken,
+                userId: profile_id   
             })
         }
 
