@@ -13,4 +13,3 @@ body.isLoggedOut .showIfLoggedIn{
 body.isLoggedIn .showIfLoggedOut{
 	display: none;
 }
-

@@ -1,37 +1,65 @@
 {{#each profile}}
+
 <div class="jumbotron">
+
   <div class="text-center">
+
     <h1 class="display-4">Update account</h1>
     <p class="lead">Enter your information down below.</p>
+
   </div>
 
   <div class="container">
+
     <form action="/profile/updateAccount/{{profile_id}}" method="POST">
+
       <div class="form-group">
+
         {{#if ../errors}}
-          <p class="text-danger">{{../errors.emailError}}</p>
-          {{/if}}
-           {{#if ../errors}}
-          <p class="text-danger">{{../errors.[0]}}</p>
-          {{/if}}
+
+        <p class="text-danger">{{../errors.emailError}}</p>
+
+        {{/if}}
+
+        {{#if ../errors}}
+
+        <p class="text-danger">{{../errors.[0]}}</p>
+
+        {{/if}}
+
         <label>Email address</label>
-        <input type="email" name="email" value="{{email}}"class="form-control" aria-describedby="emailHelp">
+        <input type="email" name="email" value="{{email}}" class="form-control" aria-describedby="emailHelp">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
       </div>
+
       <div class="form-group">
+
         {{#if ../errors}}
-          <p class="text-danger">{{../errors.passwordError}}</p>
-          {{/if}}
+
+        <p class="text-danger">{{../errors.passwordError}}</p>
+
+        {{/if}}
+
         <label>Password</label>
         <input type="password" name="password" class="form-control">
+
       </div>
+
       <div class="form-group">
+
         <label>Repeat password</label>
         <input type="password" name="repeatedPassword" class="form-control">
+
       </div>
+
       <input type="hidden" name="_csrf" value="{{../csrfToken}}">
       <button type="submit" name="createProfileButton" class="btn btn-success">Update </button>
+
     </form>
+
   </div>
+
 </div>
+
 {{/each}}

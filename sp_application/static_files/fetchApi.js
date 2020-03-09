@@ -12,8 +12,15 @@ function createAccount(user){
         }
     ).then(function(response){
 
-  
-    }).catch(function(error){
+        return response.json()
+
+    }).then(function(errorMessage){
+
+        let p = document.querySelector("#create-account-page .jumbotron .text-center .error")
+ 
+         p.innerText = errorMessage
+
+    }).then.catch(function(error){
      
     })
 

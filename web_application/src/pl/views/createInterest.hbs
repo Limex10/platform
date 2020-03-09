@@ -1,24 +1,41 @@
 <div class="jumbotron">
-    <div class="text-center">
-        <h1 class="display-4">Create your own interest!</h1>
-        <p class="lead">We cant create all interest so help us!</p>
-      
-    </div>
 
-    <div class="container">
-        <form action="/interest/createInterest/{{userId}}" method="POST">
-            <div class="form-group">
-                <label>Name</label>
-                  {{#if errorMessage}}
-                    <p class="lead text-danger">{{errorMessage.interestError}}</p>
-                {{/if}}
-                {{#if errorMessage}}
-                    <p class="text-danger">{{errorMessage.[0]}}</p>
-                {{/if}}
-                <input value="{{interestInput}}"name="interest" class="form-control">
-            </div>
-             <input type="hidden" name="_csrf" value="{{csrfToken}}">
-            <button type="submit" class="btn btn-success">Create</button>
-        </form>
-    </div>
+  <div class="text-center">
+
+    <h1 class="display-4">Create your own interest!</h1>
+    <p class="lead">We cant create all interest so help us!</p>
+
+  </div>
+
+  <div class="container">
+
+    <form action="/interest/createInterest/{{userId}}" method="POST">
+
+      <div class="form-group">
+
+        <label>Name</label>
+
+        {{#if errorMessage}}
+
+        <p class="lead text-danger">{{errorMessage.interestError}}</p>
+
+        {{/if}}
+
+        {{#if errorMessage}}
+
+        <p class="text-danger">{{errorMessage.[0]}}</p>
+
+        {{/if}}
+
+        <input value="{{interestInput}}" name="interest" class="form-control">
+
+      </div>
+
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+      <button type="submit" class="btn btn-success">Create</button>
+
+    </form>
+    
+  </div>
+
 </div>

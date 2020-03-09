@@ -1,111 +1,171 @@
 <div class="jumbotron">
+
   <div class="container-sm">
+
     <h1 class="display-4 text-center">Personalize your profile!</h1>
+
     {{#if id}}
+
     <form action="/profile/createInfo/{{id}}" method="POST">
+
       <div class="form-row">
+
         <div class="col-md-3 mb-3">
+
           {{#if errors}}
+
           <p class="text-danger">{{errors.firstnameError}}</p>
+          
           {{/if}}
+
           <label>First name</label>
           <input value="{{firstname}}" type="text" name="firstname" class="form-control">
+
         </div>
+
         <div class="col-md-3 mb-3">
+
           {{#if errors}}
+
           <p class="text-danger">{{errors.lastnameError}}</p>
+
           {{/if}}
+
           <label>Last name</label>
           <input value="{{lastname}}" type="text" name="lastname" class="form-control">
 
         </div>
+
         <div class="col-md-3 mb-3">
+
           {{#if errors}}
+
           <p class="text-danger">{{errors.countryError}}</p>
+
           {{/if}}
+
           <label>Country</label>
           <input value="{{country}}" type="text" name="country" class="form-control">
 
-
         </div>
+
         <div class="col-md-3 mb-3">
+
           {{#if errors}}
+
           <p class="text-danger">{{errors.cityError}}</p>
+
           {{/if}}
+
           <label>City</label>
           <input value="{{city}}" type="text" name="city" class="form-control">
 
-
         </div>
+
       </div>
+
       {{#if errors}}
+
       <p class="text-danger">{{errors.interestError}}</p>
+
       {{/if}}
+
       <h4>Rank top interest from one to four.</h4>
+
       <div class="form-row">
-        
+
         <div class="col-md-6 mb-3">
+
           <label>Interest one</label>
+
           <select name="interest1" class="form-control">
+
             {{#if interests.length}}
+
             {{#each interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
+
             {{/each}}
 
             {{/if}}
 
           </select>
+
         </div>
+
         <div class="col-md-6 mb-3">
+
           <label>Interest two</label>
+
           <select name="interest2" class="form-control">
+
             {{#if interests.length}}
+
             {{#each interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
+
             {{/each}}
 
             {{/if}}
+
           </select>
 
         </div>
 
-
       </div>
+
       <div class="form-row">
+
         <div class="col-md-6 mb-3">
+
           <label>Interest three</label>
+
           <select name="interest3" class="form-control">
+
             {{#if interests.length}}
+
             {{#each interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
+
             {{/each}}
 
             {{/if}}
           </select>
+
         </div>
+
         <div class="col-md-6 mb-3">
+
           <label>Interest four</label>
+
           <select name="interest4" class="form-control">
+
             {{#if interests.length}}
+
             {{#each interests}}
 
             <option value="{{interests_id}}">{{interest}}</option>
+
             {{/each}}
 
             {{/if}}
+
           </select>
 
         </div>
-
 
       </div>
-      
+
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <button type="submit" class="btn btn-success" name="updateProfileInfoButton">Submit</button>
+
     </form>
+
     {{/if}}
+
   </div>
+  
 </div>

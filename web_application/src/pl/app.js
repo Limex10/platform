@@ -5,12 +5,13 @@ const expressSession = require('express-session')
 const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const redis = require('redis')
+const awilix = require("awilix")
 
 const checker = false
 
 const app = express()
 
-const awilix = require("awilix")
+
 
 let profileRepository
 let messageRepository
@@ -19,24 +20,22 @@ let interestRepository
 let db
 
 if (checker) {
+
   profileRepository = require("../dal/profileRepository")
   messageRepository = require("../dal/messageRepository")
   loginRepository = require("../dal/loginRepository")
   interestRepository = require("../dal/interestRepository")
   db = require("../dal/db")
-  
-
-  
 
 }
 else {
-  
+
   profileRepository = require("../dal2/profileRepository")
   messageRepository = require("../dal2/messageRepository")
   loginRepository = require("../dal2/loginRepository")
   interestRepository = require("../dal2/interestRepository")
   db = require("../dal2/db2")
- 
+
 
 }
 
@@ -57,16 +56,16 @@ const messageApiRouter = require('../pl2/messageApi')
 
 const container = awilix.createContainer()
 
+if (checker) {
 
-if(checker){
   container.register("db", awilix.asFunction(db))
-}else{
-  container.register("db", awilix.asValue(db))
+
 }
+else {
 
+  container.register("db", awilix.asValue(db))
 
-
-
+}
 
 container.register("profileRepository", awilix.asFunction(profileRepository))
 container.register("messageRepository", awilix.asFunction(messageRepository))
@@ -87,7 +86,6 @@ container.register("loginApiRouter", awilix.asFunction(loginApiRouter))
 container.register("profileApiRouter", awilix.asFunction(profileApiRouter))
 container.register("messageApiRouter", awilix.asFunction(messageApiRouter))
 
-
 const theLoginRouter = container.resolve("loginRouter")
 const theMessageRouter = container.resolve("messageRouter")
 const theProfileRouter = container.resolve("profileRouter")
@@ -98,29 +96,30 @@ const theProfileApiRouter = container.resolve("profileApiRouter")
 const theMessageApiRouter = container.resolve("messageApiRouter")
 
 let RedisStore = require('connect-redis')(expressSession)
+
 let redisClient = redis.createClient({
+
   host: "session"
+
 })
 
 app.set("views", "src/pl/views")
 
 app.use(bodyParser.urlencoded({
+
   extended: false
+
 }))
 
 app.engine("hbs", expressHandlebars({
+
   defaultLayout: 'main.hbs'
 
 }))
 
 app.use(express.static(__dirname + '/public'));
-
 app.use(cookieParser())
-
-
 app.use(bodyParser.json())
-
-
 
 app.use(expressSession({
 
@@ -130,11 +129,11 @@ app.use(expressSession({
   isLoggedIn: false,
   userId: null,
   resave: false
+
 }))
 
 app.use(function (request, response, next) {
 
- 
   response.locals.isLoggedIn = request.session.isLoggedIn
   response.locals.userId = request.session.userId
 
@@ -142,46 +141,51 @@ app.use(function (request, response, next) {
 
 })
 
-app.use(function(request, response, next){
+app.use(function (request, response, next) {
+
   response.setHeader("Access-Control-Allow-Origin", "*")
- response.setHeader("Access-Control-Allow-Methods", "*")
- response.setHeader("Access-Control-Allow-Headers", "*")
- response.setHeader("Access-Control-Expose-Headers", "*")
- next()
+  response.setHeader("Access-Control-Allow-Methods", "*")
+  response.setHeader("Access-Control-Allow-Headers", "*")
+  response.setHeader("Access-Control-Expose-Headers", "*")
+  next()
+
 })
 
+app.use('/interest', csrf({ cookie: true }), theInterestRouter)
+app.use('/message', csrf({ cookie: true }), theMessageRouter)
+app.use('/profile', csrf({ cookie: true }), theProfileRouter)
+app.use('/login', csrf({ cookie: true }), theLoginRouter)
 
-
-app.use('/interest',csrf({cookie: true }), theInterestRouter)
-app.use('/message',csrf({cookie: true }), theMessageRouter)
-app.use('/profile',csrf({cookie: true }), theProfileRouter)
-app.use('/login',csrf({cookie: true }), theLoginRouter)
-
-
-
-app.use('/api/login', theLoginApiRouter) 
-app.use('/api/profile', theProfileApiRouter ) 
-app.use('/api/message', theMessageApiRouter) 
-
+app.use('/api/login', theLoginApiRouter)
+app.use('/api/profile', theProfileApiRouter)
+app.use('/api/message', theMessageApiRouter)
 
 app.get('/', function (request, response, next) {
+
   if (request.session.isLoggedIn) {
+
     response.redirect("/profile/home/" + request.session.userId)
-  } else {
+
+  }
+  else {
+
     response.render("startScreen.hbs")
+
   }
 
 })
 
 app.post("/logout", function (request, response) {
+
   request.session.isLoggedIn = false
   request.session.userId = null
 
   response.redirect("/")
+
 })
 
-
-
 app.listen(8080, function () {
+
   console.log("Web application listening on port 8080.")
+  
 })

@@ -1,69 +1,97 @@
 <div class="row row-top-height">
-    <div class="col shadow">
-        {{#each profile}}
-        <a class="text-decoration-none" href="/profile/manageProfile/{{profile_id}}">
-            {{/each}}
-            <div class="my-profile">
 
-                <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
+  <div class="col shadow">
 
+    {{#each profile}}
 
-            </div>
-        </a>
-    </div>
-    <div class="col-9 shadow">
-        <h1 class="display-4 text-center">Your journey starts now!</h1>
-    </div>
+    <a class="text-decoration-none" href="/profile/manageProfile/{{profile_id}}">
+
+      {{/each}}
+
+      <div class="my-profile">
+
+        <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
+
+      </div>
+
+    </a>
+
+  </div>
+
+  <div class="col-9 shadow">
+
+    <h1 class="display-4 text-center">Your journey starts now!</h1>
+
+  </div>
 
 </div>
+
 <div class="row browse-content">
-    <div class="col border">
-        <h2 class="text-center ">Recommended</h2>   
-        <div id="recommended-cards" class="col overflow-auto">
-     
-             {{#if filterInterests}}
-            {{#each filterInterests}}
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">{{firstname}} {{lastname}}</h5>
-                    <p class="card-text">You share interest with this person check him/her out!</p>
-                    <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
-                </div>
-            </div>
-            {{/each}}
-            {{/if}}
 
+  <div class="col border">
 
+    <h2 class="text-center ">Recommended</h2>
+
+    <div id="recommended-cards" class="col overflow-auto">
+
+      {{#if filterInterests}}
+
+      {{#each filterInterests}}
+
+      <div class="card" style="width: 100%;">
+
+        <div class="card-body">
+
+          <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+          <p class="card-text">You share interest with this person check him/her out!</p>
+          <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
 
         </div>
-    </div>
-    <div class="col-9 overflow-auto">
-         <div id="browse-cards">
-                    {{#if errorMessage}}
-            <h3>{{errorMessage}}</h3>
-            {{/if}}
-        {{#if profiles.length}}
-            {{#each profiles}}
-       
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{firstname}} {{lastname}}</h5>
-                 
-                    <p class="card-text">
-                        Check this person out you might have something in  common.</p>
-                    <a href="viewPerson/{{profile_id}}" class="btn btn-success">Go somewhere</a>
-                </div>
-            </div>
 
-        
-        {{/each}}
-        {{/if}}
-</div>
+      </div>
 
+      {{/each}}
+
+      {{/if}}
 
     </div>
 
-</div>
+  </div>
 
+  <div class="col-9 overflow-auto">
+
+    <div id="browse-cards">
+
+      {{#if errorMessage}}
+
+      <h3>{{errorMessage}}</h3>
+
+      {{/if}}
+
+      {{#if profiles.length}}
+
+      {{#each profiles}}
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+          <p class="card-text">Check this person out you might have something in common.</p>
+          <a href="viewPerson/{{profile_id}}" class="btn btn-success">Go somewhere</a>
+
+        </div>
+
+      </div>
+
+      {{/each}}
+
+      {{/if}}
+
+    </div>
+
+  </div>
+
+</div>
 
 </div>

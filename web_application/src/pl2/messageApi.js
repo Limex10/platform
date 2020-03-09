@@ -5,112 +5,121 @@ const serverSecret = "yeetyeetyeetskjfahsa"
 
 module.exports = function ({ messageManager }) {
 
-    const router = express.Router()
+  const router = express.Router()
 
-    router.get("/", verifyToken, function (request, response) {
+  router.get("/", verifyToken, function (request, response) {
 
-        const profile_id = request.tokenInfo.id
+    const profile_id = request.tokenInfo.id
 
-        messageManager.getMessageByProfileId(profile_id, function (errors, message) {
-            if (errors) {
-                response.sendStatus(500)
+    messageManager.getMessageByProfileId(profile_id, function (errors, message) {
 
-            } else if (!message) {
-                response.sendStatus(404)
-            } else {
+      if (errors) {
 
-                response.status(200).json(message)
+        response.sendStatus(500)
 
-            }
+      }
+      else if (!message) {
 
-        })
+        response.sendStatus(404)
+      }
+      else {
 
+        response.status(200).json(message)
+
+      }
     })
+  })
 
-    router.post("/", verifyToken, function (request, response) {
+  router.post("/", verifyToken, function (request, response) {
 
-        const profile_id = request.tokenInfo.id
-        const message = request.body.message
+    const profile_id = request.tokenInfo.id
+    const message = request.body.message
 
-        messageManager.createMessage(message, profile_id, function (error) {
+    messageManager.createMessage(message, profile_id, function (error) {
 
-            if (error && error.includes("You have already created a message. If you want to change message go to update message.")) {
+      if (error && error.includes("You have already created a message. If you want to change message go to update message.")) {
 
-                response.status(500).json(error[0])
+        response.status(500).json(error[0])
 
-            } else if (error && (error.includes("To long, maximum 45 characters") || error.includes("Field can not be empty."))) {
+      }
+      else if (error && (error.includes("To long, maximum 45 characters") || error.includes("Field can not be empty."))) {
 
-                response.status(400).json(error[0])
+        response.status(400).json(error[0])
 
-            }
-            else {
-                //response.setHeader("location", "/message/"+profile_id) //?? ha kvar?
-                response.sendStatus(201)
-            }
-        })
+      }
+      else {
+        //response.setHeader("location", "/message/"+profile_id) //?? ha kvar?
+        response.sendStatus(201)
 
+      }
     })
+  })
 
-    router.put("/", verifyToken, function (request, response) {
+  router.put("/", verifyToken, function (request, response) {
 
+    const profile_id = request.tokenInfo.id
+    const message = request.body.message
 
-        const profile_id = request.tokenInfo.id
-        const message = request.body.message
+    messageManager.updateMessageByProfileId(message, profile_id, function (error) {
 
-        messageManager.updateMessageByProfileId(message, profile_id, function (error) {
-           
-            if (error && error.includes("databaseError")) {
+      if (error && error.includes("databaseError")) {
 
-                response.sendStatus(500)
+        response.sendStatus(500)
 
-            } else if(error && (error.includes("To long, maximum 45 characters") || error.includes("Field can not be empty."))){
-                response.status(400).json(error[0])
-            }
-            else {
+      }
+      else if (error && (error.includes("To long, maximum 45 characters") || error.includes("Field can not be empty."))) {
 
-                response.sendStatus(201)
+        response.status(400).json(error[0])
 
-            }
+      }
+      else {
 
-        })
+        response.sendStatus(201)
 
-
+      }
     })
+  })
 
-    router.delete("/", verifyToken, function (request, response) {
+  router.delete("/", verifyToken, function (request, response) {
 
-        const profile_id = request.tokenInfo.id
+    const profile_id = request.tokenInfo.id
 
-        messageManager.deleteMessageByProfileId(profile_id, function (error) {
-                
-            if (error && error.includes('Could not delete message!')) {
-                response.status(500).json(error[0])
-            } else {
-                response.sendStatus(200)
-            }
+    messageManager.deleteMessageByProfileId(profile_id, function (error) {
 
-        })
+      if (error && error.includes('Could not delete message!')) {
 
+        response.status(500).json(error[0])
+
+      }
+      else {
+
+        response.sendStatus(200)
+
+      }
     })
+  })
 
-    return router
+  return router
 
 }
 
 function verifyToken(request, response, next) {
 
-    const bearerHeader = request.get('Authorization')
-    const accessToken = bearerHeader.substr("Bearer".length)
+  const bearerHeader = request.get('Authorization')
+  const accessToken = bearerHeader.substr("Bearer".length)
 
+  jwt.verify(accessToken, serverSecret, function (error, token) {
 
-    jwt.verify(accessToken, serverSecret, function (error, token) {
-        if (error) {
-            response.status(404).json(error)
-        } else {
-            request.tokenInfo = token
-            next()
+    if (error) {
 
-        }
-    })
+      response.status(404).json(error)
 
+    }
+    else {
+
+      request.tokenInfo = token
+      next()
+
+    }
+  })
 }

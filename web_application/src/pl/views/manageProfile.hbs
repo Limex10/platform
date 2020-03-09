@@ -1,339 +1,145 @@
 <div class="row row-top-height">
-    <div class="col shadow">
-        <a class="text-decoration-none" href="#">
-            <div class="my-profile">
 
-                <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
+  <div class="col shadow">
 
+    <a class="text-decoration-none" href="#">
 
-            </div>
-        </a>
-    </div>
-    <div class="col-9 shadow">
-        <h1 class="display-4 text-center">Your journey starts now!</h1>
-    </div>
+      <div class="my-profile">
+
+        <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
+
+      </div>
+
+    </a>
+
+  </div>
+
+  <div class="col-9 shadow">
+
+    <h1 class="display-4 text-center">Your journey starts now!</h1>
+
+  </div>
 
 </div>
+
 <div class="row browse-content">
-    <div class="col border">
-        <h2 class="text-center ">Recommended</h2>
-        <div id="recommended-cards" class="col overflow-auto">
-            <!--Mark-->
-            {{#if filterInterests}}
-            {{#each filterInterests}}
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">{{firstname}} {{lastname}}</h5>
-                    <p class="card-text">You share interest with this person check him/her out!</p>
-                    <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
-                </div>
-            </div>
+
+  <div class="col border">
+
+    <h2 class="text-center ">Recommended</h2>
+
+    <div id="recommended-cards" class="col overflow-auto">
+      <!--Mark-->
+      {{#if filterInterests}}
+
+      {{#each filterInterests}}
+
+      <div class="card" style="width: 100%;">
+
+        <div class="card-body">
+
+          <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+          <p class="card-text">You share interest with this person check him/her out!</p>
+          <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
+
+        </div>
+
+      </div>
+
+      {{/each}}
+
+      {{/if}}
+      <!--Mark-->
+    </div>
+
+  </div>
+
+  {{#if profile.length}}
+  
+  {{#each profile}}
+
+  <div class="col-9">
+
+    <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
+
+      <h1>{{firstname}}</h1>
+
+      <div class="row">
+
+        <div class="col">
+
+          <ul class="list-group ">
+
+            <h4>Name</h4>
+            <li class="list-group-item">{{firstname}}</li>
+            <h4>Last name</h4>
+            <li class="list-group-item">{{lastname}}</li>
+            <h4>From</h4>
+            <li class="list-group-item">{{country}}</li>
+            <li class="list-group-item">{{city}}</li>
+
+          </ul>
+
+        </div>
+
+        <div class="col">
+
+          <ul class="list-group ">
+
+            {{#if ../interests}}
+
+            <h4>Interests</h4>
+
+            {{#each ../interests}}
+
+            <li class="list-group-item">{{interest}}</li>
+
             {{/each}}
+
             {{/if}}
-            <!--Mark-->
 
+            <a href="/interest/createInterest/{{profile_id}}" class="btn btn-success">Create interest</a>
+
+          </ul>
 
         </div>
-    </div>
-    {{#if profile.length}}
-    {{#each profile}}
-    <div class="col-9">
-        <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
-            <h1>{{firstname}}</h1>
-            <div class="row">
 
-                <div class="col">
-                    <ul class="list-group ">
-                        <h4>Name</h4>
-                        <li class="list-group-item">{{firstname}}</li>
-                        <h4>Last name</h4>
-                        <li class="list-group-item">{{lastname}}</li>
-                        <h4>From</h4>
-                        <li class="list-group-item">{{country}}</li>
-                        <li class="list-group-item">{{city}}</li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="list-group ">
-                        {{#if ../interests}}
-                        <h4>Interests</h4>
-                        {{#each ../interests}}
-                        <li class="list-group-item">{{interest}}</li>
-                        {{/each}}
+      </div>
 
-                        {{/if}}
-                        <a href="/interest/createInterest/{{profile_id}}" class="btn btn-success">Create interest</a>
-                    </ul>
-                </div>
-            </div>
+      <div class="row" id="row-button-mover">
 
-            <div class="row" id="row-button-mover">
-                <div class="col">
-                    <a href="/profile/updateInfo/{{profile_id}}" class="btn btn-warning">Update profile</a>
+        <div class="col">
 
-                    <a href="/profile/updateAccount/{{profile_id}}" class="btn btn-warning">Update account</a>
-                    <a href="/message/createMessage/{{profile_id}}" class="btn btn-success">Create message</a>
+          <a href="/profile/updateInfo/{{profile_id}}" class="btn btn-warning">Update profile</a>
+          <a href="/profile/updateAccount/{{profile_id}}" class="btn btn-warning">Update account</a>
+          <a href="/message/createMessage/{{profile_id}}" class="btn btn-success">Create message</a>
+          <a href="/profile/deleteAccount/{{profile_id}}" class="btn btn-danger">Delete Account</a>
 
-                    <a href="/profile/deleteAccount/{{profile_id}}" class="btn btn-danger">Delete Account</a>
-                </div>
-
-            </div>
-            {{!--   <div class="row" id="row-button-mover">
-                    <p class="text-danger">These buttons below won´t work if you have javascript disabled, use the links
-                        above.</p>
-                </div> --}}
-
-            {{!-- <div class="row" id="row-button-mover">
-                <div class="col">
-                    <button type="button" class="btn btn-warning" data-toggle="modal"
-                        data-target="#update-profile">Update
-                        profile</button>
-                    <div class=" modal fade" id="update-profile" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Update profile</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!--Mark-->
-                                    <form action="/profile/updateInfo/{{profile_id}}" method="POST">
-                                        <!--Mark-->
-                                        <div class="form-row">
-                                            <div class="col-md-3 mb-3">
-                                                <!--Mark--> <label>First name</label>
-                                                <!--Mark-->
-                                                <input type="text" name="firstname" class="form-control"
-                                                    value="{{firstname}}">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <!--Mark--> <label>Last name</label>
-                                                <!--Mark-->
-                                                <input type="text" name="lastname" class="form-control"
-                                                    value="{{lastname}}">
-
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <!--Mark--> <label>Country</label>
-                                                <!--Mark-->
-                                                <input type="text" name="country" class="form-control"
-                                                    value="{{country}}">
-
-
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <!--Mark--> <label>City</label>
-                                                <!--Mark-->
-                                                <input type="text" name="city" class="form-control" value="{{city}}">
-
-
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6 mb-3">
-                                                <label>Interest one</label>
-                                                <select name="interest1" class="form-control">
-                                                    <!--Mark-->
-                                                    {{#if ../allInterests.length}}
-                                                    {{#each ../allInterests}}
-
-                                                    <option value="{{interests_id}}">{{interest}}</option>
-                                                    {{/each}}
-
-                                                    {{/if}}
-                                                    <!--Mark-->
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label>Interest two</label>
-                                                <select name="interest2" class="form-control">
-                                                    <!--Mark-->
-                                                    {{#if ../allInterests.length}}
-                                                    {{#each ../allInterests}}
-
-                                                    <option value="{{interests_id}}">{{interest}}</option>
-
-                                                    {{/each}}
-                                                    {{/if}}
-                                                    <!--Mark-->
-                                                </select>
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-6 mb-3">
-                                                <label>Interest three</label>
-                                                <select name="interest3" class="form-control">
-                                                    <!--Mark-->
-                                                    {{#if ../allInterests.length}}
-                                                    {{#each ../allInterests}}
-
-                                                    <option value="{{interests_id}}">{{interest}}</option>
-
-                                                    {{/each}}
-                                                    {{/if}}
-                                                    <!--Mark-->
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label>Interest four</label>
-                                                <select name="interest4" class="form-control">
-                                                    {{#if ../allInterests.length}}
-                                                    {{#each ../allInterests}}
-
-                                                    <option value="{{interests_id}}">{{interest}}</option>
-
-                                                    {{/each}}
-                                                    {{/if}}
-                                                </select>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <!--Mark-->
-                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                    <!--Mark-->
-                                </div>
-                                <!--Mark-->
-                                </form>
-                                <!--Mark-->
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-warning" data-toggle="modal"
-                        data-target="#update-account">Update
-                        account</button>
-
-                    <div class=" modal fade" id="update-account" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Update account</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!--Mark-->
-                                    <form action="/updateAccount:id" method="POST">
-                                        <!--Mark-->
-                                        <div class="form-group">
-                                            <label>Email address</label>
-                                            <input type="email" name="email" class="form-control"
-                                                aria-describedby="emailHelp" value="{{email}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" name="password" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Repeat Password</label>
-                                            <input type="password" name="repeatPassword" class="form-control">
-                                        </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <!--Mark-->
-                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                    <!--Mark-->
-                                </div>
-                                <!--Mark-->
-                                </form>
-                                <!--Mark-->
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-success" data-toggle="modal"
-                        data-target="#profile-message">Create message</button>
-
-                    <div class=" modal fade" id="profile-message" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Profile message</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!--Mark-->
-                                    <form method="POST" action="/profile/createMessage/{{profile_id}}">
-                                        <!--Mark-->
-                                        <div class="form-group">
-                                            <label>Message</label>
-                                            <input type="text" class="form-control" name="message">
-                                        </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <!--Mark-->
-                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                    <button type="submit" class="btn btn-primary">Save message</button>
-                                    <!--Mark-->
-                                </div>
-                                <!--Mark-->
-                                </form>
-                                <!--Mark-->
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete
-                        account</button>
-
-                    <div class=" modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Deleting account</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure that you want to delete your Account?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
-                                    <!--Mark-->
-                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                    <button type="submit" class="btn btn-danger">Yes</button>
-                                    <!--Mark-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-            </div> --}}
-             {{#if ../messages}}
-            <div class="row" id="row-button-mover">
-               
-                <p class="col">{{../messages}}</p>
-                <div><a href="/message/update/{{profile_id}}" class="btn btn-warning">Update
-                        message</a>
-                    <a href="/message/delete/{{profile_id}}" class="btn btn-danger">Delete message</a></div>
-            </div>
-           {{/if}}
         </div>
 
+      </div>
+     
+      {{#if ../messages}}
+
+      <div class="row" id="row-button-mover">
+
+        <p class="col">{{../messages}}</p>
+
+        <div>
+          <a href="/message/update/{{profile_id}}" class="btn btn-warning">Update message</a>
+          <a href="/message/delete/{{profile_id}}" class="btn btn-danger">Delete message</a>
+        </div>
+
+      </div>
+
+      {{/if}}
+
     </div>
-    {{/each}}
-    {{/if}}
 
+  </div>
 
+  {{/each}}
 
+  {{/if}}
+  
 </div>

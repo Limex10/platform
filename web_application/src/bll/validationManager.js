@@ -26,10 +26,11 @@ validateProfile: function(email,password,repeatedpassword){
         emailError = "Must enter email"
         
     }
-    const validationErrors = {
+    const validationErrors = [
         passwordError,
         emailError
-    }    
+    ]
+        
   
      return validationErrors
     

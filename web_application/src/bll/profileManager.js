@@ -16,7 +16,7 @@ createProfile: function(email,password,repeatedPassword,callback){
     const validationErrors = validationManager.validateProfile(email,password,repeatedPassword)
 
     
-    if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
+    if(validationErrors[0] == undefined && validationErrors[1] == undefined){
         const saltRounds = 10
 
         bcrypt.hash(password, saltRounds, function (errors, hash) {
