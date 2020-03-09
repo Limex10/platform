@@ -13,3 +13,9 @@ body.isLoggedOut .showIfLoggedIn{
 body.isLoggedIn .showIfLoggedOut{
 	display: none;
 }
+body.noMessage .showIfMessageExist{
+	display: none;
+} 
+body.messageExist .showIfMessageExist{
+	display: block;
+}

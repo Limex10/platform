@@ -23,9 +23,11 @@ module.exports = function ({ loginManager }) {
 
     loginManager.getAccountInfoByEmail(email, password, function (errors, profile_id) {
 
-      if (errors) {
-
-        response.sendStatus(500).json(errors)
+     
+      if (errors && errors.includes("Email does not exists!")) {
+        
+        const messageError = {error: errors}
+        response.status(500).json(messageError)
 
       }
       else {

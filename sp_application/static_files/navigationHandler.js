@@ -46,6 +46,7 @@ document.querySelector("#login-page form").addEventListener("submit", function(e
     const email = document.querySelector("#login-page .email").value
     const password = document.querySelector("#login-page .password").value
     
+    console.log({email,password})
     profileLogin(email,password)
 
   
@@ -105,10 +106,12 @@ function changeToPage(url){
 	if(url == "/"){
         document.getElementById("home-page").classList.add("current-page")
         
-	}else if(url == "/profile"){
+    }
+    else if(url == "/profile"){
         document.getElementById("create-account-page").classList.add("current-page")
         
-    }else if(url == "/logout"){
+    }
+    else if(url == "/logout"){
         logout()
         document.getElementById("home-page").classList.add("current-page")	
     
@@ -116,30 +119,30 @@ function changeToPage(url){
     else if(url == "/login"){
 		document.getElementById("login-page").classList.add("current-page")
 		
-	}else if(url == "/create/message"){
+    }
+    else if(url == "/create/message"){
         document.getElementById("create-message-page").classList.add("current-page")
-    }else if(url == "/view/message"){
+    }
+    else if(url == "/view/message"){
 
 		document.getElementById("message-page").classList.add("current-page")
        getMessage()
         
 		
-	}else if(url == "/update/message" ){
+    }
+    else if(url == "/update/message" ){
         document.getElementById("update-message-page").classList.add("current-page")
         
-	}else if(url == "/delete/message"){
+    }
+    else if(url == "/delete/message"){
 
         document.getElementById("delete-message-page").classList.add("current-page")
         
-	}else{
+    }
+    else{
 		document.getElementById("error-page").classList.add("current-page")
 	}
-	
-
-
 }
-
-
 
 function login(accessToken){
 	localStorage.accessToken = accessToken
@@ -151,4 +154,11 @@ function logout(){
 	localStorage.accessToken = ""
 	document.body.classList.remove("isLoggedIn")
 	document.body.classList.add("isLoggedOut")
+}
+
+function messageExist(){
+    request.messageExist = true
+}
+function messageNotExist(){
+    request.messageExist = false
 }

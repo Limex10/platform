@@ -13,13 +13,11 @@ module.exports = function ({ profileManager }) {
 
     //använder inte id kolla igenom
     profileManager.createProfile(email, password, repeatedPassword, function (error, id) {
-        console.log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet")
-        console.log(error)
-        console.log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet")
-      /*if (error || typeof error == "string" && error[0].includes('Account already exists.')) {
+     
+      if (error && error[0].includes('Account already exists.')) {
         response.status(500).json(error[0])
 
-      } */ if (error && 0 < error.length) {
+      } else if (error && 0 < error.length) {
         response.status(400).json(error)
 
       }

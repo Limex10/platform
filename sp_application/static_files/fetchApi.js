@@ -17,10 +17,18 @@ function createAccount(user){
     }).then(function(errorMessage){
 
         let p = document.querySelector("#create-account-page .jumbotron .text-center .error")
- 
-         p.innerText = errorMessage
+        let p2 = document.querySelector("#create-account-page .jumbotron .container .error")
+      
+        if(errorMessage.includes("Account already exists.")){
+            p.innerText = errorMessage
+        }
+        else{
+            p.innerText = errorMessage[0]
+            p2.innerText = errorMessage[1]
+        }
+         
 
-    }).then.catch(function(error){
+    }).catch(function(error){
      
     })
 
@@ -44,13 +52,24 @@ function profileLogin(email,password){
 
     }).then(function(body){
 
-        login(body.access_token)
-   
+        let p = document.querySelector("#login-page .jumbotron .text-center .error")
 
+        if (body.error) {
+             
+            p.innerText = body.error
+    
+          }else
+          {
+
+              p.innerText = ""
+            login(body.access_token)
+
+          }
+    
     }).catch(function(error){
-   
+        
     })
-    return
+    
   
 }
 
@@ -162,6 +181,9 @@ function getMessage(){
         let h1 = document.querySelector("#message-page .jumbotron h1")
         if(h1.innerText == "There is no message!"){
             h1.innerText = message
+        }
+        else{
+            
         }
     }).catch(function(error){
 

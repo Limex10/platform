@@ -27,8 +27,9 @@ validateProfile: function(email,password,repeatedpassword){
         
     }
     const validationErrors = [
-        passwordError,
-        emailError
+        emailError,
+        passwordError
+        
     ]
         
   
