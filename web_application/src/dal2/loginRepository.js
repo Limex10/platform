@@ -1,31 +1,34 @@
-//const db = require("./db")
-
 module.exports = function ({ db }) {
 
-    return {
+  return {
 
-        getAccountInfoByEmail: function (email, callback) {
+    getAccountInfoByEmail: function (email, callback) {
 
+      db.models.profiles.findAll({
 
-            db.models.profiles.findAll({
-                raw: true,
-                where: {
-                    email: email
-                }
-            }).then(function (account) {
+        raw: true,
+        where: {
 
-                if (account.length == 0) {
-                    callback(["Email does not exists!"], null)
-                } else {
-                    
-                    callback(null, account)
-                }
-
-            }).catch(function (errors) {
-                callback(['databaseError'], null)
-            })
-
+          email: email
 
         }
+      }).then(function (account) {
+
+        if (account.length == 0) {
+
+          callback(["Email does not exists!"], null)
+
+        }
+        else {
+
+          callback(null, account)
+
+        }
+      }).catch(function (errors) {
+
+        callback(['databaseError'], null)
+
+      })
     }
+  }
 }
