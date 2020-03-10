@@ -34,11 +34,15 @@ module.exports = function ({ loginManager }) {
 
         const payload = { id: profile_id }
         const accessToken = jwt.sign(payload, serverSecret)
-
+        /*const idToken = jwt.sign(
+          {sub: profile_id},
+          serverSecret
+        )*/
+        
         response.status(200).json({
 
           access_token: accessToken,
-          userId: profile_id
+       
 
         })
       }

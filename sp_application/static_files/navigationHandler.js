@@ -102,9 +102,37 @@ function changeToPage(url){
 	}
 	
 	// TODO: Optimally this information can be put in an array instead of having a long list of if-else if statements.
-	// TODO: Factor out common code in all branches.
+    // TODO: Factor out common code in all branches.
+    
+    pages = [
+    "home-page",
+    "create-account-page",
+    "home-page",
+    "login-page",
+    "create-message-page",
+    "message-page",
+    "update-message-page",
+    "delete-message-page",
+    "error-page"]
+
+    urls = ["/","/profile","/logout","/login","/create/message","/view/message","/update/message","/delete/message","/error"]
+
+    for(i = 0; i < urls.length; i +=1){
+        if(url == urls[i]){
+            if(url == "/logout"){
+                logout()
+            }
+            
+            else if(url == "/view/message"){
+                getMessage()
+            }
+            document.getElementById(pages[i]).classList.add("current-page")
+        }
+    }
+
+
+    /*
 	if(url == "/"){
-        document.getElementById("home-page").classList.add("current-page")
         
     }
     else if(url == "/profile"){
@@ -141,11 +169,12 @@ function changeToPage(url){
     }
     else{
 		document.getElementById("error-page").classList.add("current-page")
-	}
+	}*/
 }
 
 function login(accessToken){
-	localStorage.accessToken = accessToken
+
+    localStorage.accessToken = accessToken
 	document.body.classList.remove("isLoggedOut") /
 	document.body.classList.add("isLoggedIn")
 }

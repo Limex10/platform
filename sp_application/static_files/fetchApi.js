@@ -1,8 +1,9 @@
 
+async function createAccount(user){
 
-function createAccount(user){
+    try{
 
-    fetch(
+    const response = await fetch(
         "http://localhost:8080/api/profile",{
             method: "POST",
             headers: {
@@ -10,34 +11,48 @@ function createAccount(user){
             },
             body: JSON.stringify(user)
         }
-    ).then(function(response){
+    )
 
-        return response.json()
+    let p = document.querySelector("#create-account-page .jumbotron .text-center .error")
+    let p2 = document.querySelector("#create-account-page .jumbotron .container .error")
+    let emailForm = document.querySelector("#create-account-page .email")
 
-    }).then(function(errorMessage){
+    switch(response.status){
 
-        let p = document.querySelector("#create-account-page .jumbotron .text-center .error")
-        let p2 = document.querySelector("#create-account-page .jumbotron .container .error")
-      
-        if(errorMessage.includes("Account already exists.")){
+        case 500:
+            
+            errorMessage = await response.json()
             p.innerText = errorMessage
-        }
-        else{
+            p2.innerText = ""
+            emailForm.value = ""
+            break
+        
+        case 400:
+
+            errorMessage = await response.json()
+            console.log(errorMessage)
             p.innerText = errorMessage[0]
-            p2.innerText = errorMessage[1]
-        }
-         
+            p2.innerText = errorMessage[1]    
+            break
+          
+        case 201:
+            goToPage("/login")
+            
+    }
+    
+}catch(error){
+    
+    goToPage("/error")
 
-    }).catch(function(error){
-     
-    })
-
-   return
+}
 }
 
-function profileLogin(email,password){
+async function profileLogin(email,password){
 
-    fetch(
+    try{
+
+    
+    const response = await fetch(
         "http://localhost:8080/api/login",{
 
             method:"POST",
@@ -46,36 +61,41 @@ function profileLogin(email,password){
             },
             body: "grant_type=password&email="+email+"&password="+password
         }
-    ).then(function(response){
+    )
+    let p = document.querySelector("#login-page .jumbotron .text-center .error")
+   
+    switch(response.status){
 
-        return response.json()
-
-    }).then(function(body){
-
-        let p = document.querySelector("#login-page .jumbotron .text-center .error")
-
-        if (body.error) {
-             
+        case 500:
+            body = await response.json()
+           
             p.innerText = body.error
-    
-          }else
-          {
+            break
+        case 400:
+            goToPage("/error")
+            break
+            
+        case 200:
+            body = await response.json()
+            p.innerText = ""
+            
+            login(body.access_token, body.id_token)
+           
 
-              p.innerText = ""
-            login(body.access_token)
-
-          }
+    }
     
-    }).catch(function(error){
-        
-    })
-    
-  
+}catch(error){
+    goToPage("error-page")
+}
 }
 
-function createMessage(message){
+async function createMessage(message){
 
-    fetch(
+
+    try{
+
+    
+    const response = await fetch(
         "http://localhost:8080/api/message",{
             method:"POST",
             headers: {
@@ -84,11 +104,33 @@ function createMessage(message){
             },
             body: JSON.stringify({message})
         }
-    ).then(function(response){
+    )
+        let p = document.querySelector("#create-message-page .jumbotron .error")
+  
+        switch(response.status){
+            
+            case 500:
+                errorMessage = await response.json()
+                p.innerText = errorMessage
+                break
+               
+            case 400:
 
-        return response.json()
+                errorMessage = await response.json()       
+                p.innerText = errorMessage
+                break    
+    
+            case 201:
+                goToPage("/view/message")
 
-    }).then(function(errorMessage){
+        }
+}catch(error){
+    goToPage("/error")
+   
+}
+    
+    /*
+    .then(function(errorMessage){
 
         let p = document.querySelector("#create-message-page .jumbotron .error")
  
@@ -96,14 +138,17 @@ function createMessage(message){
  
      }).catch(function(error){
        
-    })
+    })*/
     
   
 }
 
-function updateMessage(message){
+async function updateMessage(message){
 
-    fetch(
+    try{
+
+    
+    const response = await fetch(
         "http://localhost:8080/api/message",{
             method: "PUT",
             headers: { 
@@ -113,27 +158,79 @@ function updateMessage(message){
             },
             body: JSON.stringify({message})
         }
-    ).then(function(response){
+    )
 
-        return response.json()
+        switch(response.status){
 
-    }).then(function(errorMessage){
-       let p = document.querySelector("#update-message-page .jumbotron .error")
+            case 500:
+                goToPage("/error")
+                break
 
-        p.innerText = errorMessage
+            case 400:
 
-    }).catch(function(error){
-        
-    })
+               errorMessage = await response.json()
+              let p = document.querySelector("#update-message-page .jumbotron .error")
+
+              p.innerText = errorMessage
+              break
+            
+            case 201:
+                goToPage("/view/message")
+
+        }
+
+}catch(error){
+    goToPage("/error")
+}
 }
 
 
-function deleteMessage(){
+async function deleteMessage(){
+
+    
+    try{
+
+        const response = await fetch(
+            "http://localhost:8080/api/message",{
+                method: "DELETE",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer"+localStorage.accessToken
+                    
+                }
+                
+            }
+        )
+        console.log(response)
+        switch(response.status){
+
+        
+            case 500:
+                goToPage("/error")
+                break
+            
+            case 200:
+               
+                let h1 = document.querySelector("#message-page .jumbotron h1")
+                h1.innerText = "There is no message!"
+                goToPage("/view/message")
+                
+        }
+    
+    }catch(error){
+        goToPage("/error")
+    }
+    }
 
 
-    fetch(
+
+async function getMessage(){
+
+    try{
+
+    
+    const response = await fetch(
         "http://localhost:8080/api/message",{
-            method: "DELETE",
             headers: { 
                 "Content-Type": "application/json",
 				"Authorization": "Bearer"+localStorage.accessToken
@@ -141,51 +238,24 @@ function deleteMessage(){
             }
             
         }
-    ).then(function(response){
-     
-        let h1 = document.querySelector("#message-page .jumbotron h1")
-
-        h1.innerText = "There is no message!"
-
-        return response.json()
-
-    }).then(function(errorMessage){
-        console.log(errorMessage)
-        let p = document.querySelector("#delete-message-page .jumbotron .text-center .error")
-
-        p.innerText = errorMessage
-
-    }).catch(function(error){
-     
-    })
-}
+    )
+    let h1 = document.querySelector("#message-page .jumbotron h1")
+    switch(response.status){
 
 
-function getMessage(){
-
-    fetch(
-        "http://localhost:8080/api/message",{
-            headers: { 
-                "Content-Type": "application/json",
-				"Authorization": "Bearer"+localStorage.accessToken
-                
-            }
-            
-        }
-    ).then(function(response){
-        
-
-        return response.json()
-
-    }).then(function(message){
-        let h1 = document.querySelector("#message-page .jumbotron h1")
-        if(h1.innerText == "There is no message!"){
+        case 500:
+            goToPage("/error")
+            break
+        case 404:
+            h1.innerText = "There is no message!" 
+            break
+        case 200:
+            message = await response.json()
             h1.innerText = message
-        }
-        else{
             
-        }
-    }).catch(function(error){
-
-    })
+    }
+  
+}catch(error){
+    goToPage("/error")
+}
 }

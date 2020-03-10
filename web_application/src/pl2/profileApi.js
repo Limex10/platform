@@ -9,7 +9,7 @@ module.exports = function ({ profileManager }) {
     const repeatedPassword = request.body.repeatedPassword
     const email = request.body.email
 
-    console.log({ password, repeatedPassword, email })
+
 
     //använder inte id kolla igenom
     profileManager.createProfile(email, password, repeatedPassword, function (error, id) {
@@ -18,6 +18,7 @@ module.exports = function ({ profileManager }) {
         response.status(500).json(error[0])
 
       } else if (error && 0 < error.length) {
+       
         response.status(400).json(error)
 
       }
