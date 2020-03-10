@@ -1,42 +1,52 @@
-//const messageRepository = require('../dal/messageRepository')
-//const validationManager = require('../bll/validationManager')
-
 module.exports = function ({ messageRepository, validationManager }) {
 
-    return {
-        createMessage: function (message, profile_id, callback) {
+  return {
 
-           
-            const validationErrors = validationManager.validateMessage(message)
+    createMessage: function (message, profile_id, callback) {
 
-            if (validationErrors[0] == undefined) {
-                messageRepository.createMessage(message, profile_id, callback)
-            }
-            else {
-                callback(validationErrors)
-            }
+      const validationErrors = validationManager.validateMessage(message)
 
+      if (validationErrors[0] == undefined) {
 
-        }
-        ,
-        updateMessageByProfileId: function (message, profile_id, callback) {
+        messageRepository.createMessage(message, profile_id, callback)
 
-            const validationErrors = validationManager.validateMessage(message)
+      }
+      else {
 
-            if (validationErrors[0] == undefined) {
-                messageRepository.updateMessageByProfileId(message, profile_id, callback)
-            }
-            else {
-                callback(validationErrors)
-            }
-        }
-        ,
-        deleteMessageByProfileId: function (profile_id, callback) {
+        callback(validationErrors)
 
-            messageRepository.deleteMessageByProfileId(profile_id, callback)
-        },
-        getMessageByProfileId: function(profile_id, callback){
-            messageRepository.getMessageByProfileId(profile_id, callback)
-        }
+      }
     }
+    ,
+
+    updateMessageByProfileId: function (message, profile_id, callback) {
+
+      const validationErrors = validationManager.validateMessage(message)
+
+      if (validationErrors[0] == undefined) {
+
+        messageRepository.updateMessageByProfileId(message, profile_id, callback)
+
+      }
+      else {
+
+        callback(validationErrors)
+
+      }
+    }
+    ,
+
+    deleteMessageByProfileId: function (profile_id, callback) {
+
+      messageRepository.deleteMessageByProfileId(profile_id, callback)
+
+    }
+    ,
+
+    getMessageByProfileId: function (profile_id, callback) {
+
+      messageRepository.getMessageByProfileId(profile_id, callback)
+      
+    }
+  }
 }

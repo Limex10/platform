@@ -7,8 +7,6 @@ Create TABLE `interests`(
     
 );
 
-
-
 CREATE TABLE `profiles`(
     `profile_id` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(50) NOT NULL UNIQUE,
@@ -43,9 +41,6 @@ CREATE TABLE `profilemessages`(
     PRIMARY KEY(`profilemessages_id`)
     
 );
-
-
-
 
 INSERT INTO interests (interest) VALUES ('Gaming'),('Fishing'),('Cooking'),('Cocktails'),('Coding'),('Icehockey'),('Golf'),('Cars'),('Traveling'),('Training'),
 ('Hiking'),('Skiing'),('Horseriding'),('Hunting'),('Reading'),('Movies'),('Padel'),('Shopping'),('FoodLover'),('Socializing');

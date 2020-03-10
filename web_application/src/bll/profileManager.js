@@ -1,95 +1,105 @@
-//const profileRepository = require('../dal/profileRepository')
-//const validationManager = require('../bll/validationManager')
 const bcrypt = require('bcrypt')
 
+module.exports = function ({ profileRepository, validationManager }) {
 
+  return {
 
-module.exports = function({profileRepository,validationManager}){
+    createProfile: function (email, password, repeatedPassword, callback) {
 
+      const validationErrors = validationManager.validateProfile(email, password, repeatedPassword)
 
-    return{
+      if (validationErrors[0] == undefined && validationErrors[1] == undefined) {
 
-    
-createProfile: function(email,password,repeatedPassword,callback){
-
-
-    const validationErrors = validationManager.validateProfile(email,password,repeatedPassword)
-
-    
-    if(validationErrors[0] == undefined && validationErrors[1] == undefined){
         const saltRounds = 10
 
         bcrypt.hash(password, saltRounds, function (errors, hash) {
-            if(errors){
-                console.log(errors)
-                
-            }
-            else{
-            profileRepository.createProfile(email,hash,callback)
-            }
+
+          if (errors) {
+
+            callback(["Something went wrong!"], null)
+
+          }
+
+          else {
+
+            profileRepository.createProfile(email, hash, callback)
+
+          }
         })
-    }
-    else{
-        callback(validationErrors) 
-    }
-}
-,
-getAllProfiles: function(profile_id,callback){
+      }
+      else {
 
-    //validate
-    profileRepository.getAllProfiles(profile_id,callback)
-}
-,
-updateProfileInfo: function(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback){
-
-    const validationErrors = validationManager.validateUpdateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4)
-
-    if(validationErrors.cityError == undefined && validationErrors.countryError == undefined && validationErrors.firstnameError == undefined &&
-         validationErrors.lastnameError == undefined && validationErrors.interestError == undefined){
-            
-            profileRepository.updateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback)     
-    }
-    else{
+        callback(validationErrors)
         
-        callback(validationErrors,profile_id)
+      }
     }
-}
-,
-getProfileById: function(profile_id,callback){
+    ,
 
-    profileRepository.getProfileById(profile_id, callback)
+    getAllProfiles: function (profile_id, callback) {
 
-}
-,
-updateAccountInfo: function(email,password,repeatedPassword, profile_id, callback){
-    
-    const validationErrors = validationManager.validateProfile(email,password,repeatedPassword)
+      profileRepository.getAllProfiles(profile_id, callback)
 
-    if(validationErrors.emailError == undefined && validationErrors.passwordError == undefined){
+    }
+    ,
+
+    updateProfileInfo: function (city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback) {
+
+      const validationErrors = validationManager.validateUpdateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4)
+
+      if (validationErrors.cityError == undefined && validationErrors.countryError == undefined && validationErrors.firstnameError == undefined &&
+        validationErrors.lastnameError == undefined && validationErrors.interestError == undefined) {
+
+        profileRepository.updateProfileInfo(city, country, firstname, lastname, id_interest1, id_interest2, id_interest3, id_interest4, profile_id, callback)
+
+      }
+      else {
+
+        callback(validationErrors, profile_id)
+
+      }
+    }
+    ,
+
+    getProfileById: function (profile_id, callback) {
+
+      profileRepository.getProfileById(profile_id, callback)
+
+    }
+    ,
+
+    updateAccountInfo: function (email, password, repeatedPassword, profile_id, callback) {
+
+      const validationErrors = validationManager.validateProfile(email, password, repeatedPassword)
+
+      if (validationErrors.emailError == undefined && validationErrors.passwordError == undefined) {
         const saltRounds = 10
 
-        bcrypt.hash(password,saltRounds,function(errors,hash){
-            if(errors){
-                console.log(errors)
-            }
-            else{
-                
-                profileRepository.updateAccountInfo(email,hash,profile_id, callback)
-            }
+        bcrypt.hash(password, saltRounds, function (errors, hash) {
+
+          if (errors) {
+
+            callback(["Something went wrong!"], null)
+            
+          }
+          else {
+
+            profileRepository.updateAccountInfo(email, hash, profile_id, callback)
+
+          }
         })
+      }
+      else {
+
+        callback(validationErrors)
+
+      }
     }
-    else{
-        
-        callback(validationErrors) 
+    ,
+
+    deleteAccountById: function (id, callback) {
+
+      profileRepository.deleteAccountById(id, callback)
+
     }
-
-    
-}
-,
-deleteAccountById: function(id,callback){
-
-    profileRepository.deleteAccountById(id,callback)
-}
-
-}
+  }
 }

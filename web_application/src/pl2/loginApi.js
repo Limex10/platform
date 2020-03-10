@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const express = require('express')
-
 const serverSecret = "yeetyeetyeetskjfahsa"
 
 module.exports = function ({ loginManager }) {
@@ -23,10 +22,9 @@ module.exports = function ({ loginManager }) {
 
     loginManager.getAccountInfoByEmail(email, password, function (errors, profile_id) {
 
-     
       if (errors && errors.includes("Email does not exists!")) {
-        
-        const messageError = {error: errors}
+
+        const messageError = { error: errors }
         response.status(500).json(messageError)
 
       }
@@ -34,15 +32,10 @@ module.exports = function ({ loginManager }) {
 
         const payload = { id: profile_id }
         const accessToken = jwt.sign(payload, serverSecret)
-        /*const idToken = jwt.sign(
-          {sub: profile_id},
-          serverSecret
-        )*/
-        
+
         response.status(200).json({
 
           access_token: accessToken,
-       
 
         })
       }

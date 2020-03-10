@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const express = require('express')
-
 const serverSecret = "yeetyeetyeetskjfahsa"
 
 module.exports = function ({ messageManager }) {
@@ -21,6 +20,7 @@ module.exports = function ({ messageManager }) {
       else if (!message) {
 
         response.sendStatus(404)
+
       }
       else {
 
@@ -48,7 +48,7 @@ module.exports = function ({ messageManager }) {
 
       }
       else {
-        //response.setHeader("location", "/message/"+profile_id) //?? ha kvar?
+
         response.sendStatus(201)
 
       }
@@ -88,7 +88,7 @@ module.exports = function ({ messageManager }) {
 
       if (error && error.includes('Could not delete message!')) {
 
-        response.status(500).json(error[0])
+        response.sendStatus(500)
 
       }
       else {
