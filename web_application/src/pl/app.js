@@ -141,7 +141,7 @@ app.use(function (request, response, next) {
 
 })
 
-app.use(function (request, response, next) {
+const cors = (function (request, response, next) {
 
   response.setHeader("Access-Control-Allow-Origin", "*")
   response.setHeader("Access-Control-Allow-Methods", "*")
@@ -157,9 +157,9 @@ app.use('/message', csrf({ cookie: true }), theMessageRouter)
 app.use('/profile', csrf({ cookie: true }), theProfileRouter)
 app.use('/login', csrf({ cookie: true }), theLoginRouter)
 
-app.use('/api/login' , theLoginApiRouter)
-app.use('/api/profile', theProfileApiRouter)
-app.use('/api/message', theMessageApiRouter)
+app.use('/api/login' ,cors, theLoginApiRouter)
+app.use('/api/profile',cors, theProfileApiRouter)
+app.use('/api/message',cors, theMessageApiRouter)
 
 app.get('/', function (request, response, next) {
 
