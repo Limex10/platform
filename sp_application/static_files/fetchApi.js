@@ -1,9 +1,10 @@
+const hostname = "192.168.99.100"
 async function createAccount(user) {
 
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/profile", {
+      "http://"+hostname+":8080/api/profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -52,7 +53,7 @@ async function profileLogin(email, password) {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/login", {
+      "http://"+hostname+":8080/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -80,8 +81,8 @@ async function profileLogin(email, password) {
 
         body = await response.json()
         p.innerText = ""
-
-        login(body.access_token)
+        
+        login(body.access_token,body.id_Token)
 
     }
 
@@ -97,7 +98,7 @@ async function createMessage(message) {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/message", {
+      "http://"+hostname+":8080/api/message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +141,7 @@ async function updateMessage(message) {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/message", {
+      "http://"+hostname+":8080/api/message", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -181,7 +182,7 @@ async function deleteMessage() {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/message", {
+      "http://"+hostname+":8080/api/message", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -217,7 +218,7 @@ async function getMessage() {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/message", {
+      "http://"+hostname+":8080/api/message", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer" + localStorage.accessToken

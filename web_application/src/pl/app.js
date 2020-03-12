@@ -151,7 +151,6 @@ const cors = (function (request, response, next) {
 
 })
 
-
 app.use('/interest', csrf({ cookie: true }), theInterestRouter)
 app.use('/message', csrf({ cookie: true }), theMessageRouter)
 app.use('/profile', csrf({ cookie: true }), theProfileRouter)

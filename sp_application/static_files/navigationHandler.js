@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (localStorage.accessToken) {
 
-    login(localStorage.accessToken)
+    login(localStorage.accessToken, localStorage.idToken)
 
   } else {
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       repeatedPassword
 
     }
-
+    
     createAccount(user)
 
   })
@@ -160,8 +160,20 @@ function changeToPage(url) {
   }
 }
 
-function login(accessToken) {
+let pEmail = document.querySelector("body .inner .userEmail")
 
+function login(accessToken, idToken) {
+
+  if(idToken != undefined){
+
+    localStorage.idToken = idToken
+
+    const parsedIdToken = parseJwt(localStorage.idToken)
+
+    pEmail.innerText = parsedIdToken.email
+
+  }
+  
   localStorage.accessToken = accessToken
   document.body.classList.remove("isLoggedOut")
   document.body.classList.add("isLoggedIn")
@@ -170,8 +182,25 @@ function login(accessToken) {
 
 function logout() {
 
+  pEmail.innerText = ""
+  localStorage.idToken = ""
   localStorage.accessToken = ""
   document.body.classList.remove("isLoggedIn")
   document.body.classList.add("isLoggedOut")
 
 }
+
+function parseJwt (token) {
+
+  var base64Url = token.split('.')[1]
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+  
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+
+  }).join(''))
+
+  return JSON.parse(jsonPayload)
+
+};
