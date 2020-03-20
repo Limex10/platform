@@ -250,16 +250,37 @@ module.exports = function ({ profileManager, interestManager, messageManager }) 
                     }
                     else {
 
-                      const model = {
+                      messageManager.getMessageByProfileId(profile_id, function (errors, message) {
 
-                        profile: profile,
-                        interests: interests,
-                        filterInterests: filterInterests,
-                        csrfToken: request.csrfToken()
+                        if (errors) {
 
-                      }
+                          const model = {
 
-                      response.render("viewPerson.hbs", model)
+                            errorStatus: "500",
+                            errorMessage: errors,
+                            csrfToken: request.csrfToken()
+    
+                          }
+    
+                          response.render("error.hbs", model)
+    
+                        }
+                        else {
+                          console.log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet", message)
+                          const model = {
+
+                            profile: profile,
+                            interests: interests,
+                            filterInterests: filterInterests,
+                            message: message,
+                            csrfToken: request.csrfToken()
+    
+                          }
+    
+                          response.render("viewPerson.hbs", model)
+
+                        }
+                      })
                     }
                   })
                 }
@@ -854,7 +875,7 @@ module.exports = function ({ profileManager, interestManager, messageManager }) 
         if (error) {
 
           const model = {
-            
+
             errorMessage: error,
             csrfToken: request.csrfToken()
 

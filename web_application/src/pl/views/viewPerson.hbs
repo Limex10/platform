@@ -1,70 +1,133 @@
 <div class="row row-top-height">
+
   <div class="col shadow">
+
     <a class="text-decoration-none" href="/profile/manageProfile/{{userId}}">
+
       <div class="my-profile">
 
         <h2>My profile<img src="/img_avatar.png" alt="Avatar"></h2>
 
       </div>
+
     </a>
+
   </div>
+
   <div class="col-9 shadow">
+
     <h1 class="display-4 text-center">Your journey starts now!</h1>
+
   </div>
 
 </div>
+
 <div class="row browse-content">
+
   <div class="col border  mobile-hidden">
+
     <h2 class="text-center ">Recommended</h2>
+
     <div id="recommended-cards" class="col overflow-auto">
+
       {{#if filterInterests}}
+
       {{#each filterInterests}}
+
       <div class="card" style="width: 100%;">
+
         <div class="card-body">
+
           <h5 class="card-title">{{firstname}} {{lastname}}</h5>
           <p class="card-text">You share interest with this person check him/her out!</p>
           <a href="/profile/home/viewPerson/{{profile_id}}" class="btn btn-success">Check out!</a>
+
         </div>
+
       </div>
+
       {{/each}}
+
       {{/if}}
 
     </div>
+
   </div>
+
   {{#if profile.length}}
+
   {{#each profile}}
+
   <div class="col-9">
+
     <div class="jumbotron overflow-auto" id="jumbo-viewPerson">
+
       <h1>{{firstname}}</h1>
+
       <div class="row">
 
         <div class="col">
+
           <ul class="list-group ">
+
             <h4>Name</h4>
             <li class="list-group-item">{{firstname}}</li>
+
             <h4>Last name</h4>
             <li class="list-group-item">{{lastname}}</li>
+
             <h4>From</h4>
             <li class="list-group-item">{{country}}</li>
             <li class="list-group-item">{{city}}</li>
+
           </ul>
+
         </div>
+
         <div class="col">
+
           <ul class="list-group ">
+
             {{#if ../interests}}
+
             <h4>Interests</h4>
+
             {{#each ../interests}}
+
             <li class="list-group-item">{{interest}}</li>
+
             {{/each}}
 
             {{/if}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  {{/each}}
-  {{/if}}
 
+          </ul>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col">
+          
+          {{#if ../message}}
+
+          <h1>Message:</h1>
+
+          <h4>{{../message}}</h4>
+
+          {{/if}}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  {{/each}}
+
+  {{/if}}
 
 </div>
